@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BETA TOOL - Video</title>
+    <link rel="stylesheet" href="csshome.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+        }
+        .logo img {
+            width: 60px;
+            height: auto;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #00d9ff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff00ff;
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .video-card {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            width: 300px;
+            border: 1px solid #00d9ff;
+            text-align: center;
+            position: relative;
+        }
+        .video-card h3 {
+            margin-bottom: 10px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: red;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/snapedit_1740629756864.png" alt="BETA TOOL Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Trang chủ</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="video.html">Video</a></li>
+                <li><a href="index.html">Giới thiệu</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="video-container">
+        <div class="video-card">
+            <span class="close-btn" onclick="this.parentElement.style.display='none'">X</span>
+            <h3>Video 1</h3>
+            <iframe width="280" height="160" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        </div>
+        <div class="video-card">
+            <span class="close-btn" onclick="this.parentElement.style.display='none'">X</span>
+            <h3>Video 2</h3>
+            <iframe width="280" height="160" src="https://www.youtube.com/embed/3JZ_D3ELwOQ" allowfullscreen></iframe>
+        </div>
+        <div class="video-card">
+            <span class="close-btn" onclick="this.parentElement.style.display='none'">X</span>
+            <h3>Video 3</h3>
+            <iframe width="280" height="160" src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+        </div>
+    </section>
+</body>
+</html>
