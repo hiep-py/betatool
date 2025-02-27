@@ -87,6 +87,12 @@ body {
     transform: translateY(30px);
     animation: fadeInUp 1s ease-in-out forwards;
 }
+.logo {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
 
 @keyframes fadeInUp {
     from {
