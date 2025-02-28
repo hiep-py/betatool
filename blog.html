@@ -3,51 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Navbar - BETA TOOL</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #888; color: white; text-align: center; }
-        nav { background: #444; padding: 10px; }
-        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; }
-        nav ul li { margin: 0 10px; }
-        nav ul li a { color: white; text-decoration: none; }
-        .blog-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-        .blog-card { background: #666; padding: 20px; width: 200px; border-radius: 10px; }
-        .blog-card img { width: 100%; height: auto; border-radius: 5px; }
-        .view-btn { background: blue; color: white; padding: 5px 10px; border: none; cursor: pointer; margin-top: 10px; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0b2a3d; /* Màu nền giống ảnh */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px;
+            background: linear-gradient(to bottom, #123, #0b2a3d);
+            box-shadow: 0 4px 2px -2px rgba(255, 215, 0, 0.8);
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: yellow;
+            left: 0;
+            bottom: -5px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0b2a3d;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .blog-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .blog-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid cyan;
+            padding: 15px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px cyan;
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: scale(1.05);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+        }
+
+        .blog-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: yellow;
+        }
+
+        .blog-desc {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .read-more {
+            color: cyan;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#">Trang chủ</a></li>
-            <li><a href="#">Sản phẩm</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="video.html">Video</a></li>
-            <li><a href="index.html">Giới thiệu</a></li>
-        </ul>
-    </nav>
-    <h1>Blog</h1>
-    <div class="blog-container" id="blog-list"></div>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="img/snapedit_1740629756864.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="sanpham.html">Sản phẩm</a>
+            <a href="blog.html">Blog</a>
+            <a href="video.html">Video</a>
+            <a href="gioithieu.html">Giới thiệu</a>
+        </div>
+    </div>
+    <h1>Blog mới nhất</h1>
+    <div class="blog-container" id="blog-list">
+        <!-- Dữ liệu blog sẽ được load ở đây -->
+    </div>
     <script>
-        fetch('blogdata.txt')
-            .then(response => response.text())
-            .then(data => {
-                const blogList = document.getElementById('blog-list');
-                const blogs = data.split('\n').map(line => line.split('|'));
-                blogs.forEach(blog => {
-                    if (blog.length >= 4) {
-                        let blogItem = document.createElement('div');
-                        blogItem.className = 'blog-card';
-                        blogItem.innerHTML = `
-                            <img src="${blog[2]}" alt="Blog Image">
-                            <h3>${blog[0]}</h3>
-                            <p>${blog[1].substring(0, 50)}...</p>
-                            <button class="view-btn" onclick="window.location.href='${blog[3]}'">Xem</button>
-                        `;
-                        blogList.appendChild(blogItem);
-                    }
-                });
+        async function loadBlog() {
+            const response = await fetch('blogdata.txt'); // Đọc file blog.txt
+            const text = await response.text();
+            const lines = text.split('\\n');
+
+            let blogHTML = '';
+            lines.forEach(line => {
+                if (line.trim() !== '') {
+                    const parts = line.split('|');
+                    const title = parts[0].trim();
+                    const desc = parts[1].trim();
+                    const img = parts[2].trim();
+                    const link = parts[3].trim();
+
+                    blogHTML += `
+                        <div class="blog-card">
+                            <img src="${img}" alt="Hình ảnh">
+                            <div class="blog-title">${title}</div>
+                            <div class="blog-desc">${desc}</div>
+                            <a href="${link}" class="read-more" target="_blank">Đọc thêm</a>
+                        </div>
+                    `;
+                }
             });
+
+            document.getElementById('blog-list').innerHTML = blogHTML;
+        }
+
+        loadBlog();
     </script>
 </body>
 </html>
