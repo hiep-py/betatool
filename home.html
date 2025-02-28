@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BETA TOOL - Công cụ MMO hiện đại</title>
+    <title>BETA TOOL - Video</title>
     <link rel="stylesheet" href="csshome.css">
     <style>
         body {
@@ -38,45 +38,30 @@
         nav a:hover {
             color: #ff00ff;
         }
-        .welcome {
-            text-align: center;
-            padding: 50px 20px;
-            background: radial-gradient(circle, #141e30, #243b55);
+        .carousel-container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
         }
-        .bot-info {
+        .carousel {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            transition: transform 0.5s ease-in-out;
         }
-        .bot-card {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
+        .carousel video {
             width: 300px;
-            border: 1px solid #00d9ff;
-        }
-        .content {
-            text-align: center;
-            padding: 20px;
-        }
-        .scroll-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .card {
-            background: #292929;
-            padding: 15px;
+            height: 200px;
+            margin: 10px;
             border-radius: 10px;
-            width: 150px;
-            border: 1px solid #ff00ff;
+        }
+        .carousel-container:hover .carousel {
+            animation-play-state: paused;
         }
         footer {
             text-align: center;
-            padding: 20px;
-            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+            padding: 10px;
+            background: #1e1e1e;
         }
     </style>
 </head>
@@ -87,48 +72,66 @@
         </div>
         <nav>
             <ul>
-                <li><a href="home.html">Trang chủ</a></li>
+                <li><a href="#">Trang chủ</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="video.html">video</a></li>
+                <li><a href="#">Video</a></li>
                 <li><a href="index.html">Giới thiệu</a></li>
             </ul>
         </nav>
     </header>
     
-    <section class="welcome">
-        <h1>Chào mừng bạn đến với BETA TOOL!</h1>
-        <p>Công cụ hỗ trợ MMO </p>
-    </section>
-    
-    <section class="bot-info">
-        <div class="bot-card">
-            <h2>BOT WINHASH AERO</h2>
-            <p>Thông số: (Sẽ cập nhật sau)</p>
-        </div>
-        <div class="bot-card">
-            <h2>BOT WINHASH LOTTO</h2>
-            <p>Thông số: (Sẽ cập nhật sau)</p>
-        </div>
-    </section>
-    
-    <section class="content">
-        <h2>Blog</h2>
-        <div class="scroll-container">
-            <div class="card">Bài viết 1</div>
-            <div class="card">Bài viết 2</div>
-            <div class="card">Bài viết 3</div>
-        </div>
-        
-        <h2>Video</h2>
-        <div class="scroll-container">
-            <div class="card">Video 1</div>
-            <div class="card">Video 2</div>
-            <div class="card">Video 3</div>
+    <section class="carousel-container">
+        <h1>Video Nổi Bật</h1>
+        <div class="carousel" id="carousel">
+            <!-- Video sẽ được thêm bằng JavaScript -->
         </div>
     </section>
     
     <footer>
         <p>&copy; 2025 BETA TOOL. All rights reserved.</p>
     </footer>
+    
+    <script>
+        async function loadFeaturedVideos() {
+            try {
+                const response = await fetch('videos.txt');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const carousel = document.getElementById('carousel');
+                carousel.innerHTML = '';
+                
+                lines.slice(0, 5).forEach(line => {
+                    const parts = line.split('|');
+                    if (parts.length === 2) {
+                        const url = parts[1].trim();
+                        const videoElement = document.createElement('video');
+                        videoElement.src = url;
+                        videoElement.controls = true;
+                        videoElement.loop = true;
+                        carousel.appendChild(videoElement);
+                    }
+                });
+                startCarousel();
+            } catch (error) {
+                console.error('Lỗi tải video:', error);
+            }
+        }
+
+        function startCarousel() {
+            const carousel = document.getElementById('carousel');
+            let offset = 0;
+            setInterval(() => {
+                if (!carousel.matches(':hover')) {
+                    offset -= 310;
+                    if (offset <= -carousel.scrollWidth) {
+                        offset = 0;
+                    }
+                    carousel.style.transform = `translateX(${offset}px)`;
+                }
+            }, 3000);
+        }
+        
+        loadFeaturedVideos();
+    </script>
 </body>
 </html>
