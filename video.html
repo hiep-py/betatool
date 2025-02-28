@@ -90,31 +90,43 @@
     
     <script>
         async function loadVideos() {
-            try {
-                const response = await fetch('videos.txt');
-                const text = await response.text();
-                const lines = text.split('\n');
-                const videoContainer = document.getElementById('videoList');
-                videoContainer.innerHTML = '';
-                
-                lines.forEach(line => {
-                    const parts = line.split('|');
-                    if (parts.length === 2) {
-                        const title = parts[0].trim();
-                        const url = parts[1].trim();
-                        
-                        const videoCard = document.createElement('div');
-                        videoCard.classList.add('video-card');
-                        videoCard.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
-                        videoContainer.appendChild(videoCard);
-                    }
-                });
-            } catch (error) {
-                console.error('Lỗi tải video:', error);
+    try {
+        const response = await fetch('videos.txt');
+        const text = await response.text();
+        const lines = text.split('\n');
+        const videoContainer = document.getElementById('videoList');
+        videoContainer.innerHTML = '';
+
+        lines.forEach(line => {
+            const parts = line.split('|');
+            if (parts.length === 2) {
+                const title = parts[0].trim();
+                let url = parts[1].trim();
+
+                // Kiểm tra nếu là link youtu.be thì chuyển sang dạng nhúng
+                if (url.includes('youtu.be')) {
+                    const videoId = url.split('/').pop().split('?')[0];
+                    url = `https://www.youtube.com/embed/${videoId}`;
+                }
+
+                // Kiểm tra nếu là link YouTube thường thì chuyển đổi sang embed
+                if (url.includes('watch?v=')) {
+                    url = url.replace('watch?v=', 'embed/');
+                }
+
+                const videoCard = document.createElement('div');
+                videoCard.classList.add('video-card');
+                videoCard.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
+                videoContainer.appendChild(videoCard);
             }
-        }
-        
-        loadVideos();
+        });
+    } catch (error) {
+        console.error('Lỗi tải video:', error);
+    }
+}
+
+loadVideos();
+
     </script>
 </body>
 </html>
