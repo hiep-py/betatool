@@ -99,7 +99,13 @@
                     const parts = line.split('|');
                     if (parts.length === 2) {
                         const title = parts[0].trim();
-                        const url = parts[1].trim();
+                        let url = parts[1].trim();
+                        
+                        // Chuyển đổi URL YouTube thành dạng nhúng
+                        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
+                        if (videoIdMatch) {
+                            url = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
+                        }
                         
                         const videoItem = document.createElement('div');
                         videoItem.classList.add('carousel-item');
@@ -107,13 +113,14 @@
                         carouselTrack.appendChild(videoItem);
                     }
                 });
-                
+
                 duplicateVideosForLoop();
                 startCarousel();
             } catch (error) {
                 console.error('Lỗi tải video:', error);
             }
         }
+
         
         function duplicateVideosForLoop() {
             const track = document.getElementById('carouselTrack');
