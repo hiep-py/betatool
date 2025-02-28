@@ -92,7 +92,7 @@
         }
         .carousel-track {
             display: flex;
-            transition: transform 1s linear;
+            transition: transform 0.5s ease-in-out; /* Tăng tốc độ và làm mượt hơn bằng cách giảm thời gian transition và thêm ease-in-out */
         }
         .carousel-item {
             min-width: 300px;
@@ -131,10 +131,10 @@
             color: #ff00ff;
         }
         .product-section h3 a {
-            color: #ff4500; /* Thay đổi màu chữ "XWORLD WINHASH LOTTO" và "XWORLD WINHASH AERO" thành màu cam đỏ */
+            color: #ff4500; /* Màu cam đỏ cho sản phẩm */
         }
         .video-section h2 a, .blog-section h2 {
-            color: #00ff00; /* Thay đổi màu chữ "Video Hướng Dẫn" và "Bài Viết Mới Nhất" thành màu xanh lá */
+            color: #00ff00; /* Màu xanh lá cho tiêu đề video và blog */
         }
         footer {
             text-align: center;
@@ -219,7 +219,7 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blog.txt');
+                const response = await fetch('blogs.txt');
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
@@ -264,7 +264,7 @@
                     track.style.transition = 'none';
                     track.style.transform = `translateX(0)`;
                     setTimeout(() => {
-                        track.style.transition = 'transform 1s linear';
+                        track.style.transition = 'transform 0.5s ease-in-out';
                     }, 50);
                 } else {
                     track.style.transform = `translateX(-${index * 320}px)`;
@@ -272,7 +272,7 @@
             }
             
             function startAutoSlide() {
-                interval = setInterval(moveCarousel, 2000);
+                interval = setInterval(moveCarousel, 1000); // Giảm interval từ 2000ms xuống 1000ms (1 giây) để tăng tốc độ
             }
             
             function stopAutoSlide() {
