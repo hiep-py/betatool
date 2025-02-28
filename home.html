@@ -117,6 +117,11 @@
             height: 200px;
             border-radius: 10px;
         }
+        .carousel-item .description {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin: 10px 0;
+        }
         .carousel-item a {
             color: #00d9ff;
             text-decoration: none;
@@ -208,43 +213,27 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blog.txt');
+                const response = await fetch('blogs.txt');
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
                 blogTrack.innerHTML = '';
-                const blogItems = []; // Lưu trữ danh sách blog để truy cập sau
+                const blogItems = []; // Lưu trữ danh sách URL blog để truy cập sau
 
                 lines.forEach(line => {
-                    const [title, url] = line.split('|').map(part => part.trim());
-                    if (title && url) {
-                        // Giả sử tên file hình ảnh được đặt theo tiêu đề, ví dụ: "MMO La Gi?" -> "MMOLaGi.png"
-                        const imageName = title.toLowerCase().replace(/\s+/g, '') + '.png';
-                        const imageUrl = `imgblog/${imageName}`; // Đường dẫn đến thư mục hình ảnh
+                    const [title, description, imageUrl, blogUrl] = line.split('|').map(part => part.trim());
+                    if (title && description && imageUrl && blogUrl) {
                         const blogItem = document.createElement('div');
                         blogItem.classList.add('carousel-item');
                         blogItem.innerHTML = `
                             <img src="${imageUrl}" alt="${title}" onerror="this.style.display='none';">
                             <h3>${title}</h3>
-                            <a href="#" class="read-more" data-index="${blogItems.length}">Đọc thêm</a>
+                            <p class="description">${description}</p>
+                            <a href="${blogUrl}" class="read-more">Đọc thêm</a>
                         `;
                         blogTrack.appendChild(blogItem);
-                        blogItems.push(url); // Lưu URL của blog
+                        blogItems.push(blogUrl); // Lưu URL của blog (file HTML)
                     }
-                });
-
-                // Thêm sự kiện click cho các liên kết "Đọc thêm"
-                document.querySelectorAll('.read-more').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const index = parseInt(link.getAttribute('data-index'), 10);
-                        // Chuyển hướng đến bài blog thứ 4 (index 3, nếu có đủ bài)
-                        if (blogItems.length >= 4) {
-                            window.location.href = blogItems[3]; // Chuyển hướng đến bài thứ 4
-                        } else {
-                            alert('Không đủ bài viết để chuyển hướng đến bài thứ 4.');
-                        }
-                    });
                 });
 
                 startCarousel('blogCarousel', 'blogTrack');
