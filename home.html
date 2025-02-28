@@ -219,12 +219,16 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blogs.txt');
+                const response = await fetch('./blogs.txt'); // Sử dụng đường dẫn tương đối để đảm bảo tìm đúng file
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
                 blogTrack.innerHTML = '';
-                const blogItems = []; // Lưu trữ danh sách URL blog để truy cập sau
+
+                if (lines.length === 0) {
+                    blogTrack.innerHTML = '<p>Không có bài viết nào để hiển thị.</p>';
+                    return;
+                }
 
                 lines.forEach(line => {
                     const [title, description, imageUrl, blogUrl] = line.split('|').map(part => part.trim());
@@ -238,15 +242,10 @@
                             <a href="${blogUrl}" class="read-more">Đọc thêm</a>
                         `;
                         blogTrack.appendChild(blogItem);
-                        blogItems.push(blogUrl); // Lưu URL của blog (file HTML)
                     }
                 });
 
-                if (lines.length > 0) {
-                    startCarousel('blogCarousel', 'blogTrack');
-                } else {
-                    blogTrack.innerHTML = '<p>Không có bài viết nào để hiển thị.</p>';
-                }
+                startCarousel('blogCarousel', 'blogTrack');
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
                 const blogTrack = document.getElementById('blogTrack');
