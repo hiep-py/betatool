@@ -40,14 +40,13 @@
         }
         .video-carousel {
             overflow: hidden;
-            white-space: nowrap;
             position: relative;
             width: 90%;
             margin: 20px auto;
         }
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease-in-out;
+            transition: transform 1s linear;
         }
         .carousel-item {
             min-width: 300px;
@@ -71,18 +70,16 @@
         </div>
         <nav>
             <ul>
-                <li><a href="home.html">Trang chủ</a></li>
+                <li><a href="#">Trang chủ</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="video.html">Video</a></li>
+                <li><a href="#">Video</a></li>
                 <li><a href="index.html">Giới thiệu</a></li>
             </ul>
         </nav>
     </header>
     
     <section class="video-carousel">
-        <div class="carousel-track" id="carouselTrack">
-            <!-- Video sẽ được thêm vào đây bằng JavaScript -->
-        </div>
+        <div class="carousel-track" id="carouselTrack"></div>
     </section>
     
     <footer>
@@ -111,9 +108,20 @@
                     }
                 });
                 
+                duplicateVideosForLoop();
                 startCarousel();
             } catch (error) {
                 console.error('Lỗi tải video:', error);
+            }
+        }
+        
+        function duplicateVideosForLoop() {
+            const track = document.getElementById('carouselTrack');
+            const items = track.children;
+            if (items.length > 0) {
+                for (let i = 0; i < 3; i++) {
+                    track.appendChild(items[i].cloneNode(true));
+                }
             }
         }
         
@@ -123,13 +131,14 @@
             let interval;
             
             function moveCarousel() {
-                if (track.children.length > 0) {
-                    position -= 310; 
-                    if (Math.abs(position) >= track.scrollWidth - track.clientWidth) {
-                        position = 0;
-                    }
-                    track.style.transform = `translateX(${position}px)`;
+                position -= 310;
+                if (Math.abs(position) >= track.scrollWidth / 2) {
+                    position = 0;
+                    track.style.transition = 'none';
+                } else {
+                    track.style.transition = 'transform 1s linear';
                 }
+                track.style.transform = `translateX(${position}px)`;
             }
             
             function startAutoSlide() {
