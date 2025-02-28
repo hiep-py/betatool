@@ -45,7 +45,7 @@
             padding: 40px;
             background: rgba(255, 215, 0, 0.2);
             border-radius: 10px;
-            border: 2px solid #917d0e;
+            border: 2px solid #ffd900;
         }
         .video-section, .product-section {
             width: 90%;
@@ -112,7 +112,7 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid #FFD700;
+            border: 1px solid #b09601;
         }
     </style>
 </head>
@@ -131,10 +131,6 @@
             </ul>
         </nav>
     </header>
-    
-    <div class="sidebar">
-        <h3>Sản phẩm</h3>
-    </div>
     
     <section class="intro">
         <h1>Chào mừng đến với BETA TOOL</h1>
@@ -156,6 +152,39 @@
             <div class="carousel-track" id="carouselTrack"></div>
         </div>
     </section>
+    
+    <script>
+        async function loadCarouselVideos() {
+            try {
+                const response = await fetch('videos.txt');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const carouselTrack = document.getElementById('carouselTrack');
+                carouselTrack.innerHTML = '';
+                
+                lines.forEach(line => {
+                    const parts = line.split('|');
+                    if (parts.length === 2) {
+                        const title = parts[0].trim();
+                        let url = parts[1].trim();
+                        
+                        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
+                        if (videoIdMatch) {
+                            url = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
+                        }
+                        
+                        const videoItem = document.createElement('div');
+                        videoItem.classList.add('carousel-item');
+                        videoItem.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
+                        carouselTrack.appendChild(videoItem);
+                    }
+                });
+            } catch (error) {
+                console.error('Lỗi tải video:', error);
+            }
+        }
+        loadCarouselVideos();
+    </script>
     
     <footer>
         <p>&copy; 2025 BETA TOOL. All rights reserved.</p>
