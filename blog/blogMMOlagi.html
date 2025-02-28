@@ -45,26 +45,29 @@
             border-radius: 10px;
             margin-top: 10px;
         }
-        .scroll-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: white;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 24px;
-        }
-        .scroll-top:hover {
-            animation: rotate 1s linear infinite;
-            border-color: purple;
-        }
+            .scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+        border: 3px solid purple;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 24px;
+        color: purple;
+    }
+
+    .scroll-top:hover {
+        background-color: purple;
+        color: white;
+    }
+
             p {
         text-align: justify; /* Căn đều 2 bên */
         font-family: "Arial", sans-serif; /* Chọn phông chữ dễ đọc */
