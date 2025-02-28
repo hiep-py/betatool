@@ -101,6 +101,16 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
         .carousel-item iframe {
             width: 100%;
@@ -110,6 +120,7 @@
         .carousel-item a {
             color: #00d9ff;
             text-decoration: none;
+            margin-top: 10px;
         }
         .carousel-item a:hover {
             color: #ff00ff;
@@ -173,7 +184,7 @@
             try {
                 const response = await fetch('videos.txt');
                 const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line); // Loại bỏ dòng trống
+                const lines = text.trim().split('\n').filter(line => line);
                 const videoTrack = document.getElementById('videoTrack');
                 videoTrack.innerHTML = '';
                 
@@ -197,32 +208,56 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blog.txt');
+                const response = await fetch('blogs.txt');
                 const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line); // Loại bỏ dòng trống
+                const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
                 blogTrack.innerHTML = '';
-                
+                const blogItems = []; // Lưu trữ danh sách blog để truy cập sau
+
                 lines.forEach(line => {
                     const [title, url] = line.split('|').map(part => part.trim());
                     if (title && url) {
+                        // Giả sử tên file hình ảnh được đặt theo tiêu đề, ví dụ: "MMO La Gi?" -> "MMOLaGi.png"
+                        const imageName = title.toLowerCase().replace(/\s+/g, '') + '.png';
+                        const imageUrl = `imgblog/${imageName}`; // Đường dẫn đến thư mục hình ảnh
                         const blogItem = document.createElement('div');
                         blogItem.classList.add('carousel-item');
-                        blogItem.innerHTML = `<h3>${title}</h3><a href="${url}" target="_blank">Đọc thêm</a>`;
+                        blogItem.innerHTML = `
+                            <img src="${imageUrl}" alt="${title}" onerror="this.style.display='none';">
+                            <h3>${title}</h3>
+                            <a href="#" class="read-more" data-index="${blogItems.length}">Đọc thêm</a>
+                        `;
                         blogTrack.appendChild(blogItem);
+                        blogItems.push(url); // Lưu URL của blog
                     }
                 });
+
+                // Thêm sự kiện click cho các liên kết "Đọc thêm"
+                document.querySelectorAll('.read-more').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const index = parseInt(link.getAttribute('data-index'), 10);
+                        // Chuyển hướng đến bài blog thứ 4 (index 3, nếu có đủ bài)
+                        if (blogItems.length >= 4) {
+                            window.location.href = blogItems[3]; // Chuyển hướng đến bài thứ 4
+                        } else {
+                            alert('Không đủ bài viết để chuyển hướng đến bài thứ 4.');
+                        }
+                    });
+                });
+
                 startCarousel('blogCarousel', 'blogTrack');
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
-                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.');
+                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blogs.txt.');
             }
         }
         
         function startCarousel(carouselId, trackId) {
             const track = document.getElementById(trackId);
             const items = track.querySelectorAll('.carousel-item');
-            if (items.length === 0) return; // Không làm gì nếu không có item
+            if (items.length === 0) return;
             
             let index = 0;
             let interval;
@@ -256,7 +291,6 @@
             startAutoSlide();
         }
         
-        // Gọi hàm để tải dữ liệu và khởi động carousel
         document.addEventListener('DOMContentLoaded', () => {
             loadCarouselVideos();
             loadCarouselBlogs();
