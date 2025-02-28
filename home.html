@@ -219,7 +219,7 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blog.txt'); // Sử dụng đường dẫn tương đối để đảm bảo tìm đúng file
+                const response = await fetch('./blog.txt'); // Cập nhật đường dẫn thành blog.txt
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
@@ -249,8 +249,8 @@
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
                 const blogTrack = document.getElementById('blogTrack');
-                blogTrack.innerHTML = '<p>Không thể tải danh sách blog. Vui lòng kiểm tra file blogs.txt.</p>';
-                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blogs.txt.');
+                blogTrack.innerHTML = '<p>Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.</p>';
+                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.');
             }
         }
         
