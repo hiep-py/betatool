@@ -147,12 +147,11 @@
     </section>
     
     <section class="video-section">
-        <h2>Video của BETA đề xuất</h2>
-        <div class="video-carousel">
+        <h2>Video Hướng Dẫn</h2>
+        <div class="video-carousel" id="carousel">
             <div class="carousel-track" id="carouselTrack"></div>
         </div>
     </section>
-    
     <script>
         async function loadCarouselVideos() {
             try {
@@ -167,22 +166,50 @@
                     if (parts.length === 2) {
                         const title = parts[0].trim();
                         let url = parts[1].trim();
-                        
                         const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
                         if (videoIdMatch) {
                             url = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
                         }
-                        
                         const videoItem = document.createElement('div');
                         videoItem.classList.add('carousel-item');
                         videoItem.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
                         carouselTrack.appendChild(videoItem);
                     }
                 });
+                startCarousel();
             } catch (error) {
                 console.error('Lỗi tải video:', error);
             }
         }
+        
+        function startCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const items = document.querySelectorAll('.carousel-item');
+            let index = 0;
+            let interval;
+            
+            function moveCarousel() {
+                index++;
+                if (index >= items.length) {
+                    index = 0;
+                }
+                track.style.transform = `translateX(-${index * 320}px)`;
+            }
+            
+            function startAutoSlide() {
+                interval = setInterval(moveCarousel, 2000);
+            }
+            
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+            
+            document.getElementById('carousel').addEventListener('mouseenter', stopAutoSlide);
+            document.getElementById('carousel').addEventListener('mouseleave', startAutoSlide);
+            
+            startAutoSlide();
+        }
+        
         loadCarouselVideos();
     </script>
     
