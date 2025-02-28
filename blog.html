@@ -138,34 +138,39 @@
     </div>
     <script>
         async function loadBlog() {
-            const response = await fetch('blogdata.txt'); // Đọc file blog.txt
-            const text = await response.text();
-            const lines = text.split('\\n');
+            try {
+                const response = await fetch('blog.txt'); // Đọc file blog.txt
+                const text = await response.text();
+                const lines = text.split("\n").filter(line => line.trim() !== ""); // Loại bỏ dòng trống
 
-            let blogHTML = '';
-            lines.forEach(line => {
-                if (line.trim() !== '') {
+                let blogHTML = '';
+                lines.forEach(line => {
                     const parts = line.split('|');
-                    const title = parts[0].trim();
-                    const desc = parts[1].trim();
-                    const img = parts[2].trim();
-                    const link = parts[3].trim();
+                    if (parts.length === 4) { // Đảm bảo có đủ dữ liệu
+                        const title = parts[0].trim();
+                        const desc = parts[1].trim();
+                        const img = parts[2].trim();
+                        const link = parts[3].trim();
 
-                    blogHTML += `
-                        <div class="blog-card">
-                            <img src="${img}" alt="Hình ảnh">
-                            <div class="blog-title">${title}</div>
-                            <div class="blog-desc">${desc}</div>
-                            <a href="${link}" class="read-more" target="_blank">Đọc thêm</a>
-                        </div>
-                    `;
-                }
-            });
+                        blogHTML += `
+                            <div class="blog-card">
+                                <img src="${img}" alt="Hình ảnh">
+                                <div class="blog-title">${title}</div>
+                                <div class="blog-desc">${desc}</div>
+                                <a href="${link}" class="read-more" target="_blank">Đọc thêm</a>
+                            </div>
+                        `;
+                    }
+                });
 
-            document.getElementById('blog-list').innerHTML = blogHTML;
+                document.getElementById('blog-list').innerHTML = blogHTML;
+            } catch (error) {
+                console.error("Lỗi khi tải blog:", error);
+            }
         }
 
-        loadBlog();
+loadBlog();
+
     </script>
 </body>
 </html>
