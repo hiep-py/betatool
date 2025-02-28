@@ -64,6 +64,26 @@
             animation: rotate 1s linear infinite;
             border-color: purple;
         }
+            pre {
+        text-align: justify; /* Căn đều 2 bên */
+        font-family: "Arial", sans-serif; /* Chọn phông chữ dễ đọc */
+        font-size: 18px; /* Kích thước chữ phù hợp */
+        line-height: 1.6; /* Khoảng cách dòng dễ đọc */
+        word-wrap: break-word; /* Đảm bảo chữ không bị tràn */
+        overflow-wrap: break-word;
+        padding: 10px; /* Giữ khoảng cách nhỏ với viền */
+        margin: 0;
+        }
+        .container {
+            width: 60%;
+            padding: 20px;
+            margin: 50px auto;
+            background-color: #121212;
+            border: 2px solid deepskyblue;
+            border-radius: 10px;
+            text-align: justify;
+        }
+
         @keyframes rotate {
             from {
                 transform: rotate(0deg);
@@ -71,6 +91,7 @@
             to {
                 transform: rotate(360deg);
             }
+
         }
     </style>
     <script>
@@ -85,7 +106,8 @@
         <button class="back-button" onclick="history.back()">Back</button>
         <h1>MMO là gì </h1>
         <img src="/imgblog/MMOlagi.png" alt="Hình ảnh bài viết">
-        <pre style="text-align: left;"># MMO Là Gì? Hướng Dẫn Cho Người Mới Bắt Đầu
+        <pre style="text-align: left;">
+            # MMO Là Gì? Hướng Dẫn Cho Người Mới Bắt Đầu
 
              1. MMO Là Gì?
             MMO (Make Money Online) là thuật ngữ dùng để chỉ việc kiếm tiền trên mạng. Các hình thức MMO rất đa dạng, từ làm affiliate marketing, dropshipping, viết blog, đầu tư crypto, cho đến các hình thức kiếm tiền tự động như khai thác AI hoặc bot giao dịch.
