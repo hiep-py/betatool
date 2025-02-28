@@ -94,9 +94,10 @@
         }
 
         .blog-card img {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
+        width: 100%;
+        height: 150px;
+        border-radius: 10px;
+        object-fit: cover; /* Chỉnh ảnh vừa khung mà không méo */
         }
 
         .blog-title {
@@ -151,9 +152,15 @@
                     const parts = line.split('|');
                     if (parts.length === 4) { // Đảm bảo có đủ dữ liệu
                         const title = parts[0].trim();
-                        const desc = parts[1].trim();
+                        let desc = parts[1].trim();
                         const img = parts[2].trim();
                         const link = parts[3].trim();
+
+                        // Chỉ lấy 8 chữ đầu của nội dung + "..."
+                        const words = desc.split(" ");
+                        if (words.length > 8) {
+                            desc = words.slice(0, 8).join(" ") + "...";
+                        }
 
                         blogHTML += `
                             <div class="blog-card">
@@ -173,6 +180,7 @@
         }
 
 loadBlog();
+
 
     </script>
 </body>
