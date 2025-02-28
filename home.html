@@ -46,6 +46,8 @@
             background: rgba(255, 215, 0, 0.2);
             border-radius: 10px;
             border: 2px solid #ffd900;
+            margin: 20px auto;
+            width: 90%;
         }
         .video-section, .product-section, .blog-section {
             width: 90%;
@@ -54,6 +56,33 @@
             padding: 20px;
             border-radius: 10px;
             border: 1px solid #00d9ff;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .product-card {
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            border: 1px solid #00d9ff;
+            position: relative;
+        }
+        .product-card:hover::after {
+            content: "Click để đến trang sản phẩm";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff00ff;
+            color: #ffffff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
         }
         .video-carousel, .blog-carousel {
             overflow: hidden;
@@ -78,6 +107,18 @@
             height: 200px;
             border-radius: 10px;
         }
+        .carousel-item a {
+            color: #00d9ff;
+            text-decoration: none;
+        }
+        .carousel-item a:hover {
+            color: #ff00ff;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0f2027;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +136,7 @@
             </ul>
         </nav>
     </header>
+    
     <section class="intro">
         <h1>Chào mừng đến với BETA TOOL</h1>
         <p>Nơi cung cấp các công cụ mạnh mẽ giúp bạn kiếm tiền và tự động hóa công việc.</p>
@@ -103,14 +145,15 @@
     <section class="product-section">
         <h2>Các Sản Phẩm của BETA TOOL</h2>
         <div class="products">
-            <div class="product-card"><h3><a href="sanpham.html" >XWORLD WINHASH LOTTO</a></h3><p>Công cụ hỗ trợ và báo kèo cho mọi người theo.</p></div>
-            <div class="product-card"><h3><a href="sanpham.html " >XWORLD WINHASH AERO </a></h3><p>Bot hỗ trợ và báo kèo cho mọi người đặt.</p></div>
-            
+            <div class="product-card"><h3><a href="sanpham.html">XWORLD WINHASH LOTTO</a></h3><p>Công cụ hỗ trợ và báo kèo cho mọi người theo.</p></div>
+            <div class="product-card"><h3><a href="sanpham.html">XWORLD WINHASH AERO</a></h3><p>Bot hỗ trợ và báo kèo cho mọi người đặt.</p></div>
         </div>
+    </section>
+    
     <section class="video-section">
         <h2><a href="video.html">Video Hướng Dẫn</a></h2>
-        <div class="video-carousel" id="carousel">
-            <div class="carousel-track" id="carouselTrack"></div>
+        <div class="video-carousel" id="videoCarousel">
+            <div class="carousel-track" id="videoTrack"></div>
         </div>
     </section>
     
@@ -121,32 +164,35 @@
         </div>
     </section>
     
+    <footer>
+        <p>© 2025 BETA TOOL. All rights reserved.</p>
+    </footer>
+
     <script>
         async function loadCarouselVideos() {
             try {
                 const response = await fetch('videos.txt');
                 const text = await response.text();
                 const lines = text.split('\n');
-                const carouselTrack = document.getElementById('carouselTrack');
-                carouselTrack.innerHTML = '';
+                const videoTrack = document.getElementById('videoTrack');
+                videoTrack.innerHTML = '';
                 
                 lines.forEach(line => {
                     const parts = line.split('|');
                     if (parts.length === 2) {
                         const title = parts[0].trim();
                         let url = parts[1].trim();
-                        // Trích xuất ID video từ URL YouTube
                         const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
                         if (videoIdMatch) {
                             url = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
                         }
-                        // Tạo phần tử video
                         const videoItem = document.createElement('div');
                         videoItem.classList.add('carousel-item');
                         videoItem.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
-                        carouselTrack.appendChild(videoItem);
+                        videoTrack.appendChild(videoItem);
                     }
                 });
+                startCarousel('videoCarousel', 'videoTrack');
             } catch (error) {
                 console.error('Lỗi tải video:', error);
             }
@@ -154,7 +200,7 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blogs.txt');
+                const response = await fetch('blog.txt');
                 const text = await response.text();
                 const lines = text.split('\n');
                 const blogTrack = document.getElementById('blogTrack');
@@ -165,24 +211,57 @@
                     if (parts.length === 2) {
                         const title = parts[0].trim();
                         const url = parts[1].trim();
-                        // Tạo phần tử bài viết
                         const blogItem = document.createElement('div');
                         blogItem.classList.add('carousel-item');
                         blogItem.innerHTML = `<h3>${title}</h3><a href="${url}" target="_blank">Đọc thêm</a>`;
                         blogTrack.appendChild(blogItem);
                     }
                 });
+                startCarousel('blogCarousel', 'blogTrack');
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
             }
         }
         
+        function startCarousel(carouselId, trackId) {
+            const track = document.getElementById(trackId);
+            const items = track.querySelectorAll('.carousel-item');
+            let index = 0;
+            let interval;
+            
+            function moveCarousel() {
+                index++;
+                if (index >= items.length) {
+                    index = 0;
+                    track.style.transition = 'none'; // Tắt transition khi quay lại đầu
+                    track.style.transform = `translateX(0)`;
+                    // Đảm bảo transition được bật lại sau khi reset
+                    setTimeout(() => {
+                        track.style.transition = 'transform 1s linear';
+                    }, 50);
+                } else {
+                    track.style.transform = `translateX(-${index * 320}px)`;
+                }
+            }
+            
+            function startAutoSlide() {
+                interval = setInterval(moveCarousel, 2000);
+            }
+            
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+            
+            const carousel = document.getElementById(carouselId);
+            carousel.addEventListener('mouseenter', stopAutoSlide);
+            carousel.addEventListener('mouseleave', startAutoSlide);
+            
+            startAutoSlide();
+        }
+        
+        // Gọi hàm để tải dữ liệu và khởi động carousel
         loadCarouselVideos();
         loadCarouselBlogs();
     </script>
-    
-    <footer>
-        <p>&copy; 2025 BETA TOOL. All rights reserved.</p>
-    </footer>
 </body>
 </html>
