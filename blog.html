@@ -143,7 +143,7 @@
     <script>
         async function loadBlog() {
             try {
-                const response = await fetch('blogs.txt'); // Đọc file blog.txt
+                const response = await fetch('blog.txt'); // Đọc file blog.txt
                 const text = await response.text();
                 const lines = text.split("\n").filter(line => line.trim() !== ""); // Loại bỏ dòng trống
 
