@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm - BETA TOOL</title>
+    <style>
+        body {
+            background: url('/img/background.webp') no-repeat center center fixed;
+            background-size: cover; /* Phủ kín màn hình */
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .container {
+            border: 2px solid deepskyblue;
+            padding: 20px;
+            margin: 50px auto;
+            width: 60%;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+        }
+        .back-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background-color: darkblue;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 50%;
+            border: 3px solid purple;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 24px;
+            color: purple;
+        }
+        .scroll-top:hover {
+            background-color: purple;
+            color: white;
+        }
+        p {
+            text-align: justify; /* Căn đều 2 bên */
+            font-family: "Arial", sans-serif; /* Chọn phông chữ dễ đọc */
+            font-size: 18px; /* Kích thước chữ phù hợp */
+            line-height: 1.6; /* Khoảng cách dòng dễ đọc */
+            word-wrap: break-word; /* Đảm bảo chữ không bị tràn */
+            overflow-wrap: break-word;
+            padding: 10px; /* Giữ khoảng cách nhỏ với viền */
+            margin: 0;
+        }
+        .product-details {
+            text-align: center;
+        }
+        .product-details h1 {
+            color: #ff4500; /* Màu cam đỏ cho tiêu đề sản phẩm */
+        }
+        .product-details p {
+            margin-bottom: 15px;
+        }
+        .highlight {
+            color: #00ff00; /* Màu xanh lá cho các điểm nhấn */
+        }
+    </style>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Lấy thông tin sản phẩm từ query string (ví dụ: ?product=XWORLD_WINHASH_LOTTO)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const product = urlParams.get('product');
+            if (product) {
+                displayProduct(product);
+            } else {
+                displayDefaultProduct(); // Hiển thị sản phẩm mặc định nếu không có query
+            }
+        });
+
+        function displayProduct(productName) {
+            const productDetails = document.querySelector('.product-details');
+            let productInfo = {};
+
+            // Dữ liệu mẫu cho các sản phẩm (bạn có thể mở rộng hoặc tải từ file JSON/server)
+            const products = {
+                'XWORLD_WINHASH_LOTTO': {
+                    name: 'XWORLD WINHASH LOTTO',
+                    image: '/imgproducts/XWLotto.png',
+                    description: 'Công cụ hỗ trợ và báo kèo cho mọi người theo, giúp tối ưu hóa cơ hội chiến thắng trong các trò chơi lotto với giao diện thân thiện và thuật toán thông minh.',
+                    features: [
+                        'Hỗ trợ báo kèo chính xác cao',
+                        'Giao diện dễ sử dụng',
+                        'Tích hợp tự động hóa',
+                        'Cập nhật dữ liệu thời gian thực'
+                    ],
+                    price: 'Giá: 99.99 USD',
+                    link: 'https://betatool.netlify.app/sanpham#lotto'
+                },
+                'XWORLD_WINHASH_AERO': {
+                    name: 'XWORLD WINHASH AERO',
+                    image: '/imgproducts/XWAero.png',
+                    description: 'Bot hỗ trợ và báo kèo cho mọi người đặt, tự động hóa quy trình đặt cược và tối ưu hóa lợi nhuận với công nghệ AI tiên tiến.',
+                    features: [
+                        'Bot tự động đặt cược thông minh',
+                        'Phân tích dữ liệu theo thời gian thực',
+                        'Hỗ trợ đa nền tảng',
+                        'Bảo mật cao'
+                    ],
+                    price: 'Giá: 149.99 USD',
+                    link: 'https://betatool.netlify.app/sanpham#aero'
+                }
+            };
+
+            if (products[productName]) {
+                productInfo = products[productName];
+            } else {
+                productInfo = products['XWORLD_WINHASH_LOTTO']; // Sản phẩm mặc định nếu không tìm thấy
+            }
+
+            productDetails.innerHTML = `
+                <button class="back-button" onclick="history.back()">Back</button>
+                <h1>${productInfo.name}</h1>
+                <img src="${productInfo.image}" alt="${productInfo.name}" onerror="this.style.display='none';">
+                <p>${productInfo.description}</p>
+                <h3>Đặc điểm nổi bật:</h3>
+                <ul style="text-align: left; list-style-type: none; padding-left: 20px;">
+                    ${productInfo.features.map(feature => `<li class="highlight">${feature}</li>`).join('')}
+                </ul>
+                <p>${productInfo.price}</p>
+                <a href="${productInfo.link}" style="color: #00d9ff; text-decoration: none; font-size: 18px;">Mua ngay</a>
+                <button class="back-button" onclick="history.back()">Back</button>
+            `;
+        }
+
+        function displayDefaultProduct() {
+            // Hiển thị sản phẩm mặc định (XWORLD WINHASH LOTTO) nếu không có query
+            displayProduct('XWORLD_WINHASH_LOTTO');
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">BETA Sản Phẩm</div>
+    <div class="container">
+        <div class="product-details">
+            <!-- Nội dung sản phẩm sẽ được tạo động bằng JavaScript -->
+        </div>
+    </div>
+    <div class="scroll-top" onclick="scrollToTop()">⇧</div>
+</body>
+</html>
