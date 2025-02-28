@@ -173,28 +173,25 @@
             try {
                 const response = await fetch('videos.txt');
                 const text = await response.text();
-                const lines = text.split('\n');
+                const lines = text.trim().split('\n').filter(line => line); // Loại bỏ dòng trống
                 const videoTrack = document.getElementById('videoTrack');
                 videoTrack.innerHTML = '';
                 
                 lines.forEach(line => {
-                    const parts = line.split('|');
-                    if (parts.length === 2) {
-                        const title = parts[0].trim();
-                        let url = parts[1].trim();
+                    const [title, url] = line.split('|').map(part => part.trim());
+                    if (title && url) {
                         const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
-                        if (videoIdMatch) {
-                            url = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
-                        }
+                        const embedUrl = videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
                         const videoItem = document.createElement('div');
                         videoItem.classList.add('carousel-item');
-                        videoItem.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
+                        videoItem.innerHTML = `<h3>${title}</h3><iframe src="${embedUrl}" allowfullscreen></iframe>`;
                         videoTrack.appendChild(videoItem);
                     }
                 });
                 startCarousel('videoCarousel', 'videoTrack');
             } catch (error) {
                 console.error('Lỗi tải video:', error);
+                alert('Không thể tải danh sách video. Vui lòng kiểm tra file videos.txt.');
             }
         }
         
@@ -202,15 +199,13 @@
             try {
                 const response = await fetch('blog.txt');
                 const text = await response.text();
-                const lines = text.split('\n');
+                const lines = text.trim().split('\n').filter(line => line); // Loại bỏ dòng trống
                 const blogTrack = document.getElementById('blogTrack');
                 blogTrack.innerHTML = '';
                 
                 lines.forEach(line => {
-                    const parts = line.split('|');
-                    if (parts.length === 2) {
-                        const title = parts[0].trim();
-                        const url = parts[1].trim();
+                    const [title, url] = line.split('|').map(part => part.trim());
+                    if (title && url) {
                         const blogItem = document.createElement('div');
                         blogItem.classList.add('carousel-item');
                         blogItem.innerHTML = `<h3>${title}</h3><a href="${url}" target="_blank">Đọc thêm</a>`;
@@ -220,12 +215,15 @@
                 startCarousel('blogCarousel', 'blogTrack');
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
+                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.');
             }
         }
         
         function startCarousel(carouselId, trackId) {
             const track = document.getElementById(trackId);
             const items = track.querySelectorAll('.carousel-item');
+            if (items.length === 0) return; // Không làm gì nếu không có item
+            
             let index = 0;
             let interval;
             
@@ -233,9 +231,8 @@
                 index++;
                 if (index >= items.length) {
                     index = 0;
-                    track.style.transition = 'none'; // Tắt transition khi quay lại đầu
+                    track.style.transition = 'none';
                     track.style.transform = `translateX(0)`;
-                    // Đảm bảo transition được bật lại sau khi reset
                     setTimeout(() => {
                         track.style.transition = 'transform 1s linear';
                     }, 50);
@@ -260,8 +257,10 @@
         }
         
         // Gọi hàm để tải dữ liệu và khởi động carousel
-        loadCarouselVideos();
-        loadCarouselBlogs();
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCarouselVideos();
+            loadCarouselBlogs();
+        });
     </script>
 </body>
 </html>
