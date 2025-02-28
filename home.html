@@ -208,7 +208,7 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('blogs.txt');
+                const response = await fetch('blog.txt');
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
