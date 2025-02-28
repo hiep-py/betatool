@@ -43,33 +43,20 @@
         .blog-container {
             width: 90%;
             margin: 20px auto;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
         }
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .blog-card {
+        .blog-post {
             background: #2c2c2c;
             padding: 15px;
             border-radius: 10px;
-            text-align: center;
+            margin-bottom: 20px;
             border: 1px solid #00d9ff;
         }
-        .blog-card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .blog-card h3 {
-            color: #ffd700;
-        }
-        .blog-card a {
-            text-decoration: none;
-            color: #00d9ff;
-            font-weight: bold;
+        .blog-post img {
+            max-width: 100%;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -89,32 +76,42 @@
         </nav>
     </header>
     
-    <section class="blog-container">
-        <h2>Blog mới nhất</h2>
-        <div class="blog-grid">
-            <div class="blog-card">
-                <img src="img/blog1.jpg" alt="Bài viết 1">
-                <h3>Tiêu đề bài viết 1</h3>
-                <p>Đây là đoạn mô tả ngắn gọn...</p>
-                <a href="baiviet1.html">Đọc thêm</a>
-            </div>
-            <div class="blog-card">
-                <img src="img/blog2.jpg" alt="Bài viết 2">
-                <h3>Tiêu đề bài viết 2</h3>
-                <p>Đây là đoạn mô tả ngắn gọn...</p>
-                <a href="baiviet2.html">Đọc thêm</a>
-            </div>
-            <div class="blog-card">
-                <img src="img/blog3.jpg" alt="Bài viết 3">
-                <h3>Tiêu đề bài viết 3</h3>
-                <p>Đây là đoạn mô tả ngắn gọn...</p>
-                <a href="baiviet3.html">Đọc thêm</a>
-            </div>
-        </div>
+    <section class="blog-container" id="blogContainer">
+        <h2>Bài viết mới nhất</h2>
     </section>
     
-    <footer>
-        <p>&copy; 2025 BETA TOOL. All rights reserved.</p>
-    </footer>
+    <script>
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('blogdata.txt');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const blogContainer = document.getElementById('blogContainer');
+                
+                lines.forEach(line => {
+                    const parts = line.split('|');
+                    if (parts.length === 3) {
+                        const title = parts[0].trim();
+                        const content = parts[1].trim();
+                        const imageUrl = parts[2].trim();
+                        
+                        const postDiv = document.createElement('div');
+                        postDiv.classList.add('blog-post');
+                        postDiv.innerHTML = `
+                            <h3>${title}</h3>
+                            <p>${content}</p>
+                            <img src="${imageUrl}" alt="Blog Image">
+                        `;
+                        
+                        blogContainer.appendChild(postDiv);
+                    }
+                });
+            } catch (error) {
+                console.error('Lỗi tải blog:', error);
+            }
+        }
+        
+        loadBlogPosts();
+    </script>
 </body>
 </html>
