@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BETA TOOL - Video</title>
+    <title>BETA TOOL - Trang chủ</title>
     <link rel="stylesheet" href="csshome.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #0d0d0d;
+            background-image: url('img/background.webp');
+            background-size: cover;
+            background-position: center;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -38,11 +40,53 @@
         nav a:hover {
             color: #ff00ff;
         }
+        .intro {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            border: 2px solid #FFD700;
+        }
+        .video-section, .product-section {
+            width: 90%;
+            margin: 20px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #00d9ff;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .product-card {
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            border: 1px solid #00d9ff;
+            position: relative;
+        }
+        .product-card:hover::after {
+            content: "Click để đến trang sản phẩm";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff00ff;
+            color: #ffffff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
         .video-carousel {
             overflow: hidden;
             position: relative;
-            width: 90%;
-            margin: 20px auto;
+            width: 100%;
+            margin-top: 20px;
         }
         .carousel-track {
             display: flex;
@@ -51,15 +95,24 @@
         .carousel-item {
             min-width: 300px;
             margin: 10px;
-            background: #1e1e1e;
+            background: #000;
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid #00d9ff;
+            text-align: center;
         }
         .carousel-item iframe {
             width: 100%;
             height: 200px;
             border-radius: 10px;
+        }
+        .sidebar {
+            position: fixed;
+            left: 10px;
+            top: 100px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #FFD700;
         }
     </style>
 </head>
@@ -72,97 +125,39 @@
             <ul>
                 <li><a href="#">Trang chủ</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="#">Video</a></li>
+                <li><a href="video.html">Video</a></li>
                 <li><a href="index.html">Giới thiệu</a></li>
             </ul>
         </nav>
     </header>
     
-    <section class="video-carousel">
-        <div class="carousel-track" id="carouselTrack"></div>
+    <div class="sidebar">
+        <h3>Sản phẩm</h3>
+    </div>
+    
+    <section class="intro">
+        <h1>Chào mừng đến với BETA TOOL</h1>
+        <p>Nơi cung cấp các công cụ mạnh mẽ giúp bạn kiếm tiền và tự động hóa công việc.</p>
+    </section>
+    
+    <section class="product-section">
+        <h2>Các Sản Phẩm của BETA TOOL</h2>
+        <div class="products">
+            <div class="product-card"><h3>Tool XWORLD LOTTO</h3><p>Công cụ hỗ trợ xổ số tự động.</p></div>
+            <div class="product-card"><h3>WINHASH AERO</h3><p>Bot tự động kiếm tiền với Hashing.</p></div>
+            <div class="product-card"><h3>AI Trade Bot</h3><p>Hệ thống AI phân tích thị trường crypto.</p></div>
+        </div>
+    </section>
+    
+    <section class="video-section">
+        <h2>Video Hướng Dẫn</h2>
+        <div class="video-carousel">
+            <div class="carousel-track" id="carouselTrack"></div>
+        </div>
     </section>
     
     <footer>
         <p>&copy; 2025 BETA TOOL. All rights reserved.</p>
     </footer>
-    
-    <script>
-        async function loadCarouselVideos() {
-            try {
-                const response = await fetch('videos.txt');
-                const text = await response.text();
-                const lines = text.split('\n');
-                const carouselTrack = document.getElementById('carouselTrack');
-                carouselTrack.innerHTML = '';
-                
-                lines.forEach(line => {
-                    const parts = line.split('|');
-                    if (parts.length === 2) {
-                        const title = parts[0].trim();
-                        let url = parts[1].trim();
-                        
-                        // Chuyển đổi URL YouTube thành dạng nhúng
-                        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
-                        if (videoIdMatch) {
-                            url = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
-                        }
-                        
-                        const videoItem = document.createElement('div');
-                        videoItem.classList.add('carousel-item');
-                        videoItem.innerHTML = `<h3>${title}</h3><iframe src="${url}" allowfullscreen></iframe>`;
-                        carouselTrack.appendChild(videoItem);
-                    }
-                });
-
-                duplicateVideosForLoop();
-                startCarousel();
-            } catch (error) {
-                console.error('Lỗi tải video:', error);
-            }
-        }
-
-        
-        function duplicateVideosForLoop() {
-            const track = document.getElementById('carouselTrack');
-            const items = track.children;
-            if (items.length > 0) {
-                for (let i = 0; i < 3; i++) {
-                    track.appendChild(items[i].cloneNode(true));
-                }
-            }
-        }
-        
-        function startCarousel() {
-            const track = document.getElementById('carouselTrack');
-            let position = 0;
-            let interval;
-            
-            function moveCarousel() {
-                position -= 310;
-                if (Math.abs(position) >= track.scrollWidth / 2) {
-                    position = 0;
-                    track.style.transition = 'none';
-                } else {
-                    track.style.transition = 'transform 1s linear';
-                }
-                track.style.transform = `translateX(${position}px)`;
-            }
-            
-            function startAutoSlide() {
-                interval = setInterval(moveCarousel, 3000);
-            }
-            
-            function stopAutoSlide() {
-                clearInterval(interval);
-            }
-            
-            track.addEventListener('mouseenter', stopAutoSlide);
-            track.addEventListener('mouseleave', startAutoSlide);
-            
-            startAutoSlide();
-        }
-        
-        loadCarouselVideos();
-    </script>
 </body>
 </html>
