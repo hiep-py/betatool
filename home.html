@@ -92,7 +92,7 @@
         }
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease-in-out; /* Tăng tốc độ và làm mượt hơn bằng cách giảm thời gian transition và thêm ease-in-out */
+            transition: transform 0.5s ease-in-out; /* Tăng tốc độ và làm mượt hơn */
         }
         .carousel-item {
             min-width: 300px;
@@ -232,7 +232,7 @@
                         const blogItem = document.createElement('div');
                         blogItem.classList.add('carousel-item');
                         blogItem.innerHTML = `
-                            <img src="${imageUrl}" alt="${title}" onerror="this.style.display='none';">
+                            <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found';">
                             <h3>${title}</h3>
                             <p class="description">${description}</p>
                             <a href="${blogUrl}" class="read-more">Đọc thêm</a>
@@ -242,9 +242,15 @@
                     }
                 });
 
-                startCarousel('blogCarousel', 'blogTrack');
+                if (lines.length > 0) {
+                    startCarousel('blogCarousel', 'blogTrack');
+                } else {
+                    blogTrack.innerHTML = '<p>Không có bài viết nào để hiển thị.</p>';
+                }
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
+                const blogTrack = document.getElementById('blogTrack');
+                blogTrack.innerHTML = '<p>Không thể tải danh sách blog. Vui lòng kiểm tra file blogs.txt.</p>';
                 alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blogs.txt.');
             }
         }
@@ -272,7 +278,7 @@
             }
             
             function startAutoSlide() {
-                interval = setInterval(moveCarousel, 1000); // Giảm interval từ 2000ms xuống 1000ms (1 giây) để tăng tốc độ
+                interval = setInterval(moveCarousel, 1000); // Giữ tốc độ 1 giây/slide như yêu cầu
             }
             
             function stopAutoSlide() {
