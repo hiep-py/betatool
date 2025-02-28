@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài viết</title>
+    <style>
+        body {
+            background: url('img/background.webp') no-repeat center center fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .container {
+            border: 2px solid deepskyblue;
+            padding: 20px;
+            margin: 50px auto;
+            width: 60%;
+            background-color: #121212;
+            border-radius: 10px;
+        }
+        .back-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background-color: darkblue;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 24px;
+        }
+        .scroll-top:hover {
+            animation: rotate 1s linear infinite;
+            border-color: purple;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">BETA Blog</div>
+    <div class="container">
+        <button class="back-button" onclick="history.back()">Back</button>
+        <h1>MMO là gì </h1>
+        <img src="image-link.jpg" alt="Hình ảnh bài viết">
+        <p># MMO Là Gì? Hướng Dẫn Cho Người Mới Bắt Đầu
+
+             1. MMO Là Gì?
+            MMO (Make Money Online) là thuật ngữ dùng để chỉ việc kiếm tiền trên mạng. Các hình thức MMO rất đa dạng, từ làm affiliate marketing, dropshipping, viết blog, đầu tư crypto, cho đến các hình thức kiếm tiền tự động như khai thác AI hoặc bot giao dịch.
+            
+            2. Các Hình Thức MMO Phổ Biến
+            a) Affiliate Marketing
+            Là hình thức kiếm tiền bằng cách giới thiệu sản phẩm/dịch vụ từ nhà cung cấp khác. Khi có người mua hàng qua link affiliate của bạn, bạn nhận hoa hồng.
+            
+             b) Dropshipping
+            Mô hình kinh doanh online không cần tồn kho, chỉ cần làm trung gian giữa người mua và nhà cung cấp.
+            
+            c) Viết Blog & Kiếm Tiền Quảng Cáo
+            Tạo nội dung hữu ích và kiếm tiền qua quảng cáo Google AdSense hoặc tiếp thị liên kết.
+            
+            d) Đầu Tư Crypto & Forex
+            Giao dịch tiền điện tử hoặc forex để tìm kiếm lợi nhuận từ chênh lệch giá.
+            
+            e) Xây Dựng Hệ Thống Bot Kiếm Tiền
+            Tự động hóa việc kiếm tiền qua các bot giao dịch, bot khai thác AI, hay bot tiếp thị liên kết.
+            
+            3. Lợi Ích & Thách Thức Của MMO
+            **Lợi ích:**
+            - Kiếm tiền linh hoạt từ bất kỳ đâu
+            - Có thể tạo thu nhập thụ động
+            - Phát triển kỹ năng kinh doanh & marketing
+            
+            **Thách thức:**
+            - Cạnh tranh cao
+            - Dễ bị lừa đảo
+            - Cần kiến thức & kỹ năng để trụ vững
+            
+            4. MMO Có Phải Là Con Đường Dài Hạn?
+            MMO không phải là con đường nhanh giàu. Cần có chiến lược dài hạn, đều đặn và kiểm soát rủi ro.
+            
+            5. Kết Luận
+            MMO là một cách kiếm tiền hiệu quả, nhưng cần trang bị kiến thức và chọn con đường phù hợp. 
+            
+        </p>
+        <button class="back-button" onclick="history.back()">Back</button>
+    </div>
+    <div class="scroll-top" onclick="scrollToTop()">&#8679;</div>
+</body>
+</html>
