@@ -290,207 +290,208 @@
         <p>© 2025 BETA TOOL. All rights reserved.</p>
     </footer>
 
-    <!-- Giữ nguyên phần đầu và các section khác, chỉ cập nhật phần JavaScript -->
-<script>
-    async function loadCarouselVideos() {
-        try {
-            const response = await fetch('videos.txt');
-            const text = await response.text();
-            const lines = text.trim().split('\n').filter(line => line);
-            const videoTrack = document.getElementById('videoTrack');
-            videoTrack.innerHTML = '';
-            
-            lines.forEach(line => {
-                const [title, url] = line.split('|').map(part => part.trim());
-                if (title && url) {
-                    const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
-                    const embedUrl = videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
-                    const videoItem = document.createElement('div');
-                    videoItem.classList.add('carousel-item');
-                    videoItem.innerHTML = `<h3>${title}</h3><iframe src="${embedUrl}" allowfullscreen></iframe>`;
-                    videoTrack.appendChild(videoItem);
-                }
-            });
-            startCarousel('videoCarousel', 'videoTrack', window.innerWidth > 768);
-        } catch (error) {
-            console.error('Lỗi tải video:', error);
-            alert('Không thể tải danh sách video. Vui lòng kiểm tra file videos.txt.');
-        }
-    }
-    
-    async function loadCarouselBlogs() {
-        try {
-            const response = await fetch('./blog.txt');
-            const text = await response.text();
-            const lines = text.trim().split('\n').filter(line => line);
-            const blogTrack = document.getElementById('blogTrack');
-            blogTrack.innerHTML = '';
-
-            if (lines.length === 0) {
-                blogTrack.innerHTML = '<p>Không có bài viết nào để hiển thị.</p>';
-                return;
+    <script>
+        async function loadCarouselVideos() {
+            try {
+                const response = await fetch('videos.txt');
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                const videoTrack = document.getElementById('videoTrack');
+                videoTrack.innerHTML = '';
+                
+                lines.forEach(line => {
+                    const [title, url] = line.split('|').map(part => part.trim());
+                    if (title && url) {
+                        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
+                        const embedUrl = videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
+                        const videoItem = document.createElement('div');
+                        videoItem.classList.add('carousel-item');
+                        videoItem.innerHTML = `<h3>${title}</h3><iframe src="${embedUrl}" allowfullscreen></iframe>`;
+                        videoTrack.appendChild(videoItem);
+                    }
+                });
+                startCarousel('videoCarousel', 'videoTrack', window.innerWidth > 768);
+            } catch (error) {
+                console.error('Lỗi tải video:', error);
+                alert('Không thể tải danh sách video. Vui lòng kiểm tra file videos.txt.');
             }
-
-            lines.forEach(line => {
-                const [title, description, imageUrl, blogUrl] = line.split('|').map(part => part.trim());
-                if (title && description && imageUrl && blogUrl) {
-                    const blogItem = document.createElement('div');
-                    blogItem.classList.add('carousel-item');
-                    blogItem.innerHTML = `
-                        <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found';">
-                        <h3>${title}</h3>
-                        <p class="description">${description}</p>
-                        <a href="${blogUrl}" class="read-more">Đọc thêm</a>
-                    `;
-                    blogTrack.appendChild(blogItem);
-                }
-            });
-
-            startCarousel('blogCarousel', 'blogTrack', window.innerWidth > 768);
-        } catch (error) {
-            console.error('Lỗi tải blog:', error);
-            const blogTrack = document.getElementById('blogTrack');
-            blogTrack.innerHTML = '<p>Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.</p>';
-            alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.');
         }
-    }
-    
-    async function loadCarouselProducts() {
-        try {
-            const response = await fetch('products.txt');
-            const text = await response.text();
-            const lines = text.trim().split('\n').filter(line => line);
-            const productsTrack = document.getElementById('productsTrack');
-            productsTrack.innerHTML = '';
-
-            if (lines.length === 0) {
-                productsTrack.innerHTML = '<p>Không có sản phẩm nào để hiển thị.</p>';
-                return;
-            }
-
-            lines.forEach(line => {
-                const [title, description, imageUrl, productUrl] = line.split('|').map(part => part.trim());
-                if (title && description && imageUrl && productUrl) {
-                    const productItem = document.createElement('div');
-                    productItem.classList.add('carousel-item');
-                    productItem.innerHTML = `
-                        <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Product+Not+Found';">
-                        <h3>${title}</h3>
-                        <p class="description">${description}</p>
-                        <a href="${productUrl}" class="read-more">Xem chi tiết</a>
-                    `;
-                    productsTrack.appendChild(productItem);
-                }
-            });
-
-            enableManualScroll('productsCarousel', 'productsTrack');
-        } catch (error) {
-            console.error('Lỗi tải sản phẩm:', error);
-            const productsTrack = document.getElementById('productsTrack');
-            productsTrack.innerHTML = '<p>Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.</p>';
-            alert('Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.');
-        }
-    }
-    
-    function startCarousel(carouselId, trackId, autoSlide = true) {
-        const track = document.getElementById(trackId);
-        const items = track.querySelectorAll('.carousel-item');
-        if (items.length === 0) return;
         
-        let index = 0;
-        let interval;
-
-        if (autoSlide) {
-            function moveCarousel() {
-                index++;
-                if (index >= items.length) {
-                    index = 0;
-                    track.style.transition = 'none';
-                    track.style.transform = `translateX(0)`;
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.5s ease-in-out';
-                    }, 50);
-                } else {
-                    track.style.transform = `translateX(-${index * 320}px)`;
+        async function loadCarouselBlogs() {
+            try {
+                const response = await fetch('./blog.txt');
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                const blogTrack = document.getElementById('blogTrack');
+                blogTrack.innerHTML = '';
+    
+                if (lines.length === 0) {
+                    blogTrack.innerHTML = '<p>Không có bài viết nào để hiển thị.</p>';
+                    return;
                 }
+    
+                lines.forEach(line => {
+                    const [title, description, imageUrl, blogUrl] = line.split('|').map(part => part.trim());
+                    if (title && description && imageUrl && blogUrl) {
+                        const blogItem = document.createElement('div');
+                        blogItem.classList.add('carousel-item');
+                        blogItem.innerHTML = `
+                            <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found';">
+                            <h3>${title}</h3>
+                            <p class="description">${description}</p>
+                            <a href="${blogUrl}" class="read-more">Đọc thêm</a>
+                        `;
+                        blogTrack.appendChild(blogItem);
+                    }
+                });
+    
+                startCarousel('blogCarousel', 'blogTrack', window.innerWidth > 768);
+            } catch (error) {
+                console.error('Lỗi tải blog:', error);
+                const blogTrack = document.getElementById('blogTrack');
+                blogTrack.innerHTML = '<p>Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.</p>';
+                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.');
             }
-            
-            function startAutoSlide() {
-                interval = setInterval(moveCarousel, 1000);
+        }
+        
+        async function loadCarouselProducts() {
+            try {
+                const response = await fetch('products.txt');
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                const productsTrack = document.getElementById('productsTrack');
+                productsTrack.innerHTML = '';
+    
+                if (lines.length === 0) {
+                    productsTrack.innerHTML = '<p>Không có sản phẩm nào để hiển thị.</p>';
+                    return;
+                }
+    
+                lines.forEach(line => {
+                    const [title, description, imageUrl, productUrl] = line.split('|').map(part => part.trim());
+                    if (title && description && imageUrl && productUrl) {
+                        const productItem = document.createElement('div');
+                        productItem.classList.add('carousel-item');
+                        productItem.innerHTML = `
+                            <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Product+Not+Found';">
+                            <h3>${title}</h3>
+                            <p class="description">${description}</p>
+                            <a href="${productUrl}" class="read-more">Xem chi tiết</a>
+                        `;
+                        productsTrack.appendChild(productItem);
+                    }
+                });
+    
+                enableManualScroll('productsCarousel', 'productsTrack');
+            } catch (error) {
+                console.error('Lỗi tải sản phẩm:', error);
+                const productsTrack = document.getElementById('productsTrack');
+                productsTrack.innerHTML = '<p>Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.</p>';
+                alert('Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.');
             }
+        }
+        
+        function startCarousel(carouselId, trackId, autoSlide = true) {
+            const track = document.getElementById(trackId);
+            const items = track.querySelectorAll('.carousel-item');
+            if (items.length === 0) return;
             
-            function stopAutoSlide() {
-                clearInterval(interval);
+            let index = 0;
+            let interval;
+    
+            if (autoSlide) {
+                function moveCarousel() {
+                    index++;
+                    if (index >= items.length) {
+                        index = 0;
+                        track.style.transition = 'none';
+                        track.style.transform = `translateX(0)`;
+                        setTimeout(() => {
+                            track.style.transition = 'transform 0.5s ease-in-out';
+                        }, 50);
+                    } else {
+                        track.style.transform = `translateX(-${index * 320}px)`;
+                    }
+                }
+                
+                function startAutoSlide() {
+                    interval = setInterval(moveCarousel, 1000);
+                }
+                
+                function stopAutoSlide() {
+                    clearInterval(interval);
+                }
+                
+                const carousel = document.getElementById(carouselId);
+                carousel.addEventListener('mouseenter', stopAutoSlide);
+                carousel.addEventListener('mouseleave', startAutoSlide);
+                
+                startAutoSlide();
             }
-            
+        }
+    
+        function enableManualScroll(carouselId, trackId) {
             const carousel = document.getElementById(carouselId);
-            carousel.addEventListener('mouseenter', stopAutoSlide);
-            carousel.addEventListener('mouseleave', startAutoSlide);
-            
-            startAutoSlide();
+            const track = document.getElementById(trackId);
+            const items = track.querySelectorAll('.carousel-item');
+            if (items.length === 0) return;
+    
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+    
+            carousel.addEventListener('mousedown', startDragging);
+            carousel.addEventListener('mousemove', drag);
+            carousel.addEventListener('mouseup', stopDragging);
+            carousel.addEventListener('mouseleave', stopDragging);
+            carousel.addEventListener('touchstart', startDragging);
+            carousel.addEventListener('touchmove', drag);
+            carousel.addEventListener('touchend', stopDragging);
+    
+            function startDragging(e) {
+                isDragging = true;
+                carousel.style.cursor = 'grabbing';
+                startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - prevTranslate;
+                track.style.transition = 'none';
+            }
+    
+            function drag(e) {
+                if (!isDragging) return;
+                const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                currentTranslate = currentPosition - startPos;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            }
+    
+            function stopDragging() {
+                if (!isDragging) return;
+                isDragging = false;
+                carousel.style.cursor = 'grab';
+                prevTranslate = currentTranslate;
+                track.style.transition = 'transform 0.5s ease-in-out';
+    
+                const itemWidth = updateItemWidth();
+                const nearestIndex = Math.round(-currentTranslate / itemWidth);
+                const index = Math.max(0, Math.min(nearestIndex, items.length - 1));
+                track.style.transform = `translateX(-${index * itemWidth}px)`;
+            }
+    
+            function updateItemWidth() {
+                const itemWidth = items[0].offsetWidth + 20;
+                return Math.min(itemWidth, window.innerWidth - 40);
+            }
+    
+            window.addEventListener('resize', () => {
+                const itemWidth = updateItemWidth();
+                track.style.transform = `translateX(-${index * itemWidth}px)`;
+            });
         }
-    }
-
-    function enableManualScroll(carouselId, trackId) {
-        const carousel = document.getElementById(carouselId);
-        const track = document.getElementById(trackId);
-        const items = track.querySelectorAll('.carousel-item');
-        if (items.length === 0) return;
-
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-
-        carousel.addEventListener('mousedown', startDragging);
-        carousel.addEventListener('mousemove', drag);
-        carousel.addEventListener('mouseup', stopDragging);
-        carousel.addEventListener('mouseleave', stopDragging);
-        carousel.addEventListener('touchstart', startDragging);
-        carousel.addEventListener('touchmove', drag);
-        carousel.addEventListener('touchend', stopDragging);
-
-        function startDragging(e) {
-            isDragging = true;
-            carousel.style.cursor = 'grabbing';
-            startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - prevTranslate;
-            track.style.transition = 'none';
-        }
-
-        function drag(e) {
-            if (!isDragging) return;
-            const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            currentTranslate = currentPosition - startPos;
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        }
-
-        function stopDragging() {
-            if (!isDragging) return;
-            isDragging = false;
-            carousel.style.cursor = 'grab';
-            prevTranslate = currentTranslate;
-            track.style.transition = 'transform 0.5s ease-in-out';
-
-            const itemWidth = updateItemWidth();
-            const nearestIndex = Math.round(-currentTranslate / itemWidth);
-            const index = Math.max(0, Math.min(nearestIndex, items.length - 1));
-            track.style.transform = `translateX(-${index * itemWidth}px)`;
-        }
-
-        function updateItemWidth() {
-            const itemWidth = items[0].offsetWidth + 20;
-            return Math.min(itemWidth, window.innerWidth - 40);
-        }
-
-        window.addEventListener('resize', () => {
-            const itemWidth = updateItemWidth();
-            track.style.transform = `translateX(-${index * itemWidth}px)`;
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCarouselProducts();
+            loadCarouselVideos();
+            loadCarouselBlogs();
         });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        loadCarouselProducts();
-        loadCarouselVideos();
-        loadCarouselBlogs();
-    });
-</script>
+    </script>
+    
+</body>
