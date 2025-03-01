@@ -83,7 +83,9 @@
             justify-content: flex-start;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch; /* Tối ưu cuộn mượt trên di động */
-            padding: 0 10px; /* Thêm padding để tránh slide dính vào mép */
+            padding: 0 20px; /* Thêm padding để tránh slide tràn ra mép */
+            max-width: 100%; /* Giới hạn chiều rộng tối đa của carousel */
+            margin: 0 auto; /* Căn giữa carousel trong .products-section */
         }
         .product-card, .carousel-item {
             background: #2c2c2c;
@@ -221,7 +223,9 @@
                 justify-content: flex-start;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch; /* Tối ưu cuộn mượt trên di động */
-                padding: 0 10px;
+                padding: 0 10px; /* Giảm padding trên di động để phù hợp màn hình nhỏ */
+                max-width: 100%;
+                margin: 0 auto;
             }
 
             .carousel-track {
