@@ -78,44 +78,40 @@
         .products-section h2, .video-section h2, .blog-section h2 {
             color: #00ff00;
         }
-        .products-carousel {
+        .products-carousel, .video-carousel, .blog-carousel {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             gap: 20px;
-            justify-content: flex-start;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 10px 20px;
-            max-width: 100%;
-            cursor: grab;
-            user-select: none;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 10px;
         }
-        .product-card {
+        .product-card, .carousel-item {
             background: #2c2c2c;
             padding: 15px;
             border-radius: 10px;
-            width: 250px;
+            width: 300px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            flex: 0 0 auto;
+            flex: 0 0 calc(50% - 20px); /* 2 ô trên mỗi hàng trên điện thoại */
         }
-        .product-card img {
+        .product-card img, .carousel-item img, .carousel-item iframe {
             width: 100%;
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 10px;
         }
-        .product-card h3 {
+        .product-card h3, .carousel-item h3 {
             color: #ffffff;
             margin: 10px 0;
         }
-        .product-card p {
+        .product-card p, .carousel-item p {
             font-size: 14px;
             color: #b0b0b0;
             margin: 10px 0;
         }
-        .product-card a {
+        .product-card a, .carousel-item a {
             color: #00d9ff;
             text-decoration: none;
             padding: 8px 16px;
@@ -124,60 +120,7 @@
             border-radius: 5px;
             display: inline-block;
         }
-        .product-card a:hover {
-            color: #ff00ff;
-            background-color: #3c3c3c;
-        }
-        .video-carousel, .blog-carousel {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-item {
-            min-width: 300px;
-            margin: 10px;
-            background: #000;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            flex: 0 0 auto;
-        }
-        .carousel-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        .carousel-item iframe {
-            width: 100%;
-            height: 200px;
-            border-radius: 10px;
-        }
-        .carousel-item h3 {
-            color: #ffffff;
-            margin: 10px 0;
-        }
-        .carousel-item p {
-            font-size: 14px;
-            color: #b0b0b0;
-            margin: 10px 0;
-        }
-        .carousel-item a {
-            color: #00d9ff;
-            text-decoration: none;
-            padding: 8px 16px;
-            background-color: #2c2c2c;
-            border: 1px solid #00d9ff;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        .carousel-item a:hover {
+        .product-card a:hover, .carousel-item a:hover {
             color: #ff00ff;
             background-color: #3c3c3c;
         }
@@ -186,30 +129,45 @@
             padding: 20px;
             background: #0f2027;
         }
-        /* Thanh cuộn tùy chỉnh */
-        .products-carousel::-webkit-scrollbar {
+
+        /* Thanh cuộn tùy chỉnh (nếu cần) */
+        .products-carousel::-webkit-scrollbar, .video-carousel::-webkit-scrollbar, .blog-carousel::-webkit-scrollbar {
             height: 8px;
         }
-        .products-carousel::-webkit-scrollbar-track {
+        .products-carousel::-webkit-scrollbar-track, .video-carousel::-webkit-scrollbar-track, .blog-carousel::-webkit-scrollbar-track {
             background: #1e1e1e;
             border-radius: 10px;
         }
-        .products-carousel::-webkit-scrollbar-thumb {
+        .products-carousel::-webkit-scrollbar-thumb, .video-carousel::-webkit-scrollbar-thumb, .blog-carousel::-webkit-scrollbar-thumb {
             background: #808080;
             border-radius: 10px;
             border: 2px solid #1e1e1e;
         }
-        .products-carousel::-webkit-scrollbar-thumb:hover {
+        .products-carousel::-webkit-scrollbar-thumb:hover, .video-carousel::-webkit-scrollbar-thumb:hover, .blog-carousel::-webkit-scrollbar-thumb:hover {
             background: #666;
         }
-        /* Responsive */
+
+        /* Responsive Design */
+        @media screen and (min-width: 769px) {
+            .products-carousel, .video-carousel, .blog-carousel {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+            }
+            .product-card, .carousel-item {
+                width: 300px;
+                flex: 0 0 auto;
+            }
+        }
+
         @media screen and (max-width: 768px) {
             .intro, .video-section, .blog-section, .products-section {
                 width: 100%;
                 padding: 10px;
             }
             .product-card, .carousel-item {
-                min-width: 200px;
+                width: calc(50% - 20px); /* 2 ô trên mỗi hàng trên điện thoại */
             }
             nav ul {
                 flex-direction: column;
@@ -218,6 +176,15 @@
             }
             .brand-name {
                 font-size: 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .product-card, .carousel-item {
+                width: 80%; /* Tự động điều chỉnh nếu cần */
+            }
+            .navbar {
+                padding: 5px 10px;
             }
         }
     </style>
@@ -279,7 +246,7 @@
             try {
                 const response = await fetch('products.txt');
                 const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line);
+                const lines = text.trim().split('\n').filter(line => line.trim() !== "");
                 const productsCarousel = document.getElementById('productsCarousel');
                 productsCarousel.innerHTML = '';
 
@@ -315,7 +282,7 @@
             try {
                 const response = await fetch('videos.txt');
                 const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line);
+                const lines = text.trim().split('\n').filter(line => line.trim() !== "");
                 const videoTrack = document.getElementById('videoTrack');
                 videoTrack.innerHTML = '';
 
@@ -346,7 +313,7 @@
             try {
                 const response = await fetch('blog.txt');
                 const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line);
+                const lines = text.trim().split('\n').filter(line => line.trim() !== "");
                 const blogTrack = document.getElementById('blogTrack');
                 blogTrack.innerHTML = '';
 
