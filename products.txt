@@ -1,3 +1,3 @@
-XWORLD WINHASH LOTTO | Công cụ hỗ trợ và báo kèo cho mọi người theo | imgproducts/XWLotto.png | sanpham-lotto.html
-XWORLD WINHASH AERO | Bot hỗ trợ và báo kèo cho mọi người đặt | imgproducts/XWAero.png | sanpham-aero.html
-AERO DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên nền tảng AERO Turbo Games | imgproducts/AeroDemo.png | sanpham-aero-demo.html
+XWORLD WINHASH LOTTO | Công cụ hỗ trợ và báo kèo cho mọi người theo | imgproducts/XWLotto.png | products/sanpham-lotto.html
+XWORLD WINHASH AERO | Bot hỗ trợ và báo kèo cho mọi người đặt | imgproducts/XWAero.png | products/sanpham-aero.html
+AERO DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên nền tảng AERO Turbo Games | imgproducts/AeroDemo.png | products/sanpham-aero-demo.html
