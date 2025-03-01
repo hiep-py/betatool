@@ -1,5 +1,5 @@
-XWORLD WINHASH LOTTO DEMO CÓ 1000$ FREE | Công cụ báo kèo lotto | imgproducts/XWLotto.png | products/sanpham-lotto.html
-XWORLD WINHASH AERO DEMO CÓ 1000$ FREE | Bot báo kèo đặt cược | imgproducts/XWAero.png | products/sanpham-aero.html
+XWORLD WINHASH LOTTO  | Công cụ báo kèo lotto | imgproducts/XWLotto.png | products/sanpham-lotto.html
+XWORLD WINHASH AERO  | Bot báo kèo đặt cược | imgproducts/XWAero.png | products/sanpham-aero.html
 AERO DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên nền tảng AERO Turbo Games | imgproducts/AeroDemo.png | products/sanpham-aero-demo.html
 DICE TWICE DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi xúc xắc Dice Twice | imgproducts/DiceTwiceDEMO.png | products/sanpham-dicetwice-demo.html
 VORTEX DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Vortex nguyên tố | imgproducts/VorterDEMO.png | products/sanpham-vortex-demo.html
