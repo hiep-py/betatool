@@ -257,7 +257,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #1e1e1e;
+            background: #1e1e1e; /* Nền tối như trong hình */
             padding: 5px 0;
             border-radius: 5px;
         }
@@ -270,7 +270,7 @@
         .nav-button {
             background: none;
             border: none;
-            color: #000;
+            color: #000; /* Màu đen như trong hình */
             font-size: 20px;
             cursor: pointer;
             padding: 5px;
@@ -278,12 +278,12 @@
         }
 
         .nav-button:hover {
-            color: #00d9ff;
+            color: #00d9ff; /* Màu công nghệ khi hover */
         }
 
         .slider {
             flex-grow: 1;
-            height: 8px;
+            height: 8px; /* Chiều cao giống hình */
             background: #808080; /* Màu xám nhạt như trong hình */
             border-radius: 4px;
             position: relative;
@@ -291,9 +291,9 @@
         }
 
         .slider-handle {
-            width: 20px;
+            width: 20px; /* Kích thước giống hình */
             height: 20px;
-            background: #808080;
+            background: #808080; /* Màu xám nhạt như trong hình */
             border-radius: 50%;
             position: absolute;
             top: 50%;
@@ -564,6 +564,7 @@
                 if (!isDragging) return;
                 const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
                 currentTranslate = currentPosition - startPos;
+                currentTranslate = Math.max(-(totalWidth - carousel.offsetWidth + 20), Math.min(0, currentTranslate));
                 track.style.transform = `translateX(${currentTranslate}px)`;
                 updateSliderPosition();
             }
@@ -573,7 +574,6 @@
                 isDragging = false;
                 carousel.style.cursor = 'grab';
                 track.style.transition = 'transform 0.3s ease-in-out';
-                // Giữ vị trí hiện tại, không căn chỉnh
             }
 
             function startDraggingHandle(e) {
@@ -589,7 +589,7 @@
                 sliderPosition = Math.max(0, Math.min(sliderWidth - handleWidth, currentPosition - startPos));
                 handle.style.left = `${sliderPosition}px`;
                 const translatePercentage = (sliderPosition / (sliderWidth - handleWidth)) * (carousel.offsetWidth - totalWidth);
-                currentTranslate = translatePercentage;
+                currentTranslate = Math.max(-(totalWidth - carousel.offsetWidth + 20), Math.min(0, translatePercentage));
                 track.style.transform = `translateX(${currentTranslate}px)`;
                 e.preventDefault(); // Ngăn chặn hành vi mặc định
             }
@@ -609,7 +609,7 @@
 
             function updateSliderPosition() {
                 const maxTranslate = -(totalWidth - carousel.offsetWidth + 20);
-                const translatePercentage = currentTranslate / maxTranslate;
+                const translatePercentage = currentTranslate / maxTranslate || 0;
                 sliderPosition = Math.max(0, Math.min(sliderWidth - handleWidth, -translatePercentage * (sliderWidth - handleWidth)));
                 handle.style.left = `${sliderPosition}px`;
             }
