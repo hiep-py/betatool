@@ -117,7 +117,7 @@
         }
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease-in-out;
+            transition: transform 0.3s ease-in-out; /* Giảm thời gian transition để mượt hơn */
             user-select: none;
         }
         .carousel-item {
@@ -403,7 +403,7 @@
                     }
                 });
 
-                enableManualScrollWithScrollbar('productsCarousel', 'productsTrack'); // Sử dụng lướt thủ công với thanh cuộn
+                enableFreeScroll('productsCarousel', 'productsTrack'); // Sử dụng lướt tự do (free scroll) cho sản phẩm
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
@@ -451,7 +451,7 @@
             }
         }
 
-        function enableManualScrollWithScrollbar(carouselId, trackId) {
+        function enableFreeScroll(carouselId, trackId) {
             const carousel = document.getElementById(carouselId);
             const track = document.getElementById(trackId);
             const items = track.querySelectorAll('.carousel-item');
@@ -482,7 +482,7 @@
                 isDragging = true;
                 carousel.style.cursor = 'grabbing';
                 startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - prevTranslate;
-                track.style.transition = 'none';
+                track.style.transition = 'none'; // Tắt transition khi kéo
             }
 
             function drag(e) {
@@ -496,18 +496,8 @@
                 if (!isDragging) return;
                 isDragging = false;
                 carousel.style.cursor = 'grab';
-                prevTranslate = currentTranslate;
-                track.style.transition = 'transform 0.5s ease-in-out';
-
-                const itemWidth = updateItemWidth();
-                const nearestIndex = Math.round(-currentTranslate / itemWidth);
-                const index = Math.max(0, Math.min(nearestIndex, items.length - 1));
-                track.style.transform = `translateX(-${index * itemWidth}px)`;
-            }
-
-            function updateItemWidth() {
-                const itemWidth = items[0].offsetWidth + 20;
-                return Math.min(itemWidth, window.innerWidth - 40);
+                prevTranslate = currentTranslate; // Giữ vị trí hiện tại sau khi thả
+                track.style.transition = 'transform 0.3s ease-in-out'; // Giữ transition mượt nhưng không căn chỉnh
             }
 
             // Cập nhật lại khi resize màn hình
@@ -517,8 +507,8 @@
                 } else {
                     carousel.classList.remove('products-carousel');
                 }
-                const itemWidth = updateItemWidth();
-                track.style.transform = `translateX(-${index * itemWidth}px)`;
+                const itemWidth = items[0].offsetWidth + 20;
+                track.style.transform = `translateX(${currentTranslate}px)`; // Giữ vị trí hiện tại
             });
         }
 
