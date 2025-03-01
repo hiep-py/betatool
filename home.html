@@ -207,7 +207,7 @@
             }
 
             .swiper-slide {
-                min-width: 100%;
+                min-width: 250px; /* Giữ kích thước slide cố định trên di động để lướt ngang */
                 margin: 5px 0;
                 width: auto;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -240,6 +240,10 @@
                 overflow-x: auto;
             }
 
+            .slider-container {
+                display: none; /* Ẩn thanh trượt trên di động */
+            }
+
             img, iframe {
                 max-width: 100%;
                 height: auto;
@@ -268,6 +272,7 @@
             }
 
             .swiper-slide {
+                min-width: 200px; /* Giảm kích thước slide trên điện thoại nhỏ */
                 padding: 8px;
             }
 
@@ -276,18 +281,43 @@
             }
         }
 
-        /* Tùy chỉnh nút và pagination của Swiper */
-        .swiper-button-prev, .swiper-button-next {
-            color: #000; /* Màu đen như hình */
+        /* Thanh trượt tùy chỉnh cho carousel sản phẩm trên PC */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e1e1e; /* Nền tối như trong hình */
+            padding: 5px 0;
+            border-radius: 5px;
         }
-        .swiper-button-prev:hover, .swiper-button-next:hover {
-            color: #00d9ff; /* Màu công nghệ khi hover */
+
+        .slider {
+            flex-grow: 1;
+            height: 8px; /* Chiều cao giống hình */
+            background: #808080; /* Màu xám nhạt như trong hình */
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
         }
-        .swiper-pagination-bullet {
-            background: #808080; /* Màu xám nhạt cho chấm pagination */
+
+        .slider-handle {
+            width: 20px; /* Kích thước giống hình */
+            height: 20px;
+            background: #808080; /* Màu xám nhạt như trong hình */
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: grab;
+            transition: background 0.3s;
         }
-        .swiper-pagination-bullet-active {
-            background: #00d9ff; /* Màu công nghệ khi active */
+
+        .slider-handle:active {
+            background: #666; /* Màu đậm hơn khi kéo */
+            cursor: grabbing;
         }
     </style>
 </head>
@@ -317,9 +347,11 @@
         <h2>Các Sản Phẩm của BETA TOOL</h2>
         <div class="swiper-container" id="productsCarousel">
             <div class="swiper-wrapper" id="productsTrack"></div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+        </div>
+        <div class="slider-container" id="sliderContainer">
+            <div class="slider" id="slider">
+                <div class="slider-handle" id="sliderHandle"></div>
+            </div>
         </div>
     </section>
     
@@ -438,29 +470,73 @@
                 const swiper = new Swiper('#productsCarousel', {
                     slidesPerView: 'auto', // Hiển thị tất cả các slide theo kích thước, không cuộn tự động
                     spaceBetween: 20, // Khoảng cách giữa các slide
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
                     grabCursor: true, // Hiển thị con trỏ tay khi kéo
                     freeMode: true, // Cho phép lướt tự do (không snapping)
                     touchRatio: 1, // Tối ưu hóa cảm ứng, tăng độ nhạy
                     touchAngle: 45, // Góc cảm ứng để nhận diện lướt ngang
                     disableOnInteraction: false, // Không vô hiệu hóa khi tương tác
                     autoplay: false, // Tắt tự động lướt
-                    // Tối ưu hóa cho di động
+                    // Tối ưu hóa cho di động và PC
                     breakpoints: {
                         768: {
                             slidesPerView: 'auto',
                             freeMode: true,
-                            allowTouchMove: true, // Cho phép lướt trên di động
+                            allowTouchMove: true, // Cho phép lướt trên cả PC và di động
                         }
                     }
                 });
+
+                // Thêm thanh trượt tùy chỉnh trên PC
+                if (window.innerWidth > 768) {
+                    const sliderContainer = document.getElementById('sliderContainer');
+                    const slider = document.getElementById('slider');
+                    const handle = document.getElementById('sliderHandle');
+                    const totalWidth = productsTrack.scrollWidth - productsTrack.offsetWidth;
+                    let isDragging = false;
+                    let startPos = 0;
+                    let sliderPosition = 0;
+
+                    handle.addEventListener('mousedown', startDragging);
+                    handle.addEventListener('touchstart', startDragging);
+                    document.addEventListener('mousemove', drag);
+                    document.addEventListener('touchmove', drag);
+                    document.addEventListener('mouseup', stopDragging);
+                    document.addEventListener('touchend', stopDragging);
+
+                    function startDragging(e) {
+                        isDragging = true;
+                        handle.style.cursor = 'grabbing';
+                        startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - sliderPosition;
+                        e.preventDefault();
+                    }
+
+                    function drag(e) {
+                        if (!isDragging) return;
+                        const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                        sliderPosition = Math.max(0, Math.min(slider.offsetWidth - handle.offsetWidth, currentPosition - startPos));
+                        handle.style.left = `${sliderPosition}px`;
+                        const translatePercentage = (sliderPosition / (slider.offsetWidth - handle.offsetWidth)) * totalWidth;
+                        productsTrack.scrollLeft = translatePercentage;
+                        e.preventDefault();
+                    }
+
+                    function stopDragging() {
+                        if (!isDragging) return;
+                        isDragging = false;
+                        handle.style.cursor = 'grab';
+                    }
+
+                    // Cập nhật khi resize
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth <= 768) {
+                            sliderContainer.style.display = 'none';
+                        } else {
+                            sliderContainer.style.display = 'block';
+                            const newTotalWidth = productsTrack.scrollWidth - productsTrack.offsetWidth;
+                            handle.style.left = `${(productsTrack.scrollLeft / newTotalWidth) * (slider.offsetWidth - handle.offsetWidth)}px`;
+                        }
+                    });
+                }
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
