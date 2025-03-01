@@ -79,11 +79,10 @@
         }
         .products, .products-carousel {
             display: flex;
-            flex-wrap: nowrap; /* Ngăn wrap để giữ hàng ngang trên PC */
+            flex-wrap: nowrap; /* Ngăn wrap để giữ hàng ngang */
             gap: 20px;
             justify-content: flex-start;
-            overflow-x: auto; /* Thêm thanh cuộn ngang trên PC */
-            -webkit-overflow-scrolling: touch; /* Tối ưu cuộn trên di động */
+            position: relative; /* Để định vị thanh trượt */
         }
         .product-card, .carousel-item {
             background: #2c2c2c;
@@ -210,6 +209,10 @@
                 align-items: center;
             }
 
+            .slider-container, .nav-buttons {
+                display: none; /* Ẩn thanh trượt và nút điều hướng trên di động */
+            }
+
             img, iframe {
                 max-width: 100%;
                 height: auto;
@@ -246,21 +249,62 @@
             }
         }
 
-        /* Ẩn thanh cuộn trên PC nếu không cần thiết */
-        .products-carousel::-webkit-scrollbar {
-            height: 8px; /* Chiều cao thanh cuộn */
+        /* Thanh trượt tùy chỉnh cho carousel sản phẩm trên PC */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e1e1e;
+            padding: 5px 0;
+            border-radius: 5px;
         }
-        .products-carousel::-webkit-scrollbar-track {
-            background: #1e1e1e; /* Màu nền thanh cuộn */
-            border-radius: 10px;
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
         }
-        .products-carousel::-webkit-scrollbar-thumb {
-            background: #00d9ff; /* Màu thanh trượt */
-            border-radius: 10px;
-            border: 2px solid #1e1e1e; /* Viền thanh trượt */
+
+        .nav-button {
+            background: none;
+            border: none;
+            color: #000;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
         }
-        .products-carousel::-webkit-scrollbar-thumb:hover {
-            background: #00b3d9; /* Màu khi hover */
+
+        .nav-button:hover {
+            color: #00d9ff;
+        }
+
+        .slider {
+            flex-grow: 1;
+            height: 8px;
+            background: #808080; /* Màu xám nhạt như trong hình */
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .slider-handle {
+            width: 20px;
+            height: 20px;
+            background: #808080;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: grab;
+            transition: background 0.3s;
+        }
+
+        .slider-handle:active {
+            background: #666; /* Màu đậm hơn khi kéo */
+            cursor: grabbing;
         }
     </style>
 </head>
@@ -290,6 +334,15 @@
         <h2>Các Sản Phẩm của BETA TOOL</h2>
         <div class="products-carousel" id="productsCarousel">
             <div class="carousel-track" id="productsTrack"></div>
+        </div>
+        <div class="slider-container" id="sliderContainer">
+            <div class="nav-buttons">
+                <button class="nav-button" id="prevButton">❮</button>
+                <div class="slider" id="slider">
+                    <div class="slider-handle" id="sliderHandle"></div>
+                </div>
+                <button class="nav-button" id="nextButton">❯</button>
+            </div>
         </div>
     </section>
     
@@ -403,7 +456,7 @@
                     }
                 });
 
-                enableFreeScroll('productsCarousel', 'productsTrack'); // Sử dụng lướt tự do (free scroll) cho sản phẩm
+                enableCustomScroll('productsCarousel', 'productsTrack', 'sliderContainer', 'slider', 'sliderHandle', 'prevButton', 'nextButton'); // Sử dụng thanh trượt tùy chỉnh
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
@@ -451,64 +504,132 @@
             }
         }
 
-        function enableFreeScroll(carouselId, trackId) {
+        function enableCustomScroll(carouselId, trackId, sliderContainerId, sliderId, handleId, prevButtonId, nextButtonId) {
             const carousel = document.getElementById(carouselId);
             const track = document.getElementById(trackId);
             const items = track.querySelectorAll('.carousel-item');
+            const sliderContainer = document.getElementById(sliderContainerId);
+            const slider = document.getElementById(sliderId);
+            const handle = document.getElementById(handleId);
+            const prevButton = document.getElementById(prevButtonId);
+            const nextButton = document.getElementById(nextButtonId);
             if (items.length === 0) return;
 
             let isDragging = false;
             let startPos = 0;
             let currentTranslate = 0;
-            let prevTranslate = 0;
+            let sliderPosition = 0;
+            const totalWidth = items.length * (items[0].offsetWidth + 20); // Tổng chiều rộng của carousel
+            const sliderWidth = slider.offsetWidth;
+            const handleWidth = handle.offsetWidth;
 
-            // Thêm thanh cuộn ngang trên PC
-            if (window.innerWidth > 768) {
-                carousel.classList.add('products-carousel');
-            } else {
+            // Ẩn thanh trượt trên di động
+            if (window.innerWidth <= 768) {
+                sliderContainer.style.display = 'none';
                 carousel.classList.remove('products-carousel');
+            } else {
+                sliderContainer.style.display = 'flex';
+                carousel.classList.add('products-carousel');
             }
 
-            // Sự kiện kéo chuột/chạm
-            carousel.addEventListener('mousedown', startDragging);
-            carousel.addEventListener('mousemove', drag);
-            carousel.addEventListener('mouseup', stopDragging);
-            carousel.addEventListener('mouseleave', stopDragging);
-            carousel.addEventListener('touchstart', startDragging);
-            carousel.addEventListener('touchmove', drag);
-            carousel.addEventListener('touchend', stopDragging);
+            // Kéo chuột/chạm trên carousel
+            carousel.addEventListener('mousedown', startDraggingCarousel);
+            carousel.addEventListener('mousemove', dragCarousel);
+            carousel.addEventListener('mouseup', stopDraggingCarousel);
+            carousel.addEventListener('mouseleave', stopDraggingCarousel);
+            carousel.addEventListener('touchstart', startDraggingCarousel);
+            carousel.addEventListener('touchmove', dragCarousel);
+            carousel.addEventListener('touchend', stopDraggingCarousel);
 
-            function startDragging(e) {
+            // Kéo thanh trượt
+            handle.addEventListener('mousedown', startDraggingHandle);
+            handle.addEventListener('touchstart', startDraggingHandle);
+            document.addEventListener('mousemove', dragHandle);
+            document.addEventListener('touchmove', dragHandle);
+            document.addEventListener('mouseup', stopDraggingHandle);
+            document.addEventListener('touchend', stopDraggingHandle);
+
+            // Nút điều hướng
+            prevButton.addEventListener('click', () => moveCarousel(-300)); // Di chuyển 300px (chiều rộng item + margin)
+            nextButton.addEventListener('click', () => moveCarousel(300));
+
+            function startDraggingCarousel(e) {
                 isDragging = true;
                 carousel.style.cursor = 'grabbing';
-                startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - prevTranslate;
-                track.style.transition = 'none'; // Tắt transition khi kéo
+                startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - currentTranslate;
+                track.style.transition = 'none';
             }
 
-            function drag(e) {
+            function dragCarousel(e) {
                 if (!isDragging) return;
                 const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
                 currentTranslate = currentPosition - startPos;
                 track.style.transform = `translateX(${currentTranslate}px)`;
+                updateSliderPosition();
             }
 
-            function stopDragging() {
+            function stopDraggingCarousel() {
                 if (!isDragging) return;
                 isDragging = false;
                 carousel.style.cursor = 'grab';
-                prevTranslate = currentTranslate; // Giữ vị trí hiện tại sau khi thả
-                track.style.transition = 'transform 0.3s ease-in-out'; // Giữ transition mượt nhưng không căn chỉnh
+                track.style.transition = 'transform 0.3s ease-in-out';
+                // Giữ vị trí hiện tại, không căn chỉnh
+            }
+
+            function startDraggingHandle(e) {
+                isDragging = true;
+                handle.style.cursor = 'grabbing';
+                startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - sliderPosition;
+                e.preventDefault(); // Ngăn chặn hành vi mặc định
+            }
+
+            function dragHandle(e) {
+                if (!isDragging) return;
+                const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                sliderPosition = Math.max(0, Math.min(sliderWidth - handleWidth, currentPosition - startPos));
+                handle.style.left = `${sliderPosition}px`;
+                const translatePercentage = (sliderPosition / (sliderWidth - handleWidth)) * (carousel.offsetWidth - totalWidth);
+                currentTranslate = translatePercentage;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                e.preventDefault(); // Ngăn chặn hành vi mặc định
+            }
+
+            function stopDraggingHandle() {
+                if (!isDragging) return;
+                isDragging = false;
+                handle.style.cursor = 'grab';
+            }
+
+            function moveCarousel(distance) {
+                currentTranslate += distance;
+                currentTranslate = Math.max(-(totalWidth - carousel.offsetWidth + 20), Math.min(0, currentTranslate));
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                updateSliderPosition();
+            }
+
+            function updateSliderPosition() {
+                const maxTranslate = -(totalWidth - carousel.offsetWidth + 20);
+                const translatePercentage = currentTranslate / maxTranslate;
+                sliderPosition = Math.max(0, Math.min(sliderWidth - handleWidth, -translatePercentage * (sliderWidth - handleWidth)));
+                handle.style.left = `${sliderPosition}px`;
             }
 
             // Cập nhật lại khi resize màn hình
             window.addEventListener('resize', () => {
-                if (window.innerWidth > 768) {
-                    carousel.classList.add('products-carousel');
-                } else {
+                if (window.innerWidth <= 768) {
+                    sliderContainer.style.display = 'none';
                     carousel.classList.remove('products-carousel');
+                    track.style.transform = 'translateX(0)';
+                    currentTranslate = 0;
+                } else {
+                    sliderContainer.style.display = 'flex';
+                    carousel.classList.add('products-carousel');
+                    const newTotalWidth = items.length * (items[0].offsetWidth + 20);
+                    const maxTranslate = -(newTotalWidth - carousel.offsetWidth + 20);
+                    currentTranslate = Math.max(maxTranslate, Math.min(0, currentTranslate));
+                    track.style.transform = `translateX(${currentTranslate}px)`;
+                    updateSliderPosition();
                 }
-                const itemWidth = items[0].offsetWidth + 20;
-                track.style.transform = `translateX(${currentTranslate}px)`; // Giữ vị trí hiện tại
             });
         }
 
