@@ -79,9 +79,11 @@
         }
         .products, .products-carousel {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Ngăn wrap để giữ hàng ngang trên PC */
             gap: 20px;
-            justify-content: center;
+            justify-content: flex-start;
+            overflow-x: auto; /* Thêm thanh cuộn ngang trên PC */
+            -webkit-overflow-scrolling: touch; /* Tối ưu cuộn trên di động */
         }
         .product-card, .carousel-item {
             background: #2c2c2c;
@@ -92,6 +94,7 @@
             border: 2px solid deepskyblue;
             position: relative;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            flex: 0 0 auto; /* Giữ kích thước cố định cho từng item */
         }
         .product-card:hover::after, .carousel-item:hover::after {
             content: "Xem chi tiết";
@@ -186,9 +189,10 @@
                 padding: 10px;
             }
 
-            .carousel-track {
+            .carousel-track, .products, .products-carousel {
                 flex-wrap: wrap;
                 justify-content: center;
+                overflow-x: hidden; /* Loại bỏ thanh cuộn ngang trên di động */
             }
 
             .carousel-item img, .carousel-item iframe {
@@ -240,6 +244,23 @@
             .navbar {
                 font-size: 16px;
             }
+        }
+
+        /* Ẩn thanh cuộn trên PC nếu không cần thiết */
+        .products-carousel::-webkit-scrollbar {
+            height: 8px; /* Chiều cao thanh cuộn */
+        }
+        .products-carousel::-webkit-scrollbar-track {
+            background: #1e1e1e; /* Màu nền thanh cuộn */
+            border-radius: 10px;
+        }
+        .products-carousel::-webkit-scrollbar-thumb {
+            background: #00d9ff; /* Màu thanh trượt */
+            border-radius: 10px;
+            border: 2px solid #1e1e1e; /* Viền thanh trượt */
+        }
+        .products-carousel::-webkit-scrollbar-thumb:hover {
+            background: #00b3d9; /* Màu khi hover */
         }
     </style>
 </head>
@@ -382,7 +403,7 @@
                     }
                 });
 
-                enableManualScroll('productsCarousel', 'productsTrack'); // Chỉ lướt thủ công cho sản phẩm
+                enableManualScrollWithScrollbar('productsCarousel', 'productsTrack'); // Sử dụng lướt thủ công với thanh cuộn
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
@@ -430,7 +451,7 @@
             }
         }
 
-        function enableManualScroll(carouselId, trackId) {
+        function enableManualScrollWithScrollbar(carouselId, trackId) {
             const carousel = document.getElementById(carouselId);
             const track = document.getElementById(trackId);
             const items = track.querySelectorAll('.carousel-item');
@@ -441,6 +462,14 @@
             let currentTranslate = 0;
             let prevTranslate = 0;
 
+            // Thêm thanh cuộn ngang trên PC
+            if (window.innerWidth > 768) {
+                carousel.classList.add('products-carousel');
+            } else {
+                carousel.classList.remove('products-carousel');
+            }
+
+            // Sự kiện kéo chuột/chạm
             carousel.addEventListener('mousedown', startDragging);
             carousel.addEventListener('mousemove', drag);
             carousel.addEventListener('mouseup', stopDragging);
@@ -481,7 +510,13 @@
                 return Math.min(itemWidth, window.innerWidth - 40);
             }
 
+            // Cập nhật lại khi resize màn hình
             window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    carousel.classList.add('products-carousel');
+                } else {
+                    carousel.classList.remove('products-carousel');
+                }
                 const itemWidth = updateItemWidth();
                 track.style.transform = `translateX(-${index * itemWidth}px)`;
             });
