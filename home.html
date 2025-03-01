@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BETA TOOL - Trang chủ</title>
     <link rel="stylesheet" href="csshome.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,37 +76,41 @@
             border-radius: 10px;
             border: 1px solid #00d9ff;
         }
-        .swiper-container {
-            width: 100%;
-            padding: 20px 0;
+        .products, .products-carousel {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            justify-content: flex-start;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Tối ưu cuộn mượt trên di động */
+            padding: 0 10px; /* Thêm padding để tránh slide dính vào mép */
         }
-        .swiper-slide {
-            width: 250px !important; /* Định kích thước cố định cho mỗi slide trên PC */
+        .product-card, .carousel-item {
             background: #2c2c2c;
             padding: 15px;
             border-radius: 10px;
+            width: 250px;
             text-align: center;
-            border: 2px solid deepskyblue;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             flex: 0 0 auto;
         }
-        .swiper-slide img {
+        .product-card img, .carousel-item img {
             width: 100%;
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 10px;
         }
-        .swiper-slide h3 {
+        .product-card h3, .carousel-item h3 {
             color: #ffffff;
             margin: 10px 0;
         }
-        .swiper-slide p {
+        .product-card p, .carousel-item p {
             font-size: 14px;
             color: #b0b0b0;
             margin: 10px 0;
         }
-        .swiper-slide a {
+        .product-card a, .carousel-item a {
             color: #00d9ff;
             text-decoration: none;
             margin-top: 10px;
@@ -117,11 +120,11 @@
             border-radius: 5px;
             display: inline-block;
         }
-        .swiper-slide a:hover {
+        .product-card a:hover, .carousel-item a:hover {
             color: #ff00ff;
             background-color: #3c3c3c;
         }
-        .swiper-slide:hover::after {
+        .product-card:hover::after, .carousel-item:hover::after {
             content: "Xem chi tiết";
             position: absolute;
             bottom: -25px;
@@ -155,7 +158,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 2px solid deepskyblue;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .carousel-item img {
@@ -206,7 +208,7 @@
                 padding: 10px;
             }
 
-            .swiper-slide {
+            .product-card, .carousel-item {
                 min-width: 250px; /* Giữ kích thước slide cố định trên di động để lướt ngang */
                 margin: 5px 0;
                 width: auto;
@@ -214,13 +216,16 @@
                 padding: 10px;
             }
 
-            .swiper-container {
-                overflow-x: auto; /* Cho phép lướt ngang trên di động */
+            .products, .products-carousel {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
                 -webkit-overflow-scrolling: touch; /* Tối ưu cuộn mượt trên di động */
+                padding: 0 10px;
             }
 
             .carousel-track {
-                flex-wrap: nowrap; /* Giữ hàng ngang trên di động */
+                flex-wrap: nowrap;
                 justify-content: flex-start;
             }
 
@@ -232,16 +237,6 @@
                 flex-direction: column;
                 gap: 10px;
                 align-items: center;
-            }
-
-            .products, .products-carousel {
-                flex-direction: row;
-                align-items: flex-start;
-                overflow-x: auto;
-            }
-
-            .slider-container {
-                display: none; /* Ẩn thanh trượt trên di động */
             }
 
             img, iframe {
@@ -271,7 +266,7 @@
                 padding: 5px;
             }
 
-            .swiper-slide {
+            .product-card, .carousel-item {
                 min-width: 200px; /* Giảm kích thước slide trên điện thoại nhỏ */
                 padding: 8px;
             }
@@ -281,43 +276,21 @@
             }
         }
 
-        /* Thanh trượt tùy chỉnh cho carousel sản phẩm trên PC */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #1e1e1e; /* Nền tối như trong hình */
-            padding: 5px 0;
-            border-radius: 5px;
+        /* Tùy chỉnh thanh cuộn trên PC */
+        .products::-webkit-scrollbar {
+            height: 8px;
         }
-
-        .slider {
-            flex-grow: 1;
-            height: 8px; /* Chiều cao giống hình */
-            background: #808080; /* Màu xám nhạt như trong hình */
-            border-radius: 4px;
-            position: relative;
-            cursor: pointer;
+        .products::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 10px;
         }
-
-        .slider-handle {
-            width: 20px; /* Kích thước giống hình */
-            height: 20px;
-            background: #808080; /* Màu xám nhạt như trong hình */
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: grab;
-            transition: background 0.3s;
+        .products::-webkit-scrollbar-thumb {
+            background: #808080;
+            border-radius: 10px;
+            border: 2px solid #1e1e1e;
         }
-
-        .slider-handle:active {
-            background: #666; /* Màu đậm hơn khi kéo */
-            cursor: grabbing;
+        .products::-webkit-scrollbar-thumb:hover {
+            background: #666;
         }
     </style>
 </head>
@@ -345,13 +318,8 @@
     
     <section class="products-section">
         <h2>Các Sản Phẩm của BETA TOOL</h2>
-        <div class="swiper-container" id="productsCarousel">
-            <div class="swiper-wrapper" id="productsTrack"></div>
-        </div>
-        <div class="slider-container" id="sliderContainer">
-            <div class="slider" id="slider">
-                <div class="slider-handle" id="sliderHandle"></div>
-            </div>
+        <div class="products" id="productsCarousel">
+            <div class="product-card" id="productsTrack"></div>
         </div>
     </section>
     
@@ -373,7 +341,6 @@
         <p>© 2025 BETA TOOL. All rights reserved.</p>
     </footer>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         async function loadCarouselVideos() {
             try {
@@ -455,7 +422,7 @@
                     const [title, description, imageUrl, productUrl] = line.split('|').map(part => part.trim());
                     if (title && description && imageUrl && productUrl) {
                         const productItem = document.createElement('div');
-                        productItem.classList.add('swiper-slide');
+                        productItem.classList.add('product-card');
                         productItem.innerHTML = `
                             <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Product+Not+Found';">
                             <h3>${title}</h3>
@@ -465,78 +432,6 @@
                         productsTrack.appendChild(productItem);
                     }
                 });
-
-                // Khởi tạo Swiper cho carousel sản phẩm
-                const swiper = new Swiper('#productsCarousel', {
-                    slidesPerView: 'auto', // Hiển thị tất cả các slide theo kích thước, không cuộn tự động
-                    spaceBetween: 20, // Khoảng cách giữa các slide
-                    grabCursor: true, // Hiển thị con trỏ tay khi kéo
-                    freeMode: true, // Cho phép lướt tự do (không snapping)
-                    touchRatio: 1, // Tối ưu hóa cảm ứng, tăng độ nhạy
-                    touchAngle: 45, // Góc cảm ứng để nhận diện lướt ngang
-                    disableOnInteraction: false, // Không vô hiệu hóa khi tương tác
-                    autoplay: false, // Tắt tự động lướt
-                    // Tối ưu hóa cho di động và PC
-                    breakpoints: {
-                        768: {
-                            slidesPerView: 'auto',
-                            freeMode: true,
-                            allowTouchMove: true, // Cho phép lướt trên cả PC và di động
-                        }
-                    }
-                });
-
-                // Thêm thanh trượt tùy chỉnh trên PC
-                if (window.innerWidth > 768) {
-                    const sliderContainer = document.getElementById('sliderContainer');
-                    const slider = document.getElementById('slider');
-                    const handle = document.getElementById('sliderHandle');
-                    const totalWidth = productsTrack.scrollWidth - productsTrack.offsetWidth;
-                    let isDragging = false;
-                    let startPos = 0;
-                    let sliderPosition = 0;
-
-                    handle.addEventListener('mousedown', startDragging);
-                    handle.addEventListener('touchstart', startDragging);
-                    document.addEventListener('mousemove', drag);
-                    document.addEventListener('touchmove', drag);
-                    document.addEventListener('mouseup', stopDragging);
-                    document.addEventListener('touchend', stopDragging);
-
-                    function startDragging(e) {
-                        isDragging = true;
-                        handle.style.cursor = 'grabbing';
-                        startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - sliderPosition;
-                        e.preventDefault();
-                    }
-
-                    function drag(e) {
-                        if (!isDragging) return;
-                        const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                        sliderPosition = Math.max(0, Math.min(slider.offsetWidth - handle.offsetWidth, currentPosition - startPos));
-                        handle.style.left = `${sliderPosition}px`;
-                        const translatePercentage = (sliderPosition / (slider.offsetWidth - handle.offsetWidth)) * totalWidth;
-                        productsTrack.scrollLeft = translatePercentage;
-                        e.preventDefault();
-                    }
-
-                    function stopDragging() {
-                        if (!isDragging) return;
-                        isDragging = false;
-                        handle.style.cursor = 'grab';
-                    }
-
-                    // Cập nhật khi resize
-                    window.addEventListener('resize', () => {
-                        if (window.innerWidth <= 768) {
-                            sliderContainer.style.display = 'none';
-                        } else {
-                            sliderContainer.style.display = 'block';
-                            const newTotalWidth = productsTrack.scrollWidth - productsTrack.offsetWidth;
-                            handle.style.left = `${(productsTrack.scrollLeft / newTotalWidth) * (slider.offsetWidth - handle.offsetWidth)}px`;
-                        }
-                    });
-                }
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
