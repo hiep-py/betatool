@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BETA TOOL - Trang chủ</title>
-    <link rel="stylesheet" href="csshome.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,18 +75,22 @@
             border-radius: 10px;
             border: 1px solid #00d9ff;
         }
-        .products, .products-carousel {
+        .products-section h2, .video-section h2, .blog-section h2 {
+            color: #00ff00;
+        }
+        .products-carousel {
             display: flex;
             flex-wrap: nowrap;
             gap: 20px;
             justify-content: flex-start;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Tối ưu cuộn mượt trên di động */
-            padding: 0 20px; /* Thêm padding để tránh slide tràn ra mép */
-            max-width: 100%; /* Giới hạn chiều rộng tối đa của carousel */
-            margin: 0 auto; /* Căn giữa carousel trong .products-section */
+            -webkit-overflow-scrolling: touch;
+            padding: 10px 20px;
+            max-width: 100%;
+            cursor: grab;
+            user-select: none;
         }
-        .product-card, .carousel-item {
+        .product-card {
             background: #2c2c2c;
             padding: 15px;
             border-radius: 10px;
@@ -96,59 +99,44 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             flex: 0 0 auto;
         }
-        .product-card img, .carousel-item img {
+        .product-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 10px;
         }
-        .product-card h3, .carousel-item h3 {
+        .product-card h3 {
             color: #ffffff;
             margin: 10px 0;
         }
-        .product-card p, .carousel-item p {
+        .product-card p {
             font-size: 14px;
             color: #b0b0b0;
             margin: 10px 0;
         }
-        .product-card a, .carousel-item a {
+        .product-card a {
             color: #00d9ff;
             text-decoration: none;
-            margin-top: 10px;
             padding: 8px 16px;
             background-color: #2c2c2c;
             border: 1px solid #00d9ff;
             border-radius: 5px;
             display: inline-block;
         }
-        .product-card a:hover, .carousel-item a:hover {
+        .product-card a:hover {
             color: #ff00ff;
             background-color: #3c3c3c;
-        }
-        .product-card:hover::after, .carousel-item:hover::after {
-            content: "Xem chi tiết";
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff00ff;
-            color: #ffffff;
-            padding: 5px 15px;
-            border-radius: 5px;
-            font-size: 12px;
         }
         .video-carousel, .blog-carousel {
             overflow: hidden;
             position: relative;
             width: 100%;
             margin-top: 20px;
-            cursor: grab;
         }
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            user-select: none;
         }
         .carousel-item {
             min-width: 300px;
@@ -157,10 +145,7 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            flex: 0 0 auto;
         }
         .carousel-item img {
             width: 100%;
@@ -174,7 +159,11 @@
             height: 200px;
             border-radius: 10px;
         }
-        .carousel-item .description {
+        .carousel-item h3 {
+            color: #ffffff;
+            margin: 10px 0;
+        }
+        .carousel-item p {
             font-size: 14px;
             color: #b0b0b0;
             margin: 10px 0;
@@ -182,7 +171,6 @@
         .carousel-item a {
             color: #00d9ff;
             text-decoration: none;
-            margin-top: 10px;
             padding: 8px 16px;
             background-color: #2c2c2c;
             border: 1px solid #00d9ff;
@@ -193,108 +181,44 @@
             color: #ff00ff;
             background-color: #3c3c3c;
         }
-        .video-section h2 a, .blog-section h2, .products-section h2 {
-            color: #00ff00;
-        }
         footer {
             text-align: center;
             padding: 20px;
             background: #0f2027;
         }
-
-        /* Responsive Design */
+        /* Thanh cuộn tùy chỉnh */
+        .products-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        .products-carousel::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 10px;
+        }
+        .products-carousel::-webkit-scrollbar-thumb {
+            background: #808080;
+            border-radius: 10px;
+            border: 2px solid #1e1e1e;
+        }
+        .products-carousel::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+        /* Responsive */
         @media screen and (max-width: 768px) {
             .intro, .video-section, .blog-section, .products-section {
                 width: 100%;
-                margin: 10px auto;
                 padding: 10px;
             }
-
             .product-card, .carousel-item {
-                min-width: 250px; /* Giữ kích thước slide cố định trên di động để lướt ngang */
-                margin: 5px 0;
-                width: auto;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-                padding: 10px;
+                min-width: 200px;
             }
-
-            .products, .products-carousel {
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch; /* Tối ưu cuộn mượt trên di động */
-                padding: 0 10px; /* Giảm padding trên di động để phù hợp màn hình nhỏ */
-                max-width: 100%;
-                margin: 0 auto;
-            }
-
-            .carousel-track {
-                flex-wrap: nowrap;
-                justify-content: flex-start;
-            }
-
-            .carousel-item img, .carousel-item iframe {
-                height: auto;
-            }
-
             nav ul {
                 flex-direction: column;
                 gap: 10px;
                 align-items: center;
             }
-
-            img, iframe {
-                max-width: 100%;
-                height: auto;
-            }
-
-            h1, h2, h3 {
-                font-size: 1.2em;
-            }
-
-            p, .description {
-                font-size: 16px;
-            }
-
-            .video-carousel, .blog-carousel {
-                cursor: grab;
-            }
-
             .brand-name {
-                font-size: 20px; /* Giảm kích thước chữ BETA TOOL trên điện thoại nhỏ */
+                font-size: 20px;
             }
-        }
-
-        @media screen and (max-width: 480px) {
-            .intro, .video-section, .blog-section, .products-section {
-                padding: 5px;
-            }
-
-            .product-card, .carousel-item {
-                min-width: 200px; /* Giảm kích thước slide trên điện thoại nhỏ */
-                padding: 8px;
-            }
-
-            .navbar {
-                font-size: 16px;
-            }
-        }
-
-        /* Tùy chỉnh thanh cuộn trên PC */
-        .products::-webkit-scrollbar {
-            height: 8px;
-        }
-        .products::-webkit-scrollbar-track {
-            background: #1e1e1e;
-            border-radius: 10px;
-        }
-        .products::-webkit-scrollbar-thumb {
-            background: #808080;
-            border-radius: 10px;
-            border: 2px solid #1e1e1e;
-        }
-        .products::-webkit-scrollbar-thumb:hover {
-            background: #666;
         }
     </style>
 </head>
@@ -314,111 +238,53 @@
             </ul>
         </nav>
     </header>
-    
+
     <section class="intro">
         <h1>Chào mừng đến với BETA TOOL</h1>
         <p>Nơi cung cấp các công cụ mạnh mẽ giúp bạn kiếm tiền và tự động hóa công việc.</p>
     </section>
-    
+
     <section class="products-section">
         <h2>Các Sản Phẩm của BETA TOOL</h2>
-        <div class="products" id="productsCarousel">
-            <div class="product-card" id="productsTrack"></div>
+        <div class="products-carousel" id="productsCarousel">
+            <!-- Sản phẩm sẽ được thêm bằng JavaScript -->
         </div>
     </section>
-    
+
     <section class="video-section">
         <h2><a href="video.html">Video Hướng Dẫn</a></h2>
         <div class="video-carousel" id="videoCarousel">
-            <div class="carousel-track" id="videoTrack"></div>
+            <div class="carousel-track" id="videoTrack">
+                <!-- Video sẽ được thêm bằng JavaScript -->
+            </div>
         </div>
     </section>
-    
+
     <section class="blog-section">
         <h2>Bài Viết Mới Nhất</h2>
         <div class="blog-carousel" id="blogCarousel">
-            <div class="carousel-track" id="blogTrack"></div>
+            <div class="carousel-track" id="blogTrack">
+                <!-- Blog sẽ được thêm bằng JavaScript -->
+            </div>
         </div>
     </section>
-    
+
     <footer>
         <p>© 2025 BETA TOOL. All rights reserved.</p>
     </footer>
 
     <script>
-        async function loadCarouselVideos() {
-            try {
-                const response = await fetch('videos.txt');
-                const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line);
-                const videoTrack = document.getElementById('videoTrack');
-                videoTrack.innerHTML = '';
-                
-                lines.forEach(line => {
-                    const [title, url] = line.split('|').map(part => part.trim());
-                    if (title && url) {
-                        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
-                        const embedUrl = videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
-                        const videoItem = document.createElement('div');
-                        videoItem.classList.add('carousel-item');
-                        videoItem.innerHTML = `<h3>${title}</h3><iframe src="${embedUrl}" allowfullscreen></iframe>`;
-                        videoTrack.appendChild(videoItem);
-                    }
-                });
-                startCarousel('videoCarousel', 'videoTrack', window.innerWidth > 768); // Giữ tự động lướt cho video trên PC
-            } catch (error) {
-                console.error('Lỗi tải video:', error);
-                alert('Không thể tải danh sách video. Vui lòng kiểm tra file videos.txt.');
-            }
-        }
-        
-        async function loadCarouselBlogs() {
-            try {
-                const response = await fetch('./blog.txt');
-                const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line);
-                const blogTrack = document.getElementById('blogTrack');
-                blogTrack.innerHTML = '';
-
-                if (lines.length === 0) {
-                    blogTrack.innerHTML = '<p>Không có bài viết nào để hiển thị.</p>';
-                    return;
-                }
-
-                lines.forEach(line => {
-                    const [title, description, imageUrl, blogUrl] = line.split('|').map(part => part.trim());
-                    if (title && description && imageUrl && blogUrl) {
-                        const blogItem = document.createElement('div');
-                        blogItem.classList.add('carousel-item');
-                        blogItem.innerHTML = `
-                            <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found';">
-                            <h3>${title}</h3>
-                            <p class="description">${description}</p>
-                            <a href="${blogUrl}" class="read-more">Đọc thêm</a>
-                        `;
-                        blogTrack.appendChild(blogItem);
-                    }
-                });
-
-                startCarousel('blogCarousel', 'blogTrack', window.innerWidth > 768); // Giữ tự động lướt cho blog trên PC
-            } catch (error) {
-                console.error('Lỗi tải blog:', error);
-                const blogTrack = document.getElementById('blogTrack');
-                blogTrack.innerHTML = '<p>Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.</p>';
-                alert('Không thể tải danh sách blog. Vui lòng kiểm tra file blog.txt.');
-            }
-        }
-        
+        // Tải danh sách sản phẩm
         async function loadCarouselProducts() {
             try {
                 const response = await fetch('products.txt');
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
-                const productsTrack = document.getElementById('productsTrack');
-                productsTrack.innerHTML = '';
+                const productsCarousel = document.getElementById('productsCarousel');
+                productsCarousel.innerHTML = '';
 
                 if (lines.length === 0) {
-                    productsTrack.innerHTML = '<p>Không có sản phẩm nào để hiển thị.</p>';
+                    productsCarousel.innerHTML = '<p>Không có sản phẩm nào để hiển thị.</p>';
                     return;
                 }
 
@@ -430,59 +296,163 @@
                         productItem.innerHTML = `
                             <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Product+Not+Found';">
                             <h3>${title}</h3>
-                            <p class="description">${description}</p>
-                            <a href="${productUrl}" class="read-more">Xem chi tiết</a>
+                            <p>${description}</p>
+                            <a href="${productUrl}">Xem chi tiết</a>
                         `;
-                        productsTrack.appendChild(productItem);
+                        productsCarousel.appendChild(productItem);
                     }
                 });
+
+                enableDragScroll('productsCarousel');
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
-                const productsTrack = document.getElementById('productsTrack');
-                productsTrack.innerHTML = '<p>Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.</p>';
-                alert('Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.');
+                document.getElementById('productsCarousel').innerHTML = '<p>Không thể tải sản phẩm. Vui lòng kiểm tra file products.txt.</p>';
             }
         }
-        
-        function startCarousel(carouselId, trackId, autoSlide = true) {
+
+        // Tải danh sách video
+        async function loadCarouselVideos() {
+            try {
+                const response = await fetch('videos.txt');
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                const videoTrack = document.getElementById('videoTrack');
+                videoTrack.innerHTML = '';
+
+                lines.forEach(line => {
+                    const [title, url] = line.split('|').map(part => part.trim());
+                    if (title && url) {
+                        const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([\w-]+)/);
+                        const embedUrl = videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
+                        const videoItem = document.createElement('div');
+                        videoItem.classList.add('carousel-item');
+                        videoItem.innerHTML = `
+                            <h3>${title}</h3>
+                            <iframe src="${embedUrl}" allowfullscreen></iframe>
+                        `;
+                        videoTrack.appendChild(videoItem);
+                    }
+                });
+
+                startAutoCarousel('videoCarousel', 'videoTrack');
+            } catch (error) {
+                console.error('Lỗi tải video:', error);
+                document.getElementById('videoTrack').innerHTML = '<p>Không thể tải video. Vui lòng kiểm tra file videos.txt.</p>';
+            }
+        }
+
+        // Tải danh sách blog
+        async function loadCarouselBlogs() {
+            try {
+                const response = await fetch('blog.txt');
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                const blogTrack = document.getElementById('blogTrack');
+                blogTrack.innerHTML = '';
+
+                lines.forEach(line => {
+                    const [title, description, imageUrl, blogUrl] = line.split('|').map(part => part.trim());
+                    if (title && description && imageUrl && blogUrl) {
+                        const blogItem = document.createElement('div');
+                        blogItem.classList.add('carousel-item');
+                        blogItem.innerHTML = `
+                            <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found';">
+                            <h3>${title}</h3>
+                            <p>${description}</p>
+                            <a href="${blogUrl}">Đọc thêm</a>
+                        `;
+                        blogTrack.appendChild(blogItem);
+                    }
+                });
+
+                startAutoCarousel('blogCarousel', 'blogTrack');
+            } catch (error) {
+                console.error('Lỗi tải blog:', error);
+                document.getElementById('blogTrack').innerHTML = '<p>Không thể tải blog. Vui lòng kiểm tra file blog.txt.</p>';
+            }
+        }
+
+        // Hàm hỗ trợ kéo chuột/vuốt tay cho sản phẩm
+        function enableDragScroll(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+
+            carousel.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('touchend', () => {
+                isDown = false;
+            });
+
+            carousel.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        // Hàm carousel tự động cho video và blog
+        function startAutoCarousel(carouselId, trackId) {
             const track = document.getElementById(trackId);
-            const items = track.querySelectorAll('.carousel-item');
+            const items = track.getElementsByClassName('carousel-item');
             if (items.length === 0) return;
-            
+
             let index = 0;
             let interval;
 
-            if (autoSlide) {
-                function moveCarousel() {
-                    index++;
-                    if (index >= items.length) {
-                        index = 0;
-                        track.style.transition = 'none';
-                        track.style.transform = `translateX(0)`;
-                        setTimeout(() => {
-                            track.style.transition = 'transform 0.5s ease-in-out';
-                        }, 50);
-                    } else {
-                        track.style.transform = `translateX(-${index * 320}px)`;
-                    }
+            function moveCarousel() {
+                index++;
+                if (index >= items.length) {
+                    index = 0;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(0)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    }, 50);
+                } else {
+                    track.style.transform = `translateX(-${index * 320}px)`;
                 }
-                
-                function startAutoSlide() {
-                    interval = setInterval(moveCarousel, 1000); // Giữ tốc độ 1 giây/slide
-                }
-                
-                function stopAutoSlide() {
-                    clearInterval(interval);
-                }
-                
-                const carousel = document.getElementById(carouselId);
-                carousel.addEventListener('mouseenter', stopAutoSlide);
-                carousel.addEventListener('mouseleave', startAutoSlide);
-                
-                startAutoSlide();
             }
+
+            interval = setInterval(moveCarousel, 3000);
+
+            const carousel = document.getElementById(carouselId);
+            carousel.addEventListener('mouseenter', () => clearInterval(interval));
+            carousel.addEventListener('mouseleave', () => interval = setInterval(moveCarousel, 3000));
         }
 
+        // Khởi chạy khi trang tải xong
         document.addEventListener('DOMContentLoaded', () => {
             loadCarouselProducts();
             loadCarouselVideos();
