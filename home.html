@@ -49,7 +49,7 @@
             margin: 20px auto;
             width: 90%;
         }
-        .video-section, .product-section, .blog-section, .products-section {
+        .video-section, .blog-section, .products-section {
             width: 90%;
             margin: 20px auto;
             background: #1e1e1e;
@@ -69,18 +69,19 @@
             border-radius: 10px;
             width: 250px;
             text-align: center;
-            border: 1px solid #00d9ff;
+            border: 2px solid deepskyblue;
             position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .product-card:hover::after, .carousel-item:hover::after {
-            content: "Click để xem chi tiết";
+            content: "Xem chi tiết";
             position: absolute;
             bottom: -25px;
             left: 50%;
             transform: translateX(-50%);
             background: #ff00ff;
             color: #ffffff;
-            padding: 5px;
+            padding: 5px 15px;
             border-radius: 5px;
             font-size: 12px;
         }
@@ -89,12 +90,12 @@
             position: relative;
             width: 100%;
             margin-top: 20px;
-            cursor: grab; /* Hiển thị con trỏ tay khi hover để kéo */
+            cursor: grab; /* Hiển thị con trỏ tay khi hover để kéo cho sản phẩm */
         }
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease-in-out; /* Giữ độ mượt nhưng không tự động lướt */
-            user-select: none; /* Ngăn chặn chọn văn bản khi kéo */
+            transition: transform 0.5s ease-in-out;
+            user-select: none;
         }
         .carousel-item {
             min-width: 300px;
@@ -106,6 +107,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            border: 2px solid deepskyblue;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .carousel-item img {
             width: 100%;
@@ -128,12 +131,15 @@
             color: #00d9ff;
             text-decoration: none;
             margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #2c2c2c;
+            border: 1px solid #00d9ff;
+            border-radius: 5px;
+            display: inline-block;
         }
         .carousel-item a:hover {
             color: #ff00ff;
-        }
-        .product-section h3 a {
-            color: #ff4500; /* Màu cam đỏ cho sản phẩm */
+            background-color: #3c3c3c;
         }
         .video-section h2 a, .blog-section h2, .products-section h2 {
             color: #00ff00; /* Màu xanh lá cho tiêu đề video, blog, và sản phẩm */
@@ -143,59 +149,56 @@
             padding: 20px;
             background: #0f2027;
         }
-                /* Thêm vào cuối phần <style> */
-        @media screen and (max-width: 768px) { /* Tablet và điện thoại */
-            .intro, .video-section, .product-section, .blog-section, .products-section {
-                width: 100%; /* Sử dụng toàn bộ chiều rộng màn hình */
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .intro, .video-section, .blog-section, .products-section {
+                width: 100%;
                 margin: 10px auto;
                 padding: 10px;
             }
 
             .product-card, .carousel-item {
-                min-width: 100%; /* Mỗi item chiếm toàn bộ chiều rộng trên di động */
+                min-width: 100%;
                 margin: 5px 0;
-                width: auto; /* Loại bỏ chiều rộng cố định */
+                width: auto;
             }
 
             .carousel-track {
-                flex-wrap: wrap; /* Cho phép item xếp chồng khi màn hình quá nhỏ */
+                flex-wrap: wrap;
             }
 
             .carousel-item img, .carousel-item iframe {
-                height: auto; /* Cho phép hình ảnh và iframe co giãn theo chiều rộng */
+                height: auto;
             }
 
             nav ul {
-                flex-direction: column; /* Xếp chồng các liên kết nav trên di động */
+                flex-direction: column;
                 gap: 10px;
                 align-items: center;
             }
 
             .products, .products-carousel {
-                flex-direction: column; /* Xếp các sản phẩm thành cột trên di động */
+                flex-direction: column;
                 align-items: center;
             }
 
-            .navbar, .container {
-                width: 100%; /* Đảm bảo navbar và container chiếm toàn bộ màn hình */
-            }
-
             img, iframe {
-                max-width: 100%; /* Đảm bảo hình ảnh và iframe không tràn ra ngoài */
+                max-width: 100%;
                 height: auto;
             }
 
             h1, h2, h3 {
-                font-size: 1.2em; /* Giảm kích thước tiêu đề trên di động */
+                font-size: 1.2em;
             }
 
             p, .description {
-                font-size: 16px; /* Giảm kích thước chữ trên di động */
+                font-size: 16px;
             }
         }
 
-        @media screen and (max-width: 480px) { /* Điện thoại nhỏ */
-            .intro, .video-section, .product-section, .blog-section, .products-section {
+        @media screen and (max-width: 480px) {
+            .intro, .video-section, .blog-section, .products-section {
                 padding: 5px;
             }
 
@@ -204,7 +207,7 @@
             }
 
             .navbar {
-                font-size: 16px; /* Giảm kích thước chữ navbar trên điện thoại nhỏ */
+                font-size: 16px;
             }
         }
     </style>
@@ -216,7 +219,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="home.html">Trang chủ</a></li>
+                <li><a href="#">Trang chủ</a></li>
                 <li><a href="sanpham.html">Sản phẩm</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="video.html">Video</a></li>
@@ -228,14 +231,6 @@
     <section class="intro">
         <h1>Chào mừng đến với BETA TOOL</h1>
         <p>Nơi cung cấp các công cụ mạnh mẽ giúp bạn kiếm tiền và tự động hóa công việc.</p>
-    </section>
-    
-    <section class="product-section">
-        <h2>Các Sản Phẩm của BETA TOOL</h2>
-        <div class="products">
-            <div class="product-card"><h3><a href="sanpham.html">XWORLD WINHASH LOTTO</a></h3><p>Công cụ hỗ trợ và báo kèo cho mọi người theo.</p></div>
-            <div class="product-card"><h3><a href="sanpham.html">XWORLD WINHASH AERO</a></h3><p>Bot hỗ trợ và báo kèo cho mọi người đặt.</p></div>
-        </div>
     </section>
     
     <section class="products-section">
@@ -264,7 +259,6 @@
     </footer>
 
     <script>
-        // Cập nhật hàm enableManualScroll như trên
         async function loadCarouselVideos() {
             try {
                 const response = await fetch('videos.txt');
@@ -284,7 +278,7 @@
                         videoTrack.appendChild(videoItem);
                     }
                 });
-                startCarousel('videoCarousel', 'videoTrack', true);
+                startCarousel('videoCarousel', 'videoTrack', true); // Giữ tự động lướt cho video
             } catch (error) {
                 console.error('Lỗi tải video:', error);
                 alert('Không thể tải danh sách video. Vui lòng kiểm tra file videos.txt.');
@@ -293,7 +287,7 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('./blog.txt');
+                const response = await fetch('./blog.txt'); // Sử dụng blog.txt như bạn đã cập nhật
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
@@ -319,7 +313,7 @@
                     }
                 });
 
-                startCarousel('blogCarousel', 'blogTrack', true);
+                startCarousel('blogCarousel', 'blogTrack', true); // Giữ tự động lướt cho blog
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
                 const blogTrack = document.getElementById('blogTrack');
@@ -356,7 +350,7 @@
                     }
                 });
 
-                enableManualScroll('productsCarousel', 'productsTrack');
+                enableManualScroll('productsCarousel', 'productsTrack'); // Sử dụng lướt thủ công cho sản phẩm
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
@@ -389,7 +383,7 @@
                 }
                 
                 function startAutoSlide() {
-                    interval = setInterval(moveCarousel, 1000);
+                    interval = setInterval(moveCarousel, 1000); // Giữ tốc độ 1 giây/slide
                 }
                 
                 function stopAutoSlide() {
@@ -463,6 +457,8 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadCarouselProducts();
+            loadCarouselVideos();
+            loadCarouselBlogs();
         });
     </script>
 </body>
