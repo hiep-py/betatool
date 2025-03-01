@@ -21,10 +21,26 @@
             justify-content: space-between;
             padding: 20px;
             background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Thêm bóng để nổi bật */
+            border-bottom: 2px solid #00d9ff; /* Viền xanh dương dưới thanh điều hướng */
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Khoảng cách giữa logo và chữ BETA TOOL */
         }
         .logo img {
             width: 60px;
             height: auto;
+        }
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d9ff, #ff00ff, #00ff00); /* Gradient công nghệ */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent; /* Làm chữ trong suốt để gradient hiển thị */
+            text-shadow: 0 0 5px rgba(0, 217, 255, 0.5); /* Hiệu ứng sáng công nghệ */
         }
         nav ul {
             list-style: none;
@@ -35,10 +51,12 @@
             text-decoration: none;
             color: #00d9ff;
             font-weight: bold;
-            transition: color 0.3s;
+            font-size: 18px; /* Tăng kích thước chữ để nổi bật hơn */
+            transition: color 0.3s, text-shadow 0.3s;
         }
         nav a:hover {
             color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff; /* Hiệu ứng sáng khi hover */
         }
         .intro {
             text-align: center;
@@ -49,7 +67,7 @@
             margin: 20px auto;
             width: 90%;
         }
-        .video-section, .product-section, .blog-section, .products-section {
+        .video-section, .blog-section, .products-section {
             width: 90%;
             margin: 20px auto;
             background: #1e1e1e;
@@ -71,7 +89,7 @@
             text-align: center;
             border: 2px solid deepskyblue;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bóng nhẹ hơn để tăng sang trọng */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .product-card:hover::after, .carousel-item:hover::after {
             content: "Xem chi tiết";
@@ -90,7 +108,7 @@
             position: relative;
             width: 100%;
             margin-top: 20px;
-            cursor: grab; /* Hiển thị con trỏ tay khi hover để kéo */
+            cursor: grab;
         }
         .carousel-track {
             display: flex;
@@ -108,7 +126,7 @@
             flex-direction: column;
             align-items: center;
             border: 2px solid deepskyblue;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bóng nhẹ hơn để tăng sang trọng */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .carousel-item img {
             width: 100%;
@@ -141,11 +159,8 @@
             color: #ff00ff;
             background-color: #3c3c3c;
         }
-        .product-section h3 a {
-            color: #ff4500; /* Màu cam đỏ cho sản phẩm */
-        }
         .video-section h2 a, .blog-section h2, .products-section h2 {
-            color: #00ff00; /* Màu xanh lá cho tiêu đề video, blog, và sản phẩm */
+            color: #00ff00;
         }
         footer {
             text-align: center;
@@ -154,28 +169,28 @@
         }
 
         /* Responsive Design */
-        @media screen and (max-width: 768px) { /* Điện thoại và tablet */
-            .intro, .video-section, .product-section, .blog-section, .products-section {
+        @media screen and (max-width: 768px) {
+            .intro, .video-section, .blog-section, .products-section {
                 width: 100%;
                 margin: 10px auto;
                 padding: 10px;
             }
 
             .product-card, .carousel-item {
-                min-width: 100%; /* Mỗi item chiếm toàn bộ chiều rộng trên di động */
+                min-width: 100%;
                 margin: 5px 0;
                 width: auto;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Bóng nhẹ hơn trên di động để sang trọng */
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
                 padding: 10px;
             }
 
             .carousel-track {
-                flex-wrap: wrap; /* Cho phép item xếp chồng trên di động */
+                flex-wrap: wrap;
                 justify-content: center;
             }
 
             .carousel-item img, .carousel-item iframe {
-                height: auto; /* Hình ảnh và iframe co giãn theo chiều rộng */
+                height: auto;
             }
 
             nav ul {
@@ -202,14 +217,13 @@
                 font-size: 16px;
             }
 
-            /* Tắt tự động lướt trên di động, chỉ cho phép lướt thủ công */
             .video-carousel, .blog-carousel {
                 cursor: grab;
             }
         }
 
-        @media screen and (max-width: 480px) { /* Điện thoại nhỏ */
-            .intro, .video-section, .product-section, .blog-section, .products-section {
+        @media screen and (max-width: 480px) {
+            .intro, .video-section, .blog-section, .products-section {
                 padding: 5px;
             }
 
@@ -220,6 +234,10 @@
             .navbar {
                 font-size: 16px;
             }
+
+            .brand-name {
+                font-size: 20px; /* Giảm kích thước chữ BETA TOOL trên điện thoại nhỏ */
+            }
         }
     </style>
 </head>
@@ -227,6 +245,7 @@
     <header>
         <div class="logo">
             <img src="img/snapedit_1740629756864.png" alt="BETA TOOL Logo">
+            <span class="brand-name">BETA TOOL</span>
         </div>
         <nav>
             <ul>
@@ -244,16 +263,8 @@
         <p>Nơi cung cấp các công cụ mạnh mẽ giúp bạn kiếm tiền và tự động hóa công việc.</p>
     </section>
     
-    <section class="product-section">
-        <h2>Các Sản Phẩm của BETA TOOL</h2>
-        <div class="products">
-            <div class="product-card"><h3><a href="sanpham-lotto.html">XWORLD WINHASH LOTTO</a></h3><p>Công cụ hỗ trợ và báo kèo cho mọi người theo.</p></div>
-            <div class="product-card"><h3><a href="sanpham-aero.html">XWORLD WINHASH AERO</a></h3><p>Bot hỗ trợ và báo kèo cho mọi người đặt.</p></div>
-        </div>
-    </section>
-    
     <section class="products-section">
-        <h2>Sản Phẩm Nổi Bật</h2>
+        <h2>Các Sản Phẩm của BETA TOOL</h2>
         <div class="products-carousel" id="productsCarousel">
             <div class="carousel-track" id="productsTrack"></div>
         </div>
