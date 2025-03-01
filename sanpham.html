@@ -3,176 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Sản Phẩm - BETA TOOL</title>
+    <title>Sản Phẩm - BETA TOOL</title>
+    <link rel="stylesheet" href="csshome.css">
     <style>
         body {
-            background: url('/img/background.webp') no-repeat center center fixed;
-            background-size: cover; /* Phủ kín màn hình */
-            color: white;
             font-family: Arial, sans-serif;
-            text-align: center;
+            background-image: url('img/background.webp');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
             margin: 0;
             padding: 0;
         }
-        .navbar {
-            background-color: #1a1a1a;
-            padding: 15px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .container {
-            border: 2px solid deepskyblue;
-            padding: 20px;
-            margin: 50px auto;
-            width: 60%;
-            background-color: #1c1c1c;
-            border-radius: 10px;
-        }
-        .back-button {
-            background-color: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .back-button:hover {
-            background-color: darkblue;
-        }
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-        .scroll-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: rgb(0, 0, 0);
-            border-radius: 50%;
-            border: 3px solid purple;
+        header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 24px;
-            color: purple;
+            justify-content: space-between;
+            padding: 20px;
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
         }
-        .scroll-top:hover {
-            background-color: purple;
-            color: white;
+        .logo img {
+            width: 60px;
+            height: auto;
         }
-        p {
-            text-align: justify; /* Căn đều 2 bên */
-            font-family: "Arial", sans-serif; /* Chọn phông chữ dễ đọc */
-            font-size: 18px; /* Kích thước chữ phù hợp */
-            line-height: 1.6; /* Khoảng cách dòng dễ đọc */
-            word-wrap: break-word; /* Đảm bảo chữ không bị tràn */
-            overflow-wrap: break-word;
-            padding: 10px; /* Giữ khoảng cách nhỏ với viền */
-            margin: 0;
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
         }
-        .product-details {
+        nav a {
+            text-decoration: none;
+            color: #00d9ff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff00ff;
+        }
+        .intro {
             text-align: center;
+            padding: 40px;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            border: 2px solid #ffd900;
+            margin: 20px auto;
+            width: 90%;
         }
-        .product-details h1 {
-            color: #ff4500; /* Màu cam đỏ cho tiêu đề sản phẩm */
+        .products-section {
+            width: 90%;
+            margin: 20px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #00d9ff;
         }
-        .product-details p {
-            margin-bottom: 15px;
+        .products, .products-carousel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
         }
-        .highlight {
-            color: #00ff00; /* Màu xanh lá cho các điểm nhấn */
+        .product-card, .carousel-item {
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            border: 2px solid deepskyblue; /* Viền xanh dương giống blog */
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Thêm bóng để nổi bật */
+        }
+        .product-card:hover::after, .carousel-item:hover::after {
+            content: "Xem chi tiết";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff00ff;
+            color: #ffffff;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .products-carousel {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            cursor: grab; /* Hiển thị con trỏ tay khi hover để kéo */
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out; /* Giữ độ mượt nhưng không tự động lướt */
+            user-select: none; /* Ngăn chặn chọn văn bản khi kéo */
+        }
+        .carousel-item {
+            min-width: 300px;
+            margin: 10px;
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid deepskyblue; /* Viền xanh dương giống blog */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Thêm bóng để nổi bật */
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .carousel-item a {
+            color: #00d9ff;
+            text-decoration: none;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #2c2c2c;
+            border: 1px solid #00d9ff;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .carousel-item a:hover {
+            color: #ff00ff;
+            background-color: #3c3c3c;
+        }
+        .products-section h2 {
+            color: #00ff00; /* Màu xanh lá cho tiêu đề sản phẩm */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0f2027;
         }
     </style>
-    <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Lấy thông tin sản phẩm từ query string (ví dụ: ?product=XWORLD_WINHASH_LOTTO)
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const product = urlParams.get('product');
-            if (product) {
-                displayProduct(product);
-            } else {
-                displayDefaultProduct(); // Hiển thị sản phẩm mặc định nếu không có query
-            }
-        });
-
-        function displayProduct(productName) {
-            const productDetails = document.querySelector('.product-details');
-            let productInfo = {};
-
-            // Dữ liệu mẫu cho các sản phẩm (bạn có thể mở rộng hoặc tải từ file JSON/server)
-            const products = {
-                'XWORLD_WINHASH_LOTTO': {
-                    name: 'XWORLD WINHASH LOTTO',
-                    image: '/imgproducts/XWLotto.png',
-                    description: 'Công cụ hỗ trợ và báo kèo cho mọi người theo, giúp tối ưu hóa cơ hội chiến thắng trong các trò chơi lotto với giao diện thân thiện và thuật toán thông minh.',
-                    features: [
-                        'Hỗ trợ báo kèo chính xác cao',
-                        'Giao diện dễ sử dụng',
-                        'Tích hợp tự động hóa',
-                        'Cập nhật dữ liệu thời gian thực'
-                    ],
-                    price: 'Giá: 99.99 USD',
-                    link: 'https://betatool.netlify.app/sanpham#lotto'
-                },
-                'XWORLD_WINHASH_AERO': {
-                    name: 'XWORLD WINHASH AERO',
-                    image: '/imgproducts/XWAero.png',
-                    description: 'Bot hỗ trợ và báo kèo cho mọi người đặt, tự động hóa quy trình đặt cược và tối ưu hóa lợi nhuận với công nghệ AI tiên tiến.',
-                    features: [
-                        'Bot tự động đặt cược thông minh',
-                        'Phân tích dữ liệu theo thời gian thực',
-                        'Hỗ trợ đa nền tảng',
-                        'Bảo mật cao'
-                    ],
-                    price: 'Giá: 149.99 USD',
-                    link: 'https://betatool.netlify.app/sanpham#aero'
-                }
-            };
-
-            if (products[productName]) {
-                productInfo = products[productName];
-            } else {
-                productInfo = products['XWORLD_WINHASH_LOTTO']; // Sản phẩm mặc định nếu không tìm thấy
-            }
-
-            productDetails.innerHTML = `
-                <button class="back-button" onclick="history.back()">Back</button>
-                <h1>${productInfo.name}</h1>
-                <img src="${productInfo.image}" alt="${productInfo.name}" onerror="this.style.display='none';">
-                <p>${productInfo.description}</p>
-                <h3>Đặc điểm nổi bật:</h3>
-                <ul style="text-align: left; list-style-type: none; padding-left: 20px;">
-                    ${productInfo.features.map(feature => `<li class="highlight">${feature}</li>`).join('')}
-                </ul>
-                <p>${productInfo.price}</p>
-                <a href="${productInfo.link}" style="color: #00d9ff; text-decoration: none; font-size: 18px;">Mua ngay</a>
-                <button class="back-button" onclick="history.back()">Back</button>
-            `;
-        }
-
-        function displayDefaultProduct() {
-            // Hiển thị sản phẩm mặc định (XWORLD WINHASH LOTTO) nếu không có query
-            displayProduct('XWORLD_WINHASH_LOTTO');
-        }
-    </script>
 </head>
 <body>
-    <div class="navbar">BETA Sản Phẩm</div>
-    <div class="container">
-        <div class="product-details">
-            <!-- Nội dung sản phẩm sẽ được tạo động bằng JavaScript -->
+    <header>
+        <div class="logo">
+            <img src="img/snapedit_1740629756864.png" alt="BETA TOOL Logo">
         </div>
-    </div>
-    <div class="scroll-top" onclick="scrollToTop()">⇧</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="#">Sản phẩm</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="video.html">Video</a></li>
+                <li><a href="index.html">Giới thiệu</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="intro">
+        <h1>Khám Phá Sản Phẩm BETA TOOL</h1>
+        <p>Nơi cung cấp các công cụ tiên tiến giúp bạn kiếm tiền và tự động hóa công việc một cách hiệu quả.</p>
+    </section>
+    
+    <section class="products-section">
+        <h2>Sản Phẩm Nổi Bật</h2>
+        <div class="products-carousel" id="productsCarousel">
+            <div class="carousel-track" id="productsTrack"></div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2025 BETA TOOL. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function loadCarouselProducts() {
+            try {
+                const response = await fetch('products.txt');
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                const productsTrack = document.getElementById('productsTrack');
+                productsTrack.innerHTML = '';
+
+                if (lines.length === 0) {
+                    productsTrack.innerHTML = '<p>Không có sản phẩm nào để hiển thị.</p>';
+                    return;
+                }
+
+                lines.forEach(line => {
+                    const [title, description, imageUrl, productUrl] = line.split('|').map(part => part.trim());
+                    if (title && description && imageUrl && productUrl) {
+                        const productItem = document.createElement('div');
+                        productItem.classList.add('carousel-item');
+                        productItem.innerHTML = `
+                            <img src="${imageUrl}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x200?text=Product+Not+Found';">
+                            <h3>${title}</h3>
+                            <p class="description">${description}</p>
+                            <a href="${productUrl}" class="read-more">Xem chi tiết</a>
+                        `;
+                        productsTrack.appendChild(productItem);
+                    }
+                });
+
+                enableManualScroll('productsCarousel', 'productsTrack'); // Sử dụng lướt thủ công cho sản phẩm
+            } catch (error) {
+                console.error('Lỗi tải sản phẩm:', error);
+                const productsTrack = document.getElementById('productsTrack');
+                productsTrack.innerHTML = '<p>Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.</p>';
+                alert('Không thể tải danh sách sản phẩm. Vui lòng kiểm tra file products.txt.');
+            }
+        }
+        
+        function enableManualScroll(carouselId, trackId) {
+            const carousel = document.getElementById(carouselId);
+            const track = document.getElementById(trackId);
+            const items = track.querySelectorAll('.carousel-item');
+            if (items.length === 0) return;
+
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+
+            carousel.addEventListener('mousedown', startDragging);
+            carousel.addEventListener('mousemove', drag);
+            carousel.addEventListener('mouseup', stopDragging);
+            carousel.addEventListener('mouseleave', stopDragging);
+            carousel.addEventListener('touchstart', startDragging);
+            carousel.addEventListener('touchmove', drag);
+            carousel.addEventListener('touchend', stopDragging);
+
+            function startDragging(e) {
+                isDragging = true;
+                carousel.style.cursor = 'grabbing';
+                startPos = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - prevTranslate;
+                track.style.transition = 'none'; // Tắt transition khi kéo
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                const currentPosition = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                currentTranslate = currentPosition - startPos;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            }
+
+            function stopDragging() {
+                if (!isDragging) return;
+                isDragging = false;
+                carousel.style.cursor = 'grab';
+                prevTranslate = currentTranslate;
+                track.style.transition = 'transform 0.5s ease-in-out'; // Bật lại transition cho mượt
+
+                // Căn chỉnh về vị trí gần nhất
+                const itemWidth = items[0].offsetWidth + 20; // Cộng margin 10px mỗi bên
+                const nearestIndex = Math.round(-currentTranslate / itemWidth);
+                const index = Math.max(0, Math.min(nearestIndex, items.length - 1));
+                track.style.transform = `translateX(-${index * itemWidth}px)`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCarouselProducts();
+        });
+    </script>
 </body>
 </html>

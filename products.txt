@@ -1,2 +1,2 @@
-XWORLD WINHASH LOTTO | Công cụ hỗ trợ và báo kèo cho mọi người theo | imgproducts/XWLotto.png | sanpham.html
-XWORLD WINHASH AERO | Bot hỗ trợ và báo kèo cho mọi người đặt | imgproducts/XWAero.png | sanpham.html
+XWORLD WINHASH LOTTO | Công cụ hỗ trợ và báo kèo cho mọi người theo | imgproducts/XWLotto.png | sanpham-lotto.html
+XWORLD WINHASH AERO | Bot hỗ trợ và báo kèo cho mọi người đặt | imgproducts/XWAero.png | sanpham-aero.html
