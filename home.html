@@ -49,7 +49,7 @@
             margin: 20px auto;
             width: 90%;
         }
-        .video-section, .blog-section, .products-section {
+        .video-section, .product-section, .blog-section, .products-section {
             width: 90%;
             margin: 20px auto;
             background: #1e1e1e;
@@ -71,7 +71,7 @@
             text-align: center;
             border: 2px solid deepskyblue;
             position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bóng nhẹ hơn để tăng sang trọng */
         }
         .product-card:hover::after, .carousel-item:hover::after {
             content: "Xem chi tiết";
@@ -90,7 +90,7 @@
             position: relative;
             width: 100%;
             margin-top: 20px;
-            cursor: grab; /* Hiển thị con trỏ tay khi hover để kéo cho sản phẩm */
+            cursor: grab; /* Hiển thị con trỏ tay khi hover để kéo */
         }
         .carousel-track {
             display: flex;
@@ -108,7 +108,7 @@
             flex-direction: column;
             align-items: center;
             border: 2px solid deepskyblue;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bóng nhẹ hơn để tăng sang trọng */
         }
         .carousel-item img {
             width: 100%;
@@ -141,6 +141,9 @@
             color: #ff00ff;
             background-color: #3c3c3c;
         }
+        .product-section h3 a {
+            color: #ff4500; /* Màu cam đỏ cho sản phẩm */
+        }
         .video-section h2 a, .blog-section h2, .products-section h2 {
             color: #00ff00; /* Màu xanh lá cho tiêu đề video, blog, và sản phẩm */
         }
@@ -151,25 +154,28 @@
         }
 
         /* Responsive Design */
-        @media screen and (max-width: 768px) {
-            .intro, .video-section, .blog-section, .products-section {
+        @media screen and (max-width: 768px) { /* Điện thoại và tablet */
+            .intro, .video-section, .product-section, .blog-section, .products-section {
                 width: 100%;
                 margin: 10px auto;
                 padding: 10px;
             }
 
             .product-card, .carousel-item {
-                min-width: 100%;
+                min-width: 100%; /* Mỗi item chiếm toàn bộ chiều rộng trên di động */
                 margin: 5px 0;
                 width: auto;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Bóng nhẹ hơn trên di động để sang trọng */
+                padding: 10px;
             }
 
             .carousel-track {
-                flex-wrap: wrap;
+                flex-wrap: wrap; /* Cho phép item xếp chồng trên di động */
+                justify-content: center;
             }
 
             .carousel-item img, .carousel-item iframe {
-                height: auto;
+                height: auto; /* Hình ảnh và iframe co giãn theo chiều rộng */
             }
 
             nav ul {
@@ -195,15 +201,20 @@
             p, .description {
                 font-size: 16px;
             }
+
+            /* Tắt tự động lướt trên di động, chỉ cho phép lướt thủ công */
+            .video-carousel, .blog-carousel {
+                cursor: grab;
+            }
         }
 
-        @media screen and (max-width: 480px) {
-            .intro, .video-section, .blog-section, .products-section {
+        @media screen and (max-width: 480px) { /* Điện thoại nhỏ */
+            .intro, .video-section, .product-section, .blog-section, .products-section {
                 padding: 5px;
             }
 
             .product-card, .carousel-item {
-                padding: 10px;
+                padding: 8px;
             }
 
             .navbar {
@@ -231,6 +242,14 @@
     <section class="intro">
         <h1>Chào mừng đến với BETA TOOL</h1>
         <p>Nơi cung cấp các công cụ mạnh mẽ giúp bạn kiếm tiền và tự động hóa công việc.</p>
+    </section>
+    
+    <section class="product-section">
+        <h2>Các Sản Phẩm của BETA TOOL</h2>
+        <div class="products">
+            <div class="product-card"><h3><a href="sanpham-lotto.html">XWORLD WINHASH LOTTO</a></h3><p>Công cụ hỗ trợ và báo kèo cho mọi người theo.</p></div>
+            <div class="product-card"><h3><a href="sanpham-aero.html">XWORLD WINHASH AERO</a></h3><p>Bot hỗ trợ và báo kèo cho mọi người đặt.</p></div>
+        </div>
     </section>
     
     <section class="products-section">
@@ -278,7 +297,7 @@
                         videoTrack.appendChild(videoItem);
                     }
                 });
-                startCarousel('videoCarousel', 'videoTrack', true); // Giữ tự động lướt cho video
+                startCarousel('videoCarousel', 'videoTrack', window.innerWidth > 768); // Tự động lướt chỉ trên PC (>768px)
             } catch (error) {
                 console.error('Lỗi tải video:', error);
                 alert('Không thể tải danh sách video. Vui lòng kiểm tra file videos.txt.');
@@ -287,7 +306,7 @@
         
         async function loadCarouselBlogs() {
             try {
-                const response = await fetch('./blog.txt'); // Sử dụng blog.txt như bạn đã cập nhật
+                const response = await fetch('./blog.txt');
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line);
                 const blogTrack = document.getElementById('blogTrack');
@@ -313,7 +332,7 @@
                     }
                 });
 
-                startCarousel('blogCarousel', 'blogTrack', true); // Giữ tự động lướt cho blog
+                startCarousel('blogCarousel', 'blogTrack', window.innerWidth > 768); // Tự động lướt chỉ trên PC (>768px)
             } catch (error) {
                 console.error('Lỗi tải blog:', error);
                 const blogTrack = document.getElementById('blogTrack');
@@ -350,7 +369,7 @@
                     }
                 });
 
-                enableManualScroll('productsCarousel', 'productsTrack'); // Sử dụng lướt thủ công cho sản phẩm
+                enableManualScroll('productsCarousel', 'productsTrack'); // Luôn lướt thủ công cho sản phẩm
             } catch (error) {
                 console.error('Lỗi tải sản phẩm:', error);
                 const productsTrack = document.getElementById('productsTrack');
