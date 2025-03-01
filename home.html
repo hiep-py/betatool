@@ -22,7 +22,9 @@
             padding: 20px;
             background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Thêm bóng để nổi bật */
-            border-bottom: 2px solid #00d9ff; /* Viền xanh dương dưới thanh điều hướng */
+            /* Thêm viền gradient */
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #00d9ff, #ff00ff, #00ff00) 1; /* Viền gradient công nghệ */
         }
         .logo {
             display: flex;
@@ -220,6 +222,10 @@
             .video-carousel, .blog-carousel {
                 cursor: grab;
             }
+
+            .brand-name {
+                font-size: 20px; /* Giảm kích thước chữ BETA TOOL trên điện thoại nhỏ */
+            }
         }
 
         @media screen and (max-width: 480px) {
@@ -233,10 +239,6 @@
 
             .navbar {
                 font-size: 16px;
-            }
-
-            .brand-name {
-                font-size: 20px; /* Giảm kích thước chữ BETA TOOL trên điện thoại nhỏ */
             }
         }
     </style>
