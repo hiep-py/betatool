@@ -207,7 +207,6 @@
       .products-carousel::-webkit-scrollbar-thumb:hover {
         background: #666;
       }
-      /* ...existing code... */
       .products-section h2 a {
         color: #ff00ff; /* Màu hồng neon */
         text-decoration: none;
@@ -238,7 +237,6 @@
         color: #00ffcc; /* Màu xanh ngọc khi hover */
         text-shadow: 0 0 10px #00ffcc;
       }
-      /* ...existing code... */
       /* Responsive */
       @media screen and (max-width: 768px) {
         .intro,
@@ -259,6 +257,114 @@
         }
         .brand-name {
           font-size: 20px;
+        }
+      }
+      /* Responsive Design Updates */
+      @media screen and (max-width: 768px) {
+        header {
+          flex-direction: column;
+          text-align: center;
+          padding: 10px;
+        }
+
+        .logo {
+          margin-bottom: 15px;
+        }
+
+        .brand-name {
+          font-size: 18px;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 15px;
+          padding: 0;
+        }
+
+        nav a {
+          display: block;
+          padding: 8px 15px;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 5px;
+          width: 100%;
+          text-align: center;
+        }
+
+        .intro {
+          width: calc(100% - 20px);
+          margin: 10px;
+          padding: 15px;
+        }
+
+        .intro h1 {
+          font-size: 24px;
+        }
+
+        .video-section,
+        .blog-section,
+        .products-section {
+          width: calc(100% - 20px);
+          margin: 10px;
+          padding: 15px;
+        }
+
+        .product-card {
+          width: 280px;
+          margin: 0 auto;
+        }
+
+        .carousel-item {
+          min-width: calc(100% - 20px);
+          margin: 10px;
+        }
+
+        .carousel-item iframe {
+          height: 180px;
+        }
+
+        .products-carousel {
+          padding: 5px;
+        }
+
+        .products-carousel::-webkit-scrollbar {
+          height: 4px;
+        }
+
+        footer {
+          padding: 15px;
+          font-size: 14px;
+        }
+      }
+
+      /* Thêm media query cho màn hình siêu nhỏ */
+      @media screen and (max-width: 320px) {
+        .brand-name {
+          font-size: 16px;
+        }
+
+        .logo img {
+          width: 40px;
+        }
+
+        .product-card {
+          width: 240px;
+        }
+
+        .carousel-item iframe {
+          height: 160px;
+        }
+      }
+
+      /* Thêm animation cho menu mobile */
+      @media screen and (max-width: 768px) {
+        nav a {
+          transform: translateY(0);
+          transition: transform 0.3s ease, background-color 0.3s;
+        }
+
+        nav a:active {
+          transform: translateY(2px);
+          background-color: rgba(0, 0, 0, 0.3);
         }
       }
     </style>
