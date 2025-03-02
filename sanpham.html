@@ -117,53 +117,38 @@
       }
 
       /* Responsive Design */
-      /* Màn hình lớn (desktop và landscape tablet) */
-      @media screen and (min-width: 1024px) {
+      @media screen and (min-width: 769px) {
         .product-card {
-          width: calc(33.333% - 20px);
-          flex: 0 0 calc(33.333% - 20px);
+          width: 300px;
+          flex: 0 0 auto;
         }
       }
 
-      /* Màn hình vừa và nhỏ (portrait tablet và mobile) */
-      @media screen and (max-width: 1023px) {
+      @media screen and (max-width: 768px) {
         .product-card {
-          width: calc(50% - 20px);
-          flex: 0 0 calc(50% - 20px);
+          width: calc(50% - 20px); /* 2 ô trên mỗi hàng trên điện thoại */
         }
-        .product-card img {
-          height: 140px;
+        .navbar {
+          padding: 10px 20px;
         }
-        .product-title {
+        .nav-links {
+          gap: 10px;
+        }
+        .nav-links a {
           font-size: 16px;
         }
-        .product-desc {
-          font-size: 14px;
-        }
       }
 
-      /* Màn hình rất nhỏ */
       @media screen and (max-width: 480px) {
+        .product-card {
+          width: 80%; /* Tự động điều chỉnh nếu cần */
+        }
         .navbar {
           padding: 5px 10px;
         }
         .nav-links {
           flex-direction: column;
           align-items: center;
-        }
-        .product-card {
-          width: calc(50% - 10px);
-          flex: 0 0 calc(50% - 10px);
-          padding: 10px;
-        }
-        .product-card img {
-          height: 120px;
-        }
-        .product-title {
-          font-size: 14px;
-        }
-        .product-desc {
-          font-size: 12px;
         }
       }
     </style>
