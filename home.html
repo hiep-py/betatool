@@ -134,14 +134,39 @@
       }
       .video-carousel,
       .blog-carousel {
-        overflow: hidden;
-        position: relative;
-        width: 100%;
-        margin-top: 20px;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 20px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 20px;
+        max-width: 100%;
+        cursor: grab;
+        user-select: none;
+      }
+      .video-carousel::-webkit-scrollbar,
+      .blog-carousel::-webkit-scrollbar {
+        height: 8px;
+      }
+      .video-carousel::-webkit-scrollbar-track,
+      .blog-carousel::-webkit-scrollbar-track {
+        background: #1e1e1e;
+        border-radius: 10px;
+      }
+      .video-carousel::-webkit-scrollbar-thumb,
+      .blog-carousel::-webkit-scrollbar-thumb {
+        background: #808080;
+        border-radius: 10px;
+        border: 2px solid #1e1e1e;
+      }
+      .video-carousel::-webkit-scrollbar-thumb:hover,
+      .blog-carousel::-webkit-scrollbar-thumb:hover {
+        background: #666;
       }
       .carousel-track {
         display: flex;
-        transition: transform 0.5s ease-in-out;
+        gap: 20px;
       }
       .carousel-item {
         min-width: 300px;
@@ -407,18 +432,14 @@
     <section class="video-section">
       <h2><a href="video.html">Video Hướng Dẫn</a></h2>
       <div class="video-carousel" id="videoCarousel">
-        <div class="carousel-track" id="videoTrack">
-          <!-- Video sẽ được thêm bằng JavaScript -->
-        </div>
+        <!-- Video sẽ được thêm bằng JavaScript -->
       </div>
     </section>
 
     <section class="blog-section">
       <h2><a href="blog.html">Bài Viết Mới Nhất</a></h2>
       <div class="blog-carousel" id="blogCarousel">
-        <div class="carousel-track" id="blogTrack">
-          <!-- Blog sẽ được thêm bằng JavaScript -->
-        </div>
+        <!-- Blog sẽ được thêm bằng JavaScript -->
       </div>
     </section>
 
@@ -470,7 +491,7 @@
         }
       }
 
-      // Tải danh sách video
+      // Cập nhật lại hàm loadCarouselVideos và loadCarouselBlogs
       async function loadCarouselVideos() {
         try {
           const response = await fetch("videos.txt");
@@ -479,8 +500,8 @@
             .trim()
             .split("\n")
             .filter((line) => line);
-          const videoTrack = document.getElementById("videoTrack");
-          videoTrack.innerHTML = "";
+          const videoCarousel = document.getElementById("videoCarousel");
+          videoCarousel.innerHTML = "";
 
           lines.forEach((line) => {
             const [title, url] = line.split("|").map((part) => part.trim());
@@ -497,19 +518,18 @@
                             <h3>${title}</h3>
                             <iframe src="${embedUrl}" allowfullscreen></iframe>
                         `;
-              videoTrack.appendChild(videoItem);
+              videoCarousel.appendChild(videoItem);
             }
           });
 
-          startAutoCarousel("videoCarousel", "videoTrack");
+          enableDragScroll("videoCarousel");
         } catch (error) {
           console.error("Lỗi tải video:", error);
-          document.getElementById("videoTrack").innerHTML =
+          document.getElementById("videoCarousel").innerHTML =
             "<p>Không thể tải video. Vui lòng kiểm tra file videos.txt.</p>";
         }
       }
 
-      // Tải danh sách blog
       async function loadCarouselBlogs() {
         try {
           const response = await fetch("blog.txt");
@@ -518,8 +538,8 @@
             .trim()
             .split("\n")
             .filter((line) => line);
-          const blogTrack = document.getElementById("blogTrack");
-          blogTrack.innerHTML = "";
+          const blogCarousel = document.getElementById("blogCarousel");
+          blogCarousel.innerHTML = "";
 
           lines.forEach((line) => {
             const [title, description, imageUrl, blogUrl] = line
@@ -534,14 +554,14 @@
                             <p>${description}</p>
                             <a href="${blogUrl}">Đọc thêm</a>
                         `;
-              blogTrack.appendChild(blogItem);
+              blogCarousel.appendChild(blogItem);
             }
           });
 
-          startAutoCarousel("blogCarousel", "blogTrack");
+          enableDragScroll("blogCarousel");
         } catch (error) {
           console.error("Lỗi tải blog:", error);
-          document.getElementById("blogTrack").innerHTML =
+          document.getElementById("blogCarousel").innerHTML =
             "<p>Không thể tải blog. Vui lòng kiểm tra file blog.txt.</p>";
         }
       }
