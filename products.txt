@@ -1,8 +1,11 @@
 XWORLD WINHASH LOTTO  | Công cụ báo kèo lotto | imgproducts/XWLotto.png | sanpham.html
-XWORLD WINHASH AERO  | Bot báo kèo đặt cược | imgproducts/XWAero.png | sanpham.html
+XWORLD WINHASH AERO  | Bot báo kèo đặt cược | imgproducts/XWAero.png | sanpham-aero-demo.html
 AERO DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên nền tảng AERO Turbo Games | imgproducts/AeroDemo.png | products/sanpham-aero-demo.html
 DICE TWICE DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi xúc xắc Dice Twice | imgproducts/DiceTwiceDEMO.png | products/sanpham-dicetwice-demo.html
 VORTEX DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Vortex nguyên tố | imgproducts/VorterDEMO.png | products/sanpham-vortex-demo.html
 MINES DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Mines khai thác kim cương | imgproducts/MinesDEMO.png | products/sanpham-mines-demo.html
 CRASH DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Crash tàu vũ trụ | imgproducts/CrashDEMO.png | products/sanpham-crash-demo.html
 HI-LO DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi bài Hi-Lo | imgproducts/HiLoDEMO.png | products/sanpham-hilo-demo.html
+BẦU CUA DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Bầu Cua Tôm Cá truyền thống | imgproducts/BauCua.png | products/sanpham-baucua-demo.html
+TÀI XỈU DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Tài Xỉu xúc xắc | imgproducts/TaiXiu.png | products/sanpham-taixiu-demo.html
+AMERICAN ROULETTE DEMO CÓ 1000$ FREE | Trải nghiệm miễn phí 1000$ trên trò chơi Roulette phiên bản Mỹ | imgproducts/AmericanRoulette.png | products/sanpham-americanroulette-demo.html
