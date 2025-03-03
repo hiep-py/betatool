@@ -1,149 +1,157 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bikini Party - BETA TOOL</title>
     <style>
-        body {
-            background: url("../img/background.webp") no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 40px;
-            background: linear-gradient(to bottom, #123, #0b2a3d);
-            box-shadow: 0 4px 2px -2px rgba(255, 215, 0, 0.8);
-        }
-        
-        .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: yellow;
-        }
-        
-        .product-details {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 15px;
-            border: 2px solid cyan;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            text-align: center;
-        }
-        
-        .product-image {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            margin: 20px auto;
-            display: block;
-        }
-        
-        .product-title {
-            color: yellow;
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .product-description {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(45deg, #00ff87, #60efff);
-            color: #000;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
-        }
+      body {
+        background: url("../img/background.webp") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-        .iframe-container {
-            margin: 20px auto;
-            border: 2px solid #00d9ff;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            max-width: 800px;
-        }
-        .iframe-container iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            border-radius: 8px;
-        }
-        .zoom-button {
-            background-color: #00d9ff;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-        }
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 40px;
+        background: linear-gradient(to bottom, #123, #0b2a3d);
+        box-shadow: 0 4px 2px -2px rgba(255, 215, 0, 0.8);
+      }
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: yellow;
+      }
+
+      .product-details {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 15px;
+        border: 2px solid cyan;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        text-align: center;
+      }
+
+      .product-image {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 10px;
+        margin: 20px auto;
+        display: block;
+      }
+
+      .product-title {
+        color: yellow;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .product-description {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .download-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(45deg, #00ff87, #60efff);
+        color: #000;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+      }
+
+      .iframe-container {
+        margin: 20px auto;
+        border: 2px solid #00d9ff;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        max-width: 800px;
+      }
+      .iframe-container iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+        border-radius: 8px;
+      }
+      .zoom-button {
+        background-color: #00d9ff;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="navbar">
-        <div class="logo">
-            <a href="../index.html">
-                <img src="../img/snapedit_1740629756864.png" alt="BETA TOOL Logo">
-            </a>
-        </div>
-        <div class="nav-links">
-            <a href="../index.html">Trang chủ</a>
-            <a href="../sanpham.html">Sản phẩm</a>
-            <a href="../blog.html">Blog</a>
-            <a href="../video.html">Video</a>
-        </div>
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../img/snapedit_1740629756864.png" alt="BETA TOOL Logo" />
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../sanpham.html">Sản phẩm</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../video.html">Video</a>
+      </div>
     </div>
 
     <div class="product-details">
-        <h1 class="product-title">Bikini Party</h1>
-        <img src="../imgproducts/BikiniParty.png" alt="Bikini Party" class="product-image">
-        <p class="product-description">tham gia vào công viên nước vui nhộn nào !</p>
-        <div class="iframe-container">
-            <iframe src="http://play.dreamtech8.com/playSlot.aspx?gameCode=bikini&isfun=1&type=dt&language=en_US" allowfullscreen></iframe>
-            <button class="zoom-button" onclick="toggleFullScreen()">Phóng to</button>
-        </div>
+      <h1 class="product-title">Bikini Party</h1>
+      <img
+        src="../imgproducts/BikiniParty.png"
+        alt="Bikini Party"
+        class="product-image"
+      />
+      <p class="product-description">
+        tham gia vào công viên nước vui nhộn nào !
+      </p>
+      <a
+        href="https://www.betsoft.com/games/bikini-party/"
+        class="download-btn"
+      >
+        Chơi ngay
+      </a>
     </div>
-</body>
+  </body>
 </html>
