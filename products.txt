@@ -14,3 +14,4 @@ Bikini Party DEMO | tham gia vào công viên nước vui nhộn nào ! | imgpro
 Ocean Park DEMO | Mùa hè tới rồi sao hãy đi chơi công viên nước nhé | imgproducts/OceanPark.png | products/sanpham-ocean-park-demo.html
 Fortune Ox DEMO | game slot với màu sắc sinh động  | imgproducts/FortuneOX.png | products/sanpham-fortune-ox-demo.html
 Chicky run play | game cash có con gà :) | imgproducts/Chicky-run-play.png |  products/sanpham-chicky-run-playx-demo.html
+Aviamasters | game với chủ đề máy bay | imgproducts/AviaDEMO.png | products/sanpham-aviamasters-demo.html
