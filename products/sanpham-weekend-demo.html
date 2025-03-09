@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <!-- Thay thế meta viewport cũ bằng dòng mới này -->
-    <meta name="viewport" content="width=1024">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Camgirl - BETA TOOL</title>
     <style>
       body {
@@ -119,6 +119,34 @@
         margin-top: 10px;
         transition: background-color 0.3s;
       }
+
+      .switch-view-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 25px;
+        background: linear-gradient(45deg, #00ccff, #0066ff);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 204, 255, 0.3);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .switch-view-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 204, 255, 0.5);
+        background: linear-gradient(45deg, #0066ff, #00ccff);
+      }
+
+      .switch-view-btn:active {
+        transform: translateY(1px);
+      }
     </style>
     <script>
       function toggleDesktopView() {
@@ -158,8 +186,8 @@
         <a href="https://play-rghr.oryxgaming.com/agg_plus_public/launch/wallets/SOFTGAMINGSCU/games/CDB_WBI/open?token=16922980-f472b3710a44a67c96d15814e04bc5d2&languageCode=EN&playMode=FUN" class="download-btn">Chơi ngay</a>
       </div>
     </div>
-    <button onclick="toggleDesktopView()" style="position: fixed; bottom: 20px; right: 20px;">
-      Switch View
+    <button onclick="toggleDesktopView()" class="switch-view-btn">
+        Căn giữa
     </button>
   </body>
 </html>
