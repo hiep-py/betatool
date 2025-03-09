@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BẦU CUA DEMO - BETA TOOL</title>
+    <style>
+      body {
+        background: url("../img/background.webp") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      .navbar {
+        background-color: #1a1a1a;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .container {
+        border: 2px solid deepskyblue;
+        padding: 20px;
+        margin: 50px auto;
+        width: 60%;
+        background-color: #1c1c1c;
+        border-radius: 10px;
+      }
+      .back-button {
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .back-button:hover {
+        background-color: darkblue;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+      .scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+        border: 3px solid purple;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 24px;
+        color: purple;
+      }
+      .scroll-top:hover {
+        background-color: purple;
+        color: white;
+      }
+      p {
+        text-align: justify;
+        font-family: "Arial", sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+        margin: 0;
+      }
+      .product-details {
+        text-align: center;
+      }
+      .product-details h1 {
+        color: #ff4500;
+      }
+      .product-details p {
+        margin-bottom: 15px;
+      }
+      .highlight {
+        color: #00ff00;
+      }
+      .iframe-container {
+        margin: 20px 0;
+        border: 2px solid #00d9ff;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+      }
+      .iframe-container iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+        border-radius: 8px;
+      }
+      .zoom-button {
+        background-color: #00d9ff;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+      .zoom-button:hover {
+        background-color: #00b3d9;
+      }
+      #full-screen-iframe {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        overflow: auto;
+      }
+      #full-screen-iframe iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0;
+      }
+      #close-full-screen {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      #close-full-screen:hover {
+        background-color: #cc0000;
+      }
+
+      /* Responsive Design */
+      @media screen and (max-width: 768px) {
+        .container {
+          width: 90%;
+          margin: 20px auto;
+          padding: 10px;
+        }
+        .iframe-container iframe {
+          height: 300px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .iframe-container iframe {
+          height: 200px;
+        }
+        .product-details h1 {
+          font-size: 1.1em;
+        }
+        p {
+          font-size: 16px;
+        }
+        .zoom-button {
+          padding: 6px 12px;
+          font-size: 14px;
+        }
+      }
+    </style>
+    <script>
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      function toggleFullScreen() {
+        const fullScreenIframe = document.getElementById("full-screen-iframe");
+        if (
+          fullScreenIframe.style.display === "none" ||
+          fullScreenIframe.style.display === ""
+        ) {
+          fullScreenIframe.style.display = "block";
+          document.body.style.overflow = "hidden";
+        } else {
+          fullScreenIframe.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      }
+      function closeFullScreen() {
+        const fullScreenIframe = document.getElementById("full-screen-iframe");
+        fullScreenIframe.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+      window.addEventListener("resize", () => {
+        const fullScreenIframe = document.getElementById("full-screen-iframe");
+        if (
+          window.innerWidth <= 768 &&
+          fullScreenIframe.style.display === "block"
+        ) {
+          fullScreenIframe.style.width = "100%";
+          fullScreenIframe.style.height = "100%";
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="navbar">BETA Sản Phẩm</div>
+    <div class="container">
+      <button class="back-button" onclick="history.back()">Back</button>
+      <div class="product-details">
+        <h1>Aviamasters DEMO</h1>
+        <img
+          src="../imgproducts/AviaDEMO.png"
+          alt="BẦU CUA"
+          onerror="this.style.display='none';"
+        />
+        <p></p>
+        <h3>Đặc điểm nổi bật:</h3>
+        <ul style="text-align: left; list-style-type: none; padding-left: 20px">
+          <li class="highlight">Giao diện dễ chơi</li>
+          <li class="highlight">
+            cách chơi hấp dẫn , này mà chơi thật thì run thấy mọe
+          </li>
+          <li class="highlight">Đồ họa đẹp</li>
+          <li class="highlight">Anh Em chơi giả trí nha</li>
+        </ul>
+        <p>Giá: Miễn phí</p>
+
+        <div class="iframe-container">
+          <iframe
+            src="https://bgaming-network.com/play/Aviamasters/FUN?server=demo"
+            title="Bầu Cua Game"
+            allow="fullscreen"
+            allowfullscreen
+          ></iframe>
+          <button class="zoom-button" onclick="toggleFullScreen()">
+            Phóng to
+          </button>
+        </div>
+        <div id="full-screen-iframe">
+          <iframe
+            src="https://bgaming-network.com/play/Aviamasters/FUN?server=demo"
+            title="Bầu Cua Game Full Screen"
+            allow="fullscreen"
+            allowfullscreen
+          ></iframe>
+          <button id="close-full-screen" onclick="closeFullScreen()">X</button>
+        </div>
+      </div>
+      <button class="back-button" onclick="history.back()">Back</button>
+    </div>
+    <div class="scroll-top" onclick="scrollToTop()">⇧</div>
+  </body>
+</html>
