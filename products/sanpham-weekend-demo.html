@@ -3,98 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAI XIU DEMO - BETA TOOL</title>
+    <title>Camgirl - BETA TOOL</title>
     <style>
       body {
         background: url("../img/background.webp") no-repeat center center fixed;
         background-size: cover;
         color: white;
         font-family: Arial, sans-serif;
-        text-align: center;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
       }
+
       .navbar {
-        background-color: #1a1a1a;
-        padding: 15px;
-        font-size: 20px;
-        font-weight: bold;
-      }
-      .container {
-        border: 2px solid deepskyblue;
-        padding: 20px;
-        margin: 50px auto;
-        width: 60%;
-        background-color: #1c1c1c;
-        border-radius: 10px;
-      }
-      .back-button {
-        background-color: blue;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-      .back-button:hover {
-        background-color: darkblue;
-      }
-      img {
-        max-width: 100%;
-        border-radius: 10px;
-        margin-top: 10px;
-      }
-      .scroll-top {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        background-color: rgb(0, 0, 0);
-        border-radius: 50%;
-        border: 3px solid purple;
         display: flex;
         align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 24px;
-        color: purple;
+        justify-content: space-between;
+        padding: 10px 40px;
+        background: linear-gradient(to bottom, #123, #0b2a3d);
+        box-shadow: 0 4px 2px -2px rgba(255, 215, 0, 0.8);
       }
-      .scroll-top:hover {
-        background-color: purple;
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
         color: white;
-      }
-      p {
-        text-align: justify;
-        font-family: "Arial", sans-serif;
+        font-weight: bold;
         font-size: 18px;
-        line-height: 1.6;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        padding: 10px;
-        margin: 0;
+        transition: color 0.3s;
       }
+
+      .nav-links a:hover {
+        color: yellow;
+      }
+
       .product-details {
-        text-align: center;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 15px;
+        border: 2px solid cyan;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        text-align: center; /* Thêm thuộc tính này */
       }
-      .product-details h1 {
-        color: #ff4500;
+
+      .product-image {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 10px;
+        margin: 20px auto; /* Cập nhật margin */
+        display: block; /* Thêm thuộc tính này */
       }
-      .product-details p {
-        margin-bottom: 15px;
+
+      .product-title {
+        color: yellow;
+        font-size: 24px;
+        margin-bottom: 20px;
       }
-      .highlight {
-        color: #00ff00;
+
+      .product-description {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: center; /* Thêm thuộc tính này */
       }
+
+      .download-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(45deg, #00ff87, #60efff);
+        color: #000;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+      }
+
       .iframe-container {
-        margin: 20px 0;
+        margin: 20px auto; /* Cập nhật margin */
         border: 2px solid #00d9ff;
         border-radius: 10px;
         overflow: hidden;
         position: relative;
+        max-width: 800px; /* Thêm thuộc tính này */
       }
       .iframe-container iframe {
         width: 100%;
@@ -112,153 +118,34 @@
         margin-top: 10px;
         transition: background-color 0.3s;
       }
-      .zoom-button:hover {
-        background-color: #00b3d9;
-      }
-      #full-screen-iframe {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        z-index: 1000;
-        overflow: auto;
-      }
-      #full-screen-iframe iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        border-radius: 0;
-      }
-      #close-full-screen {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: #ff0000;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      #close-full-screen:hover {
-        background-color: #cc0000;
-      }
-
-      /* Responsive Design */
-      @media screen and (max-width: 768px) {
-        .container {
-          width: 90%;
-          margin: 20px auto;
-          padding: 10px;
-        }
-        .iframe-container iframe {
-          height: 300px;
-        }
-      }
-
-      @media screen and (max-width: 480px) {
-        .iframe-container iframe {
-          height: 200px;
-        }
-        .product-details h1 {
-          font-size: 1.1em;
-        }
-        p {
-          font-size: 16px;
-        }
-        .zoom-button {
-          padding: 6px 12px;
-          font-size: 14px;
-        }
-      }
     </style>
-    <script>
-      function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-      function toggleFullScreen() {
-        const fullScreenIframe = document.getElementById("full-screen-iframe");
-        if (
-          fullScreenIframe.style.display === "none" ||
-          fullScreenIframe.style.display === ""
-        ) {
-          fullScreenIframe.style.display = "block";
-          document.body.style.overflow = "hidden";
-        } else {
-          fullScreenIframe.style.display = "none";
-          document.body.style.overflow = "auto";
-        }
-      }
-      function closeFullScreen() {
-        const fullScreenIframe = document.getElementById("full-screen-iframe");
-        fullScreenIframe.style.display = "none";
-        document.body.style.overflow = "auto";
-      }
-      window.addEventListener("resize", () => {
-        const fullScreenIframe = document.getElementById("full-screen-iframe");
-        if (
-          window.innerWidth <= 768 &&
-          fullScreenIframe.style.display === "block"
-        ) {
-          fullScreenIframe.style.width = "100%";
-          fullScreenIframe.style.height = "100%";
-        }
-      });
-    </script>
   </head>
   <body>
-    <div class="navbar">BETA Sản Phẩm</div>
-    <div class="container">
-      <button class="back-button" onclick="history.back()">Back</button>
-      <div class="product-details">
-        <h1>weekendDEMO</h1>
-        <img
-          src="../imgproducts/weekendDEMO.png"
-          alt="TAI XIU"
-          onerror="this.style.display='none';"
-        />
-        <p>
-          Sàn giao dịch ảo giúp AE trãi nghiệm cảm giác vô lệnh mà không cần
-          phải lo lắng về rủi ro tài chính.
-        </p>
-        <h3>Đặc điểm nổi bật:</h3>
-        <ul style="text-align: left; list-style-type: none; padding-left: 20px">
-          <li class="highlight">Giao diện truyền thống, dễ sử dụng</li>
-          <li class="highlight">Cược linh hoạt: Tài/Xỉu</li>
-          <li class="highlight">Tỷ lệ thắng hấp dẫn</li>
-          <li class="highlight">Anh Em chơi giả trí nha</li>
-        </ul>
-        <p>Giá: Miễn phí</p>
-
-        <div class="iframe-container">
-          <iframe
-            src="https://play-rghr.oryxgaming.com/agg_plus_public/launch/wallets/SOFTGAMINGSCU/games/CDB_WBI/open?token=16922980-f472b3710a44a67c96d15814e04bc5d2&languageCode=EN&playMode=FUN"
-            title="Tai Xiu Game"
-            allow="fullscreen"
-            allowfullscreen
-          ></iframe>
-          <button class="zoom-button" onclick="toggleFullScreen()">
-            Phóng to
-          </button>
-        </div>
-        <div id="full-screen-iframe">
-          <iframe
-            src="https://play-rghr.oryxgaming.com/agg_plus_public/launch/wallets/SOFTGAMINGSCU/games/CDB_WBI/open?token=16922980-f472b3710a44a67c96d15814e04bc5d2&languageCode=EN&playMode=FUN"
-            title="weekendDEMO Game Full Screen"
-            allow="fullscreen"
-            allowfullscreen
-          ></iframe>
-          <button id="close-full-screen" onclick="closeFullScreen()">X</button>
-        </div>
+    <div class="navbar">
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../img/snapedit_1740629756864.png" alt="BETA TOOL Logo" />
+        </a>
       </div>
-      <button class="back-button" onclick="history.back()">Back</button>
+      <div class="nav-links">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../sanpham.html">Sản phẩm</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../video.html">Video</a>
+      </div>
     </div>
-    <div class="scroll-top" onclick="scrollToTop()">⇧</div>
+
+    <div class="product-details">
+      <h1 class="product-title">weekendDEMO</h1>
+      <img
+        src="../imgproducts/weekendDEMO.png"
+        alt="Camgirl"
+        class="product-image"
+      />
+      <p class="product-description">Sàn giao dịch ảo giúp AE trãi nghiệm cảm giác vô lệnh mà không cần
+        phải lo lắng về rủi ro tài chính.</p>
+        <a href="https://play-rghr.oryxgaming.com/agg_plus_public/launch/wallets/SOFTGAMINGSCU/games/CDB_WBI/open?token=16922980-f472b3710a44a67c96d15814e04bc5d2&languageCode=EN&playMode=FUN" class="download-btn">Chơi ngay</a>
+      </div>
+    </div>
   </body>
 </html>
