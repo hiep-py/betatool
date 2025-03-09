@@ -2,7 +2,8 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Thay thế meta viewport cũ bằng dòng mới này -->
+    <meta name="viewport" content="width=1024">
     <title>Camgirl - BETA TOOL</title>
     <style>
       body {
@@ -119,6 +120,16 @@
         transition: background-color 0.3s;
       }
     </style>
+    <script>
+      function toggleDesktopView() {
+          var viewport = document.querySelector("meta[name=viewport]");
+          if (viewport.content === "width=device-width, initial-scale=1.0") {
+              viewport.content = "width=1024";
+          } else {
+              viewport.content = "width=device-width, initial-scale=1.0";
+          }
+      }
+    </script>
   </head>
   <body>
     <div class="navbar">
@@ -147,5 +158,8 @@
         <a href="https://play-rghr.oryxgaming.com/agg_plus_public/launch/wallets/SOFTGAMINGSCU/games/CDB_WBI/open?token=16922980-f472b3710a44a67c96d15814e04bc5d2&languageCode=EN&playMode=FUN" class="download-btn">Chơi ngay</a>
       </div>
     </div>
+    <button onclick="toggleDesktopView()" style="position: fixed; bottom: 20px; right: 20px;">
+      Switch View
+    </button>
   </body>
 </html>
