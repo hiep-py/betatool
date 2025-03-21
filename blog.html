@@ -1,168 +1,240 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="./img/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="./img/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="./img/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="./img/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="./img/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="./img/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="./img/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="./img/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./img/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="./img/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./img/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./img/manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
     <title>Navbar - BETA TOOL</title>
     <style>
-    body {
+      body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: url('img/background.webp') no-repeat center center fixed;
+        background: url("img/background.webp") no-repeat center center fixed;
         background-size: cover;
         color: white;
-    }
+      }
 
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 40px;
+        background: linear-gradient(to bottom, #123, #0b2a3d);
+        box-shadow: 0 4px 2px -2px rgba(255, 215, 0, 0.8);
+      }
 
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 40px;
-            background: linear-gradient(to bottom, #123, #0b2a3d);
-            box-shadow: 0 4px 2px -2px rgba(255, 215, 0, 0.8);
-        }
+      .logo img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
 
-        .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        position: relative;
+        transition: color 0.3s;
+      }
 
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            position: relative;
-            transition: color 0.3s;
-        }
+      .nav-links a:hover {
+        color: yellow;
+      }
 
-        .nav-links a:hover {
-            color: yellow;
-        }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: yellow;
+        left: 0;
+        bottom: -5px;
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out;
+      }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: yellow;
-            left: 0;
-            bottom: -5px;
-            transform: scaleX(0);
-            transition: transform 0.3s ease-in-out;
-        }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #0b2a3d;
+        color: white;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
 
-        .nav-links a:hover::after {
-            transform: scaleX(1);
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b2a3d;
-            color: white;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+      .blog-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
 
-        .blog-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
+      .blog-card {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid cyan;
+        padding: 15px;
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px cyan;
+        transition: transform 0.3s;
+      }
 
-        .blog-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid cyan;
-            padding: 15px;
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px cyan;
-            transition: transform 0.3s;
-        }
+      .blog-card:hover {
+        transform: scale(1.05);
+      }
 
-        .blog-card:hover {
-            transform: scale(1.05);
-        }
-
-        .blog-card img {
+      .blog-card img {
         width: 100%;
         height: 150px;
         border-radius: 10px;
         object-fit: cover; /* Chỉnh ảnh vừa khung mà không méo */
-        }
+      }
 
-        .blog-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: yellow;
-        }
+      .blog-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: yellow;
+      }
 
-        .blog-desc {
-            font-size: 14px;
-            margin: 10px 0;
-        }
+      .blog-desc {
+        font-size: 14px;
+        margin: 10px 0;
+      }
 
-        .read-more {
-            color: cyan;
-            text-decoration: none;
-            font-weight: bold;
-        }
+      .read-more {
+        color: cyan;
+        text-decoration: none;
+        font-weight: bold;
+      }
 
-        .read-more:hover {
-            text-decoration: underline;
-        }
+      .read-more:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="navbar">
-        <div class="logo">
-            <img src="img/snapedit_1740629756864.png" alt="Logo">
-        </div>
-        <div class="nav-links">
-            <a href="home.html">Trang chủ</a>
-            <a href="sanpham.html">Sản phẩm</a>
-            <a href="blog.html">Blog</a>
-            <a href="video.html">Video</a>
-            <a href="index.html">Giới thiệu</a>
-        </div>
+      <div class="logo">
+        <img src="img/snapedit_1740629756864.png" alt="Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="home.html">Trang chủ</a>
+        <a href="sanpham.html">Sản phẩm</a>
+        <a href="blog.html">Blog</a>
+        <a href="video.html">Video</a>
+        <a href="index.html">Giới thiệu</a>
+      </div>
     </div>
     <h1>Blog mới nhất</h1>
     <div class="blog-container" id="blog-list">
-        <!-- Dữ liệu blog sẽ được load ở đây -->
+      <!-- Dữ liệu blog sẽ được load ở đây -->
     </div>
     <script>
-        async function loadBlog() {
-            try {
-                const response = await fetch('blog.txt'); // Đọc file blog.txt
-                const text = await response.text();
-                const lines = text.split("\n").filter(line => line.trim() !== ""); // Loại bỏ dòng trống
+      async function loadBlog() {
+        try {
+          const response = await fetch("blog.txt"); // Đọc file blog.txt
+          const text = await response.text();
+          const lines = text.split("\n").filter((line) => line.trim() !== ""); // Loại bỏ dòng trống
 
-                let blogHTML = '';
-                lines.forEach(line => {
-                    const parts = line.split('|');
-                    if (parts.length === 4) { // Đảm bảo có đủ dữ liệu
-                        const title = parts[0].trim();
-                        let desc = parts[1].trim();
-                        const img = parts[2].trim();
-                        const link = parts[3].trim();
+          let blogHTML = "";
+          lines.forEach((line) => {
+            const parts = line.split("|");
+            if (parts.length === 4) {
+              // Đảm bảo có đủ dữ liệu
+              const title = parts[0].trim();
+              let desc = parts[1].trim();
+              const img = parts[2].trim();
+              const link = parts[3].trim();
 
-                        // Chỉ lấy 8 chữ đầu của nội dung + "..."
-                        const words = desc.split(" ");
-                        if (words.length > 8) {
-                            desc = words.slice(0, 8).join(" ") + "...";
-                        }
+              // Chỉ lấy 8 chữ đầu của nội dung + "..."
+              const words = desc.split(" ");
+              if (words.length > 8) {
+                desc = words.slice(0, 8).join(" ") + "...";
+              }
 
-                        blogHTML += `
+              blogHTML += `
                             <div class="blog-card">
                                 <img src="${img}" alt="Hình ảnh">
                                 <div class="blog-title">${title}</div>
@@ -170,18 +242,16 @@
                                 <a href="${link}" class="read-more" target="_blank">Đọc thêm</a>
                             </div>
                         `;
-                    }
-                });
-
-                document.getElementById('blog-list').innerHTML = blogHTML;
-            } catch (error) {
-                console.error("Lỗi khi tải blog:", error);
             }
+          });
+
+          document.getElementById("blog-list").innerHTML = blogHTML;
+        } catch (error) {
+          console.error("Lỗi khi tải blog:", error);
         }
+      }
 
-loadBlog();
-
-
+      loadBlog();
     </script>
-</body>
+  </body>
 </html>
