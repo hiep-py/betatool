@@ -77,7 +77,15 @@
   <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png" />
   <meta name="theme-color" content="#ffffff" />
     <title>Sản phẩm - BETA TOOL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+      :root {
+        --primary-color: #00ffff;
+        --secondary-color: #ff00ff;
+        --accent-color: #00ff00;
+        --dark-bg: rgba(15, 15, 15, 0.95);
+        --text-color: #ffffff;
+      }
       body {
         background: url("img/background.webp") no-repeat center center fixed;
         background-size: cover;
@@ -272,6 +280,142 @@
           font-size: 12px;
         }
       }
+
+      .mobile-menu {
+        display: none;
+        font-size: 1.5em;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1001;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        position: fixed;
+        top: 15px;
+        right: 15px;
+      }
+
+      .mobile-menu i {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--primary-color);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu.active i:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .mobile-menu.active i:nth-child(2) {
+        opacity: 0;
+      }
+
+      .mobile-menu.active i:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+
+      .mobile-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(15, 32, 39, 0.98);
+        backdrop-filter: blur(10px);
+        padding: 80px 20px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        border-left: 1px solid rgba(0, 255, 255, 0.1);
+      }
+
+      .mobile-nav.active {
+        right: 0;
+      }
+
+      .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .mobile-nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 1.2em;
+        padding: 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav-links a:hover {
+        background: rgba(0, 255, 255, 0.1);
+        color: var(--primary-color);
+      }
+
+      .mobile-nav-links a i {
+        margin-right: 10px;
+        width: 20px;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 10px 15px;
+        }
+
+        .logo {
+          gap: 10px;
+        }
+
+        .logo img {
+          height: 35px;
+        }
+
+        .logo span {
+          display: none;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .mobile-menu {
+          display: block;
+          font-size: 1.3em;
+        }
+
+        .mobile-nav {
+          width: 85%;
+          padding: 60px 15px;
+        }
+
+        .mobile-nav-links a {
+          padding: 12px 15px;
+          font-size: 1.1em;
+        }
+      }
     </style>
   </head>
   <body>
@@ -288,20 +432,40 @@
       </div>
     </div>
 
-    <h1>Sản phẩm mới nhất</h1>
-    <div class="search-container">
-      <input
-        type="text"
-        class="search-box"
-        id="searchBox"
-        placeholder="Tìm kiếm sản phẩm..."
-        autocomplete="off"
-      />
-      <i class="search-icon">🔍</i>
+    <!-- Mobile Navigation -->
+    <div class="mobile-menu">
+      <i></i>
+      <i></i>
+      <i></i>
     </div>
-    <div class="product-container" id="product-list">
-      <!-- Dữ liệu sản phẩm sẽ được load ở đây -->
+
+    <div class="mobile-nav">
+      <div class="mobile-nav-links">
+        <a href="index.html"><i class="fas fa-info-circle"></i> Giới thiệu</a>
+        <a href="sanpham.html"><i class="fas fa-box"></i> Sản phẩm</a>
+        <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+        <a href="video.html"><i class="fas fa-video"></i> Video</a>
+      </div>
     </div>
+
+    <div class="overlay"></div>
+
+    <main>
+      <h1>Sản phẩm mới nhất</h1>
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-box"
+          id="searchBox"
+          placeholder="Tìm kiếm sản phẩm..."
+          autocomplete="off"
+        />
+        <i class="search-icon">🔍</i>
+      </div>
+      <div class="product-container" id="product-list">
+        <!-- Dữ liệu sản phẩm sẽ được load ở đây -->
+      </div>
+    </main>
 
     <script>
       function searchProducts(searchTerm) {
@@ -390,6 +554,39 @@
         document.getElementById("searchBox").addEventListener("input", (e) => {
           searchProducts(e.target.value);
         });
+      });
+
+      // Mobile Menu Toggle
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileNav = document.querySelector('.mobile-nav');
+      const overlay = document.querySelector('.overlay');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+      }
+
+      mobileMenu.addEventListener('click', toggleMobileMenu);
+      overlay.addEventListener('click', toggleMobileMenu);
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close mobile menu on window resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+          mobileNav.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
       });
     </script>
   </body>
