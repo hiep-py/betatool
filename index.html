@@ -778,6 +778,311 @@
           border-width: 0.5px;
         }
       }
+
+      /* Style cho phần cảm ơn */
+      .thank-you-section {
+        text-align: center;
+        padding: 60px 20px;
+        margin: 40px auto;
+        position: relative;
+        max-width: 800px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .thank-you-content h2 {
+        color: var(--primary-color, #00ffff);
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+      }
+
+      .thank-you-content h2 i {
+        animation: heartbeat 1.5s ease-in-out infinite;
+      }
+
+      @keyframes heartbeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+      }
+
+      .thank-you-content p {
+        color: #fff;
+        font-size: 1.2em;
+        margin-bottom: 30px;
+      }
+
+      /* Style cho portal */
+      .portal-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 40px auto;
+        perspective: 2000px;
+        transform-style: preserve-3d;
+      }
+
+      .portal-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        padding: 20px 50px;
+        background: linear-gradient(45deg, #00ffff, #00ccff);
+        color: #000;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.3em;
+        position: relative;
+        z-index: 2;
+        transition: all 0.5s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+
+      .portal-button:hover {
+        transform: scale(1.1) translateY(-5px);
+        box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+        background: linear-gradient(45deg, #00ccff, #00ffff);
+      }
+
+      .portal-button i {
+        font-size: 1.4em;
+        transition: transform 0.5s ease;
+      }
+
+      .portal-button:hover i {
+        transform: rotate(360deg) scale(1.2);
+      }
+
+      .portal-gate {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.5s ease;
+      }
+
+      .gate {
+        position: absolute;
+        width: 150px;
+        height: 300px;
+        background: linear-gradient(90deg, 
+          rgba(0, 255, 255, 0.1),
+          rgba(0, 255, 255, 0.4) 50%,
+          rgba(0, 255, 255, 0.1)
+        );
+        top: 0;
+        transition: all 0.8s ease;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      }
+
+      .left-gate {
+        left: -150px;
+        transform-origin: left;
+        border-radius: 150px 0 0 150px;
+      }
+
+      .right-gate {
+        right: -150px;
+        transform-origin: right;
+        border-radius: 0 150px 150px 0;
+      }
+
+      .portal-effect {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, 
+          rgba(0, 255, 255, 1) 0%,
+          rgba(0, 255, 255, 0.8) 20%,
+          rgba(0, 255, 255, 0.4) 40%,
+          rgba(0, 255, 255, 0) 70%
+        );
+        border-radius: 50%;
+        opacity: 0;
+        transition: all 0.8s ease;
+      }
+
+      /* Particles effect */
+      .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #00ffff;
+        border-radius: 50%;
+        animation: particleFloat 2s infinite linear;
+      }
+
+      @keyframes particleFloat {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--x), var(--y)) scale(0);
+          opacity: 0;
+        }
+      }
+
+      /* Animation classes */
+      .portal-active .portal-gate {
+        width: 300px;
+        height: 300px;
+        opacity: 1;
+      }
+
+      .portal-active .left-gate {
+        transform: rotateY(-180deg);
+      }
+
+      .portal-active .right-gate {
+        transform: rotateY(180deg);
+      }
+
+      .portal-active .portal-effect {
+        width: 400px;
+        height: 400px;
+        opacity: 1;
+        animation: portalPulse 2s infinite;
+      }
+
+      .portal-active .particles {
+        opacity: 1;
+      }
+
+      @keyframes portalPulse {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* Flash effect */
+      .flash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .flash.active {
+        opacity: 1;
+        animation: flashEffect 3s forwards;
+      }
+
+      @keyframes flashEffect {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Responsive styles */
+      @media (max-width: 768px) {
+        .portal-container {
+          width: 250px;
+          height: 250px;
+        }
+
+        .portal-button {
+          padding: 15px 40px;
+          font-size: 1.2em;
+        }
+
+        .gate {
+          width: 125px;
+          height: 250px;
+        }
+
+        .left-gate {
+          left: -125px;
+        }
+
+        .right-gate {
+          right: -125px;
+        }
+
+        .portal-active .portal-effect {
+          width: 300px;
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .portal-container {
+          width: 200px;
+          height: 200px;
+        }
+
+        .portal-button {
+          padding: 12px 30px;
+          font-size: 1.1em;
+        }
+
+        .gate {
+          width: 100px;
+          height: 200px;
+        }
+
+        .left-gate {
+          left: -100px;
+        }
+
+        .right-gate {
+          right: -100px;
+        }
+
+        .portal-active .portal-effect {
+          width: 250px;
+          height: 250px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1001,6 +1306,28 @@
         </div>
       </div>
     </div>
+
+    <!-- Thêm phần cảm ơn và nút portal -->
+    <div class="thank-you-section" data-aos="fade-up">
+      <div class="thank-you-content">
+        <h2><i class="fas fa-heart"></i> Cảm ơn bạn đã xem hết!</h2>
+        <p>Chúng tôi rất vui khi được phục vụ bạn</p>
+        <div class="portal-container">
+          <a href="home.html" class="portal-button">
+            <span class="portal-text"><i class="fas fa-home"></i> Về trang chủ</span>
+          </a>
+          <div class="portal-gate">
+            <div class="gate left-gate"></div>
+            <div class="gate right-gate"></div>
+            <div class="portal-effect"></div>
+            <div class="particles"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flash"></div>
+
     <script>
       function toggleMenu() {
         document.getElementById("menuList").classList.toggle("active");
@@ -1075,6 +1402,38 @@
 
       const statsSection = document.querySelector(".community-stats");
       observer.observe(statsSection);
+
+      // Thêm xử lý hiệu ứng portal
+      document.querySelector('.portal-button').addEventListener('click', function(e) {
+        e.preventDefault();
+        const portalContainer = document.querySelector('.portal-container');
+        const flash = document.querySelector('.flash');
+        
+        // Tạo particles
+        const particles = document.querySelector('.particles');
+        for(let i = 0; i < 20; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`);
+          particle.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.top = `${Math.random() * 100}%`;
+          particles.appendChild(particle);
+        }
+        
+        // Kích hoạt hiệu ứng portal
+        portalContainer.classList.add('portal-active');
+        
+        setTimeout(() => {
+          // Kích hoạt hiệu ứng flash
+          flash.classList.add('active');
+        }, 2000);
+        
+        setTimeout(() => {
+          // Chuyển hướng sau khi hiệu ứng hoàn thành
+          window.location.href = this.href;
+        }, 3000);
+      });
     </script>
   </body>
 </html>
