@@ -1,154 +1,394 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài viết</title>
+    <title>MMO Là Gì? Tìm Hiểu Chi Tiết - BETA TOOL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #00ffff;
+            --text-color: #ffffff;
+            --bg-color: #1a1a1a;
+            --container-bg: rgba(28, 28, 28, 0.95);
+            --border-color: rgba(0, 255, 255, 0.3);
+            --highlight-color: #ff00ff;
+        }
+
         body {
-            background: url('/img/background.webp') no-repeat center center fixed;
-            background-size: cover; /* Phủ kín màn hình */
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
         }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/img/background.webp') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
         .navbar {
-            background-color: #1a1a1a;
-            padding: 15px;
-            font-size: 20px;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--container-bg);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #2196F3, #00BCD4);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .back-button i {
+            font-size: 1.2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0;
+            text-align: left;
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #00bcd4;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #4fc3f7;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .article-meta i {
+            color: var(--primary-color);
+        }
+
+        .featured-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+        }
+
+        .content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            text-align: justify;
+            padding: 0 1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .content ul li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content ul li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -0.2rem;
+        }
+
+        .content b {
+            color: var(--highlight-color);
             font-weight: bold;
         }
-        .container {
-            border: 2px solid deepskyblue;
-            padding: 20px;
-            margin: 50px auto;
-            width: 60%;
-            background-color: #1c1c1c;
-            border-radius: 10px;
-        }
-        .back-button {
-            background-color: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
         }
-        .back-button:hover {
-            background-color: darkblue;
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 10px;
+
+        .scroll-top:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
         }
+
+        .scroll-top i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-top:hover i {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .content {
+                font-size: 1rem;
+                padding: 0;
+            }
+
+            .featured-image {
+                max-height: 300px;
+            }
+
+            .article-meta {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem;
+            }
+
+            .navbar-title {
+                font-size: 1.2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .back-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .featured-image {
+                max-height: 200px;
+            }
+
             .scroll-top {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        background-color: rgb(0, 0, 0);
-        border-radius: 50%;
-        border: 3px solid purple;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 24px;
-        color: purple;
-    }
-
-    .scroll-top:hover {
-        background-color: purple;
-        color: white;
-    }
-
-            p {
-        text-align: justify; /* Căn đều 2 bên */
-        font-family: "Arial", sans-serif; /* Chọn phông chữ dễ đọc */
-        font-size: 18px; /* Kích thước chữ phù hợp */
-        line-height: 1.6; /* Khoảng cách dòng dễ đọc */
-        word-wrap: break-word; /* Đảm bảo chữ không bị tràn */
-        overflow-wrap: break-word;
-        padding: 10px; /* Giữ khoảng cách nhỏ với viền */
-        margin: 0;
-        }
-        .container {
-            width: 60%;
-            padding: 20px;
-            margin: 50px auto;
-            background-color: #191919;
-            border: 2px solid deepskyblue;
-            border-radius: 10px;
-            text-align: justify;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
+                width: 40px;
+                height: 40px;
+                bottom: 1rem;
+                right: 1rem;
             }
-            to {
-                transform: rotate(360deg);
-            }
-
         }
     </style>
-    <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
 </head>
 <body>
-    <div class="navbar">BETA Blog</div>
+    <nav class="navbar">
+        <div class="navbar-title">BETA Blog</div>
+        <button class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+        </button>
+    </nav>
+
     <div class="container">
-        <button class="back-button" onclick="history.back()">Back</button>
-        <h1>MMO là gì </h1>
-        <img src="/imgblog/MMOlagi.png" alt="Hình ảnh bài viết">
-        <p style="text-align: left;">
-            <h2>
-                1.MMO là gì
-            </h2>
+        <h1>MMO Là Gì? Tìm Hiểu Chi Tiết Về Make Money Online</h1>
+        
+        <div class="article-meta">
+            <span><i class="far fa-calendar-alt"></i> Ngày đăng: <time datetime="2024-03-20">20/03/2024</time></span>
+            <span><i class="far fa-user"></i> Tác giả: BETA TOOL</span>
+            <span><i class="far fa-clock"></i> Thời gian đọc: 5 phút</span>
+        </div>
+
+        <img class="featured-image" src="/imgblog/MMOlagi.png" alt="Hình ảnh minh họa MMO">
+
+        <div class="content">
+            <h2>1. MMO là gì?</h2>
             <p>
                 MMO (Make Money Online) là thuật ngữ chỉ các hình thức kiếm tiền trên mạng thông qua nhiều phương pháp khác nhau. Đây là xu hướng phổ biến nhờ sự phát triển của internet, cho phép mọi người tạo thu nhập mà không cần đến văn phòng truyền thống.
             </p>
+
             <h2>2. Các Hình Thức MMO Phổ Biến</h2>
             <ul>
-                <li><b>Affiliate Marketing:</b> Giới thiệu sản phẩm và nhận hoa hồng.</li>
-                <li><b>Dropshipping:</b> Bán hàng không cần tồn kho.</li>
-                <li><b>Viết Blog & Quảng Cáo:</b> Kiếm tiền từ quảng cáo.</li>
-                <li><b>Đầu Tư Crypto & Forex:</b> Giao dịch tiền điện tử và ngoại hối.</li>
-                <li><b>Bot Kiếm Tiền:</b> Tự động hoá giao dịch và khai thác AI.</li>
+                <li><b>Affiliate Marketing:</b> Giới thiệu sản phẩm và nhận hoa hồng từ các đơn hàng thành công.</li>
+                <li><b>Dropshipping:</b> Bán hàng không cần tồn kho, kết nối trực tiếp từ nhà cung cấp đến khách hàng.</li>
+                <li><b>Viết Blog & Quảng Cáo:</b> Tạo nội dung chất lượng và kiếm tiền từ quảng cáo, tiếp thị liên kết.</li>
+                <li><b>Đầu Tư Crypto & Forex:</b> Giao dịch tiền điện tử và ngoại hối trên các sàn trực tuyến.</li>
+                <li><b>Bot Kiếm Tiền:</b> Tự động hoá các quy trình giao dịch và khai thác tiềm năng của AI.</li>
             </ul>
-        
+
             <h2>3. Lợi Ích & Thách Thức Của MMO</h2>
             <h3>Lợi ích:</h3>
             <ul>
-                <li>Kiếm tiền linh hoạt từ bất kỳ đâu.</li>
-                <li>Có thể tạo thu nhập thụ động.</li>
-                <li>Phát triển kỹ năng kinh doanh & marketing.</li>
+                <li>Tự do làm việc từ bất kỳ đâu, không bị ràng buộc về địa điểm.</li>
+                <li>Khả năng tạo thu nhập thụ động, tiền vẫn sinh lời khi bạn ngủ.</li>
+                <li>Cơ hội phát triển kỹ năng kinh doanh và marketing trong môi trường số.</li>
             </ul>
             
             <h3>Thách thức:</h3>
             <ul>
-                <li>Cạnh tranh cao.</li>
-                <li>Dễ bị lừa đảo.</li>
-                <li>Cần kiến thức & kỹ năng để trụ vững.</li>
+                <li>Mức độ cạnh tranh cao trong hầu hết các lĩnh vực MMO.</li>
+                <li>Rủi ro bị lừa đảo nếu không có kiến thức và cẩn trọng.</li>
+                <li>Đòi hỏi kiến thức chuyên môn và kỹ năng đặc thù để duy trì thành công.</li>
             </ul>
             
             <h2>4. MMO Có Phải Là Con Đường Dài Hạn?</h2>
-            <p>MMO không phải là con đường nhanh giàu...</p>
-        
+            <p>
+                MMO không phải là con đường nhanh giàu như nhiều người vẫn nghĩ. Thành công trong lĩnh vực này đòi hỏi sự kiên nhẫn, học hỏi liên tục và chiến lược rõ ràng. Đây có thể là một nghề nghiệp lâu dài nếu bạn đầu tư đúng thời gian và công sức.
+            </p>
+
             <h2>5. Kết Luận</h2>
-            <p>MMO là một cách kiếm tiền hiệu quả, nhưng cần trang bị kiến thức và chọn con đường phù hợp.</p> 
-        </p>
-        <button class="back-button" onclick="history.back()">Back</button>
+            <p>
+                MMO là một cách kiếm tiền hiệu quả trong thời đại số, nhưng đòi hỏi sự nghiêm túc và chuyên nghiệp. Để thành công, bạn cần trang bị kiến thức đầy đủ, chọn lựa hình thức MMO phù hợp với bản thân, và xây dựng kế hoạch phát triển bền vững.
+            </p>
+        </div>
+
+        <button class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+        </button>
     </div>
-    <div class="scroll-top" onclick="scrollToTop()">&#8679;</div>
+
+    <div class="scroll-top" onclick="scrollToTop()" title="Lên đầu trang">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Hiển thị/ẩn nút scroll top
+        window.onscroll = function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        };
+
+        // Hàm scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Thêm hiệu ứng loading cho ảnh
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                img.onload = function() {
+                    img.style.opacity = '1';
+                };
+            });
+        });
+    </script>
 </body>
 </html>
