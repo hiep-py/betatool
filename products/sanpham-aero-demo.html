@@ -4,117 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AERO DEMO CÓ 1000$ FREE - BETA TOOL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            background: url('/img/background.webp') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Ngăn tràn ngang */
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --dark-bg: rgba(15, 15, 15, 0.95);
+            --text-color: #ffffff;
         }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../img/background.webp") no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
         .navbar {
-            background-color: #1a1a1a;
+            background-color: rgba(26, 26, 26, 0.95);
             padding: 15px;
             font-size: 20px;
             font-weight: bold;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
+
         .container {
-            border: 2px solid deepskyblue;
+            max-width: 1200px;
+            margin: 80px auto 30px;
             padding: 20px;
-            margin: 50px auto;
-            width: 60%;
-            background-color: #1c1c1c;
-            border-radius: 10px;
         }
-        .back-button {
-            background-color: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .product-title {
+            font-size: 2.5em;
+            color: #ff4500;
+            margin: 0 0 20px;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: #888;
+            font-size: 0.9em;
             margin-bottom: 20px;
         }
-        .back-button:hover {
-            background-color: darkblue;
+
+        .product-meta i {
+            color: var(--primary-color);
         }
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 10px;
+
+        .product-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
         }
-        .scroll-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: rgb(0, 0, 0);
-            border-radius: 50%;
-            border: 3px solid purple;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 24px;
-            color: purple;
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
         }
-        .scroll-top:hover {
-            background-color: purple;
-            color: white;
+
+        .product-image:hover img {
+            transform: scale(1.05);
         }
-        p {
+
+        .product-description {
+            font-size: 1.1em;
+            color: #e0e0e0;
             text-align: justify;
-            font-family: "Arial", sans-serif;
-            font-size: 18px;
-            line-height: 1.6;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            padding: 10px;
-            margin: 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
         }
-        .product-details {
-            text-align: center;
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
         }
-        .product-details h1 {
-            color: #ff4500;
-        }
-        .product-details p {
+
+        .features-list li {
             margin-bottom: 15px;
-        }
-        .highlight {
+            padding-left: 30px;
+            position: relative;
             color: #00ff00;
         }
+
+        .features-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
         .iframe-container {
-            margin: 20px 0;
-            border: 2px solid #00d9ff;
-            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
+            background: rgba(0, 0, 0, 0.3);
         }
+
         .iframe-container iframe {
             width: 100%;
-            height: 500px;
+            height: 600px;
             border: none;
-            border-radius: 8px;
         }
+
         .zoom-button {
-            background-color: #00d9ff;
-            color: white;
-            padding: 8px 16px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #000;
+            padding: 12px 25px;
             border: none;
+            border-radius: 25px;
             cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
         }
+
         .zoom-button:hover {
-            background-color: #00b3d9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
         }
+
         #full-screen-iframe {
             display: none;
             position: fixed;
@@ -122,62 +171,173 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            overflow: auto;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
         }
+
         #full-screen-iframe iframe {
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 0;
         }
+
         #close-full-screen {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ff0000;
+            top: 20px;
+            right: 20px;
+            background: #ff0000;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             font-size: 20px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
         }
+
         #close-full-screen:hover {
-            background-color: #cc0000;
+            background: #cc0000;
+            transform: rotate(90deg);
         }
 
-        /* Responsive Design */
-        @media screen and (max-width: 768px) {
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-color);
+            color: #000;
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
             .container {
-                width: 90%;
-                margin: 20px auto;
-                padding: 10px;
+                padding: 15px;
+                margin-top: 60px;
             }
+
+            .product-title {
+                font-size: 2em;
+            }
+
             .iframe-container iframe {
-                height: 300px; /* Giảm chiều cao iframe trên tablet và điện thoại */
+                height: 400px;
+            }
+
+            .product-meta {
+                flex-wrap: wrap;
             }
         }
 
-        @media screen and (max-width: 480px) {
+        @media (max-width: 480px) {
+            .product-title {
+                font-size: 1.5em;
+            }
+
             .iframe-container iframe {
-                height: 200px; /* Giảm thêm chiều cao iframe trên điện thoại nhỏ */
+                height: 300px;
             }
-            .product-details h1 {
-                font-size: 1.1em;
+
+            .product-description {
+                font-size: 1em;
             }
-            p {
-                font-size: 16px;
-            }
+
             .zoom-button {
-                padding: 6px 12px;
-                font-size: 14px;
+                width: 100%;
+                padding: 10px;
             }
         }
     </style>
+</head>
+<body>
+    <div class="navbar">BETA Sản Phẩm</div>
+    
+    <div class="container">
+        <button class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+        </button>
+
+        <div class="product-header">
+            <h1 class="product-title">AERO DEMO CÓ 1000$ FREE</h1>
+            <div class="product-meta">
+                <span><i class="fas fa-star"></i> Trải nghiệm miễn phí</span>
+                <span><i class="fas fa-gift"></i> 1000$ FREE</span>
+                <span><i class="fas fa-gamepad"></i> Game Demo</span>
+            </div>
+        </div>
+
+        <div class="product-image">
+            <img src="../imgproducts/AeroDemo.png" alt="AERO DEMO">
+        </div>
+
+        <div class="product-description">
+            Trải nghiệm miễn phí 1000$ trên nền tảng AERO Turbo Games. Khám phá các tính năng hấp dẫn và cơ hội thắng thưởng thú vị.
+        </div>
+
+        <ul class="features-list">
+            <li>Tài khoản demo với 1000$ để trải nghiệm</li>
+            <li>Giao diện trực quan, dễ sử dụng</li>
+            <li>Đa dạng lựa chọn cược</li>
+            <li>Thống kê chi tiết</li>
+            <li>Hỗ trợ 24/7</li>
+        </ul>
+
+        <div class="iframe-container">
+            <iframe src="https://aero.turbogames.io/" title="AERO Turbo Games" allow="fullscreen" allowfullscreen></iframe>
+            <button class="zoom-button" onclick="toggleFullScreen()">
+                <i class="fas fa-expand"></i> Phóng to
+            </button>
+        </div>
+
+        <div id="full-screen-iframe">
+            <iframe src="https://aero.turbogames.io/" title="AERO Turbo Games Full Screen" allow="fullscreen" allowfullscreen></iframe>
+            <button id="close-full-screen" onclick="closeFullScreen()">×</button>
+        </div>
+
+        <button class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+        </button>
+    </div>
+
+    <div class="scroll-top" onclick="scrollToTop()">⇧</div>
+
     <script>
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -187,20 +347,19 @@
             const fullScreenIframe = document.getElementById('full-screen-iframe');
             if (fullScreenIframe.style.display === 'none' || fullScreenIframe.style.display === '') {
                 fullScreenIframe.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Ngăn cuộn trang nền
+                document.body.style.overflow = 'hidden';
             } else {
                 fullScreenIframe.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Cho phép cuộn trang nền
+                document.body.style.overflow = 'auto';
             }
         }
 
         function closeFullScreen() {
             const fullScreenIframe = document.getElementById('full-screen-iframe');
             fullScreenIframe.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Khôi phục cuộn trang nền
+            document.body.style.overflow = 'auto';
         }
 
-        // Kiểm tra kích thước màn hình để tự động phóng to nếu cần
         window.addEventListener('resize', () => {
             const fullScreenIframe = document.getElementById('full-screen-iframe');
             if (window.innerWidth <= 768 && fullScreenIframe.style.display === 'block') {
@@ -209,32 +368,5 @@
             }
         });
     </script>
-</head>
-<body>
-    <div class="navbar">BETA Sản Phẩm</div>
-    <div class="container">
-        <button class="back-button" onclick="history.back()">Back</button>
-        <div class="product-details">
-            <h1>AERO DEMO CÓ 1000$ FREE</h1>
-            <img src="/imgproducts/AeroDemo.png" alt="AERO DEMO CÓ 1000$ FREE" onerror="this.style.display='none';">
-            <p>Trải nghiệm miễn phí 1000$ trên nền tảng AERO Turbo Games, mang đến cơ hội chơi thử và khám phá các tính năng đỉnh cao của trò chơi cờ bạc hiện đại.</p>
-            <h3>Đặc điểm nổi bật:</h3>
-            <ul style="text-align: left; list-style-type: none; padding-left: 20px;">
-                <li class="highlight">1000$ miễn phí để trải nghiệm</li>
-            </ul>
-            <p>Giá: Miễn phí</p>
-            <a href="https://betatool.netlify.app/sanpham#aero-demo" style="color: #00d9ff; text-decoration: none; font-size: 18px;">Trải nghiệm ngay</a>
-            <div class="iframe-container">
-                <iframe src="https://aero.turbogames.io/" title="AERO Turbo Games" allow="fullscreen" allowfullscreen></iframe>
-                <button class="zoom-button" onclick="toggleFullScreen()">Phóng to</button>
-            </div>
-            <div id="full-screen-iframe">
-                <iframe src="https://aero.turbogames.io/" title="AERO Turbo Games Full Screen" allow="fullscreen" allowfullscreen></iframe>
-                <button id="close-full-screen" onclick="closeFullScreen()">X</button>
-            </div>
-        </div>
-        <button class="back-button" onclick="history.back()">Back</button>
-    </div>
-    <div class="scroll-top" onclick="scrollToTop()">⇧</div>
 </body>
 </html>

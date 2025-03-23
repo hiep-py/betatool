@@ -237,6 +237,7 @@
         line-height: 1.6;
         display: -webkit-box;
         -webkit-line-clamp: 3;
+        line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
@@ -558,7 +559,7 @@
       <i></i>
       <i></i>
       <i></i>
-    </div>
+      </div>
 
     <div class="mobile-nav">
       <div class="mobile-nav-links">
@@ -577,9 +578,9 @@
         <i class="fas fa-search search-icon"></i>
       </div>
       <h1 class="section-title">Blog mới nhất</h1>
-      <div class="blog-container" id="blog-list">
-        <!-- Dữ liệu blog sẽ được load ở đây -->
-      </div>
+    <div class="blog-container" id="blog-list">
+      <!-- Dữ liệu blog sẽ được load ở đây -->
+    </div>
     </main>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -636,8 +637,8 @@
                       Đọc thêm <i class="fas fa-arrow-right"></i>
                     </a>
                   </div>
-                </div>
-              `;
+                            </div>
+                        `;
             }
           });
 
@@ -721,7 +722,7 @@
 
       // Initialize
       document.addEventListener("DOMContentLoaded", () => {
-        loadBlog();
+      loadBlog();
         document.getElementById("searchBox").addEventListener("input", (e) => {
           searchBlog(e.target.value);
         });
