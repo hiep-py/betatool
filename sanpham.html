@@ -720,13 +720,13 @@
 
         main {
           padding-top: 80px;
-        }
+      }
 
-        .search-container {
+      .search-container {
           margin: 0 15px 20px;
-        }
+      }
 
-        .search-box {
+      .search-box {
           padding: 12px 15px;
           font-size: 0.95em;
         }
@@ -772,6 +772,78 @@
         .view-more {
           padding: 8px 12px;
           font-size: 0.9em;
+        }
+
+        .tool-icon {
+          font-size: 30px;
+        }
+
+        .tool-icons-container {
+          transform: scale(0.8);
+        }
+
+        @keyframes toolIconFloatCyan {
+          0% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+          }
+          30% {
+            opacity: 1;
+            transform: scale(1.2) rotate(180deg);
+            filter: drop-shadow(0 0 15px rgba(0,255,255,0.8));
+          }
+          70% {
+            opacity: 1;
+            transform: scale(1.2) rotate(360deg);
+            filter: drop-shadow(0 0 15px rgba(0,255,255,0.8));
+          }
+          100% {
+            opacity: 0;
+            transform: scale(0) rotate(720deg);
+          }
+        }
+
+        @keyframes toolIconFloatDark {
+          0% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+          }
+          30% {
+            opacity: 1;
+            transform: scale(1.2) rotate(180deg);
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));
+          }
+          70% {
+            opacity: 1;
+            transform: scale(1.2) rotate(360deg);
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));
+          }
+          100% {
+            opacity: 0;
+            transform: scale(0) rotate(720deg);
+          }
+        }
+
+        .circuit-pattern {
+          background-size: 30px 30px;
+        }
+
+        .particle {
+          width: 4px;
+          height: 4px;
+        }
+
+        .flash {
+          opacity: 0.8;
+        }
+
+        .transition-screen::before,
+        .transition-screen::after {
+          background: linear-gradient(90deg, 
+            rgba(0,255,255,0.15) 0%,
+            rgba(0,255,255,0.4) 50%,
+            rgba(0,255,255,0.15) 100%
+          );
         }
       }
 
@@ -835,6 +907,18 @@
         .product-category {
           font-size: 0.75em;
           padding: 4px 8px;
+        }
+
+        .tool-icon {
+          font-size: 24px;
+        }
+
+        .tool-icons-container {
+          transform: scale(0.6);
+        }
+
+        .circuit-pattern {
+          background-size: 20px 20px;
         }
       }
 
@@ -1003,13 +1087,13 @@
       @media (max-width: 768px) {
         .home-portal-btn {
           bottom: 20px;
-          right: 20px;
+        right: 20px;
           width: 50px;
           height: 50px;
         }
 
         .home-portal-btn i {
-          font-size: 20px;
+        font-size: 20px;
         }
 
         .home-portal {
@@ -1309,7 +1393,7 @@
       <i></i>
       <i></i>
       <i></i>
-    </div>
+      </div>
 
     <div class="mobile-nav">
       <div class="mobile-nav-links">
@@ -1323,14 +1407,14 @@
     <div class="overlay"></div>
 
     <main>
-      <div class="search-container">
+    <div class="search-container">
         <input type="text" class="search-box" id="searchBox" placeholder="Tìm kiếm sản phẩm..." />
         <i class="fas fa-search search-icon"></i>
-      </div>
+    </div>
       <h1 class="section-title">Sản phẩm mới nhất</h1>
-      <div class="product-container" id="product-list">
-        <!-- Dữ liệu sản phẩm sẽ được load ở đây -->
-      </div>
+    <div class="product-container" id="product-list">
+      <!-- Dữ liệu sản phẩm sẽ được load ở đây -->
+    </div>
     </main>
 
     <div class="shooting-stars-container">
@@ -1372,7 +1456,7 @@
         const header = document.querySelector('header');
         if (window.scrollY > 50) {
           header.classList.add('scrolled');
-        } else {
+          } else {
           header.classList.remove('scrolled');
         }
       });
@@ -1413,8 +1497,8 @@
                       <i class="fas fa-info-circle"></i> Chi tiết
                     </a>
                   </div>
-                </div>
-              `;
+                            </div>
+                        `;
             }
           });
 
@@ -1606,25 +1690,25 @@
         const container = document.querySelector('.tool-icons-container');
         container.innerHTML = '';
         
-        // Thứ tự và màu sắc của các icon
         const icons = [
-          { icon: 'fa-wrench', color: 'dark' },      // Cờ lê - đen
-          { icon: 'fa-screwdriver', color: 'cyan' },  // Tua vít - xanh
-          { icon: 'fa-gear', color: 'dark' },         // Bánh răng - đen
-          { icon: 'fa-bolt', color: 'cyan' },         // Tia sét - xanh
-          { icon: 'fa-tools', color: 'dark' },        // Công cụ - đen
-          { icon: 'fa-microchip', color: 'cyan' },    // Chip - xanh
-          { icon: 'fa-hammer', color: 'dark' },       // Búa - đen
-          { icon: 'fa-cog', color: 'cyan' }           // Bánh răng xoay - xanh
+          { icon: 'fa-wrench', color: 'dark' },
+          { icon: 'fa-screwdriver', color: 'cyan' },
+          { icon: 'fa-gear', color: 'dark' },
+          { icon: 'fa-bolt', color: 'cyan' },
+          { icon: 'fa-tools', color: 'dark' },
+          { icon: 'fa-microchip', color: 'cyan' },
+          { icon: 'fa-hammer', color: 'dark' },
+          { icon: 'fa-cog', color: 'cyan' }
         ];
+        
+        // Điều chỉnh bán kính dựa trên kích thước màn hình
+        const radius = window.innerWidth < 768 ? 150 : 200;
         
         icons.forEach((item, index) => {
           const iconEl = document.createElement('i');
           iconEl.className = `fas ${item.icon} tool-icon ${item.color}`;
           
-          // Tính toán vị trí
           const angle = (index / icons.length) * Math.PI * 2;
-          const radius = 200;
           const x = Math.cos(angle) * radius;
           const y = Math.sin(angle) * radius;
           
@@ -1634,15 +1718,19 @@
         
         container.classList.add('active');
         
-        // Kích hoạt animation với độ trễ
+        // Giảm độ trễ trên mobile
+        const delay = window.innerWidth < 768 ? 150 : 200;
+        
         container.querySelectorAll('.tool-icon').forEach((icon, index) => {
           setTimeout(() => {
             icon.classList.add('active');
-          }, index * 200);
+          }, index * delay);
         });
         
+        // Giảm thời gian hiển thị trên mobile
+        const duration = window.innerWidth < 768 ? 1500 : 2000;
         return new Promise(resolve => {
-          setTimeout(resolve, 2000);
+          setTimeout(resolve, duration);
         });
       }
 
@@ -1652,7 +1740,9 @@
         
         await createToolIcons();
         
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Giảm thời gian chờ trên mobile
+        const delay = window.innerWidth < 768 ? 300 : 500;
+        await new Promise(resolve => setTimeout(resolve, delay));
         
         const transitionScreen = document.querySelector('.transition-screen');
         transitionScreen.classList.add('active');
@@ -1661,11 +1751,13 @@
         const centerY = window.innerHeight / 2;
         createParticles(centerX, centerY);
         
+        // Giảm thời gian hiệu ứng trên mobile
+        const duration = window.innerWidth < 768 ? 1500 : 2000;
         return new Promise(resolve => {
           setTimeout(() => {
             circuitPattern.classList.remove('active');
             resolve();
-          }, 2000);
+          }, duration);
         });
       }
 
