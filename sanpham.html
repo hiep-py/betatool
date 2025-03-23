@@ -106,7 +106,239 @@
         background: url("img/background.webp") no-repeat center center fixed;
         background-size: cover;
         opacity: 0.1;
+        z-index: -2;
+      }
+
+      @keyframes shootingStars {
+        0% {
+          transform: translate(120vw, -20vh) rotate(-45deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-20vw, 120vh) rotate(-45deg);
+          opacity: 0;
+        }
+      }
+
+      .shooting-stars-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         z-index: -1;
+        pointer-events: none;
+      }
+
+      .shooting-star {
+        position: absolute;
+        height: 2px;
+        background: linear-gradient(-90deg, 
+          rgba(0,255,255,0) 0%, 
+          rgba(0,255,255,0.3) 30%,
+          rgba(0,255,255,1) 100%
+        );
+        animation: shootingStars linear infinite;
+        filter: drop-shadow(0 0 3px rgba(0,255,255,0.3));
+      }
+
+      .shooting-star::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        background: radial-gradient(circle, 
+          rgba(0,255,255,1) 0%,
+          rgba(0,255,255,0.3) 50%,
+          rgba(0,255,255,0) 100%
+        );
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        filter: blur(0.5px);
+      }
+
+      .shooting-star::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100px;
+        height: 1px;
+        background: linear-gradient(-90deg,
+          rgba(0,255,255,0) 0%,
+          rgba(0,255,255,0.3) 50%,
+          rgba(0,255,255,0.8) 100%
+        );
+        transform: translate(-100%, -50%);
+        filter: blur(1px);
+        opacity: 0.2;
+      }
+
+      .shooting-star:nth-child(1) {
+        top: 15%;
+        width: 150px;
+        animation-duration: 3s;
+        animation-delay: 0s;
+      }
+
+      .shooting-star:nth-child(2) {
+        top: 35%;
+        width: 100px;
+        animation-duration: 2.5s;
+        animation-delay: 1s;
+      }
+
+      .shooting-star:nth-child(3) {
+        top: 55%;
+        width: 120px;
+        animation-duration: 3.2s;
+        animation-delay: 1.8s;
+      }
+
+      .shooting-star:nth-child(4) {
+        top: 25%;
+        width: 180px;
+        animation-duration: 4s;
+        animation-delay: 2.5s;
+      }
+
+      .shooting-star:nth-child(5) {
+        top: 45%;
+        width: 130px;
+        animation-duration: 3.5s;
+        animation-delay: 0.5s;
+      }
+
+      .shooting-star:nth-child(6) {
+        top: 65%;
+        width: 160px;
+        animation-duration: 2.8s;
+        animation-delay: 2s;
+      }
+
+      @keyframes portalOpen {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .portal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0);
+        transition: all 0.5s ease;
+      }
+
+      .portal-container.active {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .portal {
+        width: 300px;
+        height: 300px;
+        position: relative;
+        transform: scale(0);
+        opacity: 0;
+        transition: all 0.5s ease;
+      }
+
+      .portal-container.active .portal {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .portal::before,
+      .portal::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      .portal::before {
+        background: radial-gradient(circle, 
+          rgba(0,255,255,1) 0%,
+          rgba(0,255,255,0.3) 50%,
+          rgba(0,0,0,0) 100%
+        );
+        animation: rotate 2s linear infinite;
+        box-shadow: 0 0 50px rgba(0,255,255,0.5);
+      }
+
+      .portal::after {
+        background: conic-gradient(
+          from 0deg,
+          transparent 0%,
+          rgba(0,255,255,0.8) 20%,
+          transparent 40%,
+          rgba(0,255,255,0.8) 60%,
+          transparent 80%,
+          rgba(0,255,255,0.8) 100%
+        );
+        animation: rotate 3s linear infinite reverse;
+        filter: drop-shadow(0 0 15px rgba(0,255,255,0.5));
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .product-link {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .product-link:hover {
+        background: rgba(0,255,255,0.2);
+        transform: translateY(-2px);
+      }
+
+      .product-link::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(0,255,255,0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.3s ease, height 0.3s ease;
+      }
+
+      .product-link:hover::before {
+        width: 200%;
+        height: 200%;
       }
 
       header {
@@ -605,6 +837,457 @@
           padding: 4px 8px;
         }
       }
+
+      /* Home Portal Button */
+      .home-portal-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: rgba(0,255,255,0.1);
+        border: 2px solid rgba(0,255,255,0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        overflow: hidden;
+        animation: glowPulse 2s infinite;
+      }
+
+      @keyframes glowPulse {
+        0% {
+          box-shadow: 0 0 5px rgba(0,255,255,0.5),
+                      0 0 10px rgba(0,255,255,0.3),
+                      0 0 15px rgba(0,255,255,0.1);
+        }
+        50% {
+          box-shadow: 0 0 10px rgba(0,255,255,0.8),
+                      0 0 20px rgba(0,255,255,0.6),
+                      0 0 30px rgba(0,255,255,0.4);
+        }
+        100% {
+          box-shadow: 0 0 5px rgba(0,255,255,0.5),
+                      0 0 10px rgba(0,255,255,0.3),
+                      0 0 15px rgba(0,255,255,0.1);
+        }
+      }
+
+      .home-portal-btn::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(0,255,255,0.8) 0%, rgba(0,255,255,0) 70%);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .home-portal-btn:hover {
+        transform: scale(1.1) rotate(360deg);
+        border-color: rgba(0,255,255,0.8);
+        animation: none;
+        box-shadow: 0 0 20px rgba(0,255,255,0.8),
+                    0 0 40px rgba(0,255,255,0.4),
+                    0 0 60px rgba(0,255,255,0.2);
+      }
+
+      .home-portal-btn:hover::before {
+        opacity: 0.5;
+        animation: rotateBg 2s linear infinite;
+      }
+
+      .home-portal-btn i {
+        color: #00ffff;
+        font-size: 24px;
+        transition: all 0.3s ease;
+        text-shadow: 0 0 10px rgba(0,255,255,0.8);
+      }
+
+      .home-portal-btn:hover i {
+        transform: scale(1.2) rotate(-360deg);
+        color: #ffffff;
+      }
+
+      @keyframes rotateBg {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .home-portal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0);
+        transition: all 0.5s ease;
+      }
+
+      .home-portal-container.active {
+        background: rgba(0, 0, 0, 0.9);
+      }
+
+      .home-portal {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+        transition: all 0.8s ease;
+      }
+
+      .home-portal-container.active .home-portal {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+      }
+
+      .home-portal::before,
+      .home-portal::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      .home-portal::before {
+        background: radial-gradient(circle, 
+          rgba(255,0,255,1) 0%,
+          rgba(255,0,255,0.3) 50%,
+          rgba(0,0,0,0) 100%
+        );
+        animation: rotateClockwise 3s linear infinite;
+        box-shadow: 0 0 50px rgba(255,0,255,0.5);
+      }
+
+      .home-portal::after {
+        background: conic-gradient(
+          from 0deg,
+          transparent 0%,
+          rgba(255,0,255,0.8) 20%,
+          transparent 40%,
+          rgba(255,0,255,0.8) 60%,
+          transparent 80%,
+          rgba(255,0,255,0.8) 100%
+        );
+        animation: rotateCounterClockwise 4s linear infinite;
+        filter: drop-shadow(0 0 15px rgba(255,0,255,0.5));
+      }
+
+      @keyframes rotateClockwise {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes rotateCounterClockwise {
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .home-portal-btn {
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+        }
+
+        .home-portal-btn i {
+          font-size: 20px;
+        }
+
+        .home-portal {
+          width: 300px;
+          height: 300px;
+        }
+      }
+
+      /* Explosion effect */
+      .explosion {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10000;
+      }
+
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #00ffff;
+        box-shadow: 0 0 15px #00ffff;
+        animation: explode 1s ease-out forwards;
+      }
+
+      @keyframes explode {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+          transform: translate(calc(var(--tx) * 0.5), calc(var(--ty) * 0.5)) scale(1.2);
+        }
+        100% {
+          transform: translate(var(--tx), var(--ty)) scale(0);
+          opacity: 0;
+        }
+      }
+
+      .flash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        opacity: 0;
+        z-index: 10001;
+        pointer-events: none;
+      }
+
+      @keyframes flash {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      /* Transition Screen Effect */
+      .transition-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10002;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .transition-screen::before,
+      .transition-screen::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(90deg, 
+          rgba(0,255,255,0.2) 0%,
+          rgba(0,255,255,0.5) 50%,
+          rgba(0,255,255,0.2) 100%
+        );
+        transition: transform 0.8s ease-in-out;
+      }
+
+      .transition-screen::before {
+        top: 0;
+        transform: translateX(-100%);
+      }
+
+      .transition-screen::after {
+        bottom: 0;
+        transform: translateX(100%);
+      }
+
+      .transition-screen.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .transition-screen.active::before {
+        transform: translateX(0);
+        animation: glowTop 1s ease-in-out infinite;
+      }
+
+      .transition-screen.active::after {
+        transform: translateX(0);
+        animation: glowBottom 1s ease-in-out infinite;
+      }
+
+      @keyframes glowTop {
+        0%, 100% {
+          box-shadow: 0 0 20px rgba(0,255,255,0.3);
+          background: linear-gradient(90deg, 
+            rgba(0,255,255,0.2) 0%,
+            rgba(0,255,255,0.5) 50%,
+            rgba(0,255,255,0.2) 100%
+          );
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(0,255,255,0.5);
+          background: linear-gradient(90deg, 
+            rgba(0,255,255,0.3) 0%,
+            rgba(0,255,255,0.7) 50%,
+            rgba(0,255,255,0.3) 100%
+          );
+        }
+      }
+
+      @keyframes glowBottom {
+        0%, 100% {
+          box-shadow: 0 0 20px rgba(0,255,255,0.3);
+          background: linear-gradient(90deg, 
+            rgba(0,255,255,0.2) 0%,
+            rgba(0,255,255,0.5) 50%,
+            rgba(0,255,255,0.2) 100%
+          );
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(0,255,255,0.5);
+          background: linear-gradient(90deg, 
+            rgba(0,255,255,0.3) 0%,
+            rgba(0,255,255,0.7) 50%,
+            rgba(0,255,255,0.3) 100%
+          );
+        }
+      }
+
+      /* Tool Icons Animation */
+      .tool-icons-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10003;
+        opacity: 0;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .tool-icons-container.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .tool-icon {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .tool-icon.cyan {
+        color: #00ffff;
+        filter: drop-shadow(0 0 10px rgba(0,255,255,0.8));
+      }
+
+      .tool-icon.dark {
+        color: #000000;
+        filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
+        text-shadow: 0 0 15px rgba(0,0,0,0.8);
+      }
+
+      @keyframes toolIconFloatCyan {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        30% {
+          opacity: 1;
+          transform: scale(1.5) rotate(180deg);
+          filter: drop-shadow(0 0 20px rgba(0,255,255,0.8));
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1.5) rotate(360deg);
+          filter: drop-shadow(0 0 20px rgba(0,255,255,0.8));
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0) rotate(720deg);
+        }
+      }
+
+      @keyframes toolIconFloatDark {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        30% {
+          opacity: 1;
+          transform: scale(1.5) rotate(180deg);
+          filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1.5) rotate(360deg);
+          filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0) rotate(720deg);
+        }
+      }
+
+      .tool-icon.cyan.active {
+        animation: toolIconFloatCyan 1.5s ease-out forwards;
+      }
+
+      .tool-icon.dark.active {
+        animation: toolIconFloatDark 1.5s ease-out forwards;
+      }
+
+      /* Circuit Pattern */
+      .circuit-pattern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10002;
+        opacity: 0;
+        visibility: hidden;
+        background: 
+          linear-gradient(90deg, rgba(0,255,255,0.2) 1px, transparent 1px) 0 0,
+          linear-gradient(0deg, rgba(0,255,255,0.2) 1px, transparent 1px) 0 0;
+        background-size: 40px 40px;
+      }
+
+      .circuit-pattern.active {
+        opacity: 1;
+        visibility: visible;
+        animation: circuitGlow 1.5s ease-in-out;
+      }
+
+      @keyframes circuitGlow {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.3);
+        }
+      }
     </style>
   </head>
   <body>
@@ -614,7 +1297,7 @@
         <span>BETA TOOL</span>
       </a>
       <nav class="nav-links">
-        <a href="index.html"><i class="fas fa-info-circle"></i> Giới thiệu</a>
+        <a href="home.html"><i class="fas fa-info-circle"></i> Giới thiệu</a>
         <a href="sanpham.html"><i class="fas fa-box"></i> Sản phẩm</a>
         <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
         <a href="video.html"><i class="fas fa-video"></i> Video</a>
@@ -630,7 +1313,7 @@
 
     <div class="mobile-nav">
       <div class="mobile-nav-links">
-        <a href="index.html"><i class="fas fa-info-circle"></i> Giới thiệu</a>
+        <a href="home.html"><i class="fas fa-info-circle"></i> Giới thiệu</a>
         <a href="sanpham.html"><i class="fas fa-box"></i> Sản phẩm</a>
         <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
         <a href="video.html"><i class="fas fa-video"></i> Video</a>
@@ -649,6 +1332,32 @@
         <!-- Dữ liệu sản phẩm sẽ được load ở đây -->
       </div>
     </main>
+
+    <div class="shooting-stars-container">
+      <div class="shooting-star"></div>
+      <div class="shooting-star"></div>
+      <div class="shooting-star"></div>
+      <div class="shooting-star"></div>
+      <div class="shooting-star"></div>
+      <div class="shooting-star"></div>
+    </div>
+
+    <div class="portal-container">
+      <div class="portal"></div>
+    </div>
+
+    <div class="home-portal-container">
+      <div class="home-portal"></div>
+    </div>
+
+    <div class="home-portal-btn" onclick="activateHomePortal()">
+      <i class="fas fa-home"></i>
+    </div>
+
+    <div class="transition-screen"></div>
+
+    <div class="tool-icons-container"></div>
+    <div class="circuit-pattern"></div>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
@@ -700,8 +1409,8 @@
                     </div>
                     <h3 class="product-title">${title}</h3>
                     <p class="product-desc">${desc}</p>
-                    <a href="${link}" class="view-more" target="_blank">
-                      Xem thêm <i class="fas fa-arrow-right"></i>
+                    <a href="${link}" class="view-more product-link">
+                      <i class="fas fa-info-circle"></i> Chi tiết
                     </a>
                   </div>
                 </div>
@@ -715,6 +1424,16 @@
               Không có sản phẩm nào để hiển thị.
             </div>
           `;
+
+          // Thêm event listeners cho cổng dịch chuyển sau khi sản phẩm được load
+          document.querySelectorAll('.product-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+              e.preventDefault();
+              const url = link.getAttribute('href');
+              activatePortal(url);
+            });
+          });
+
         } catch (error) {
           console.error("Lỗi khi tải sản phẩm:", error);
           document.getElementById("product-list").innerHTML = `
@@ -799,6 +1518,200 @@
           searchProducts(e.target.value);
         });
       });
+
+      // Portal effect
+      function activatePortal(url) {
+        const portalContainer = document.querySelector('.portal-container');
+        const portal = document.querySelector('.portal');
+        
+        // Reset animation
+        portal.style.transform = 'scale(0)';
+        portal.style.opacity = '0';
+        
+        // Show portal container
+        portalContainer.style.display = 'flex';
+        
+        // Force reflow
+        void portalContainer.offsetWidth;
+        
+        // Activate animations
+        portalContainer.classList.add('active');
+        
+        // Add sound effect if needed
+        // const portalSound = new Audio('sound/portal.mp3');
+        // portalSound.play();
+        
+        setTimeout(() => {
+          window.location.href = url;
+        }, 2000);
+      }
+
+      // Add click event to all product links
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.product-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = link.getAttribute('href');
+            activatePortal(url);
+          });
+        });
+      });
+
+      function createParticles(x, y) {
+        const explosion = document.createElement('div');
+        explosion.className = 'explosion';
+        document.body.appendChild(explosion);
+
+        // Tạo hiệu ứng flash
+        const flash = document.createElement('div');
+        flash.className = 'flash';
+        document.body.appendChild(flash);
+        flash.style.animation = 'flash 1s ease-out';
+
+        // Tạo nhiều hạt nổ hơn
+        for (let i = 0; i < 80; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          
+          const angle = (Math.random() * 360) * Math.PI / 180;
+          const velocity = 400 + Math.random() * 300;
+          
+          const tx = Math.cos(angle) * velocity;
+          const ty = Math.sin(angle) * velocity;
+          
+          particle.style.left = x + 'px';
+          particle.style.top = y + 'px';
+          
+          particle.style.setProperty('--tx', `${tx}px`);
+          particle.style.setProperty('--ty', `${ty}px`);
+          
+          particle.style.width = '6px';
+          particle.style.height = '6px';
+          
+          const hue = 180; // Màu xanh cyan
+          particle.style.background = `hsl(${hue}, 100%, 50%)`;
+          particle.style.boxShadow = `0 0 15px hsl(${hue}, 100%, 50%)`;
+          
+          explosion.appendChild(particle);
+        }
+
+        // Tăng thời gian hiệu ứng
+        setTimeout(() => {
+          explosion.remove();
+          flash.remove();
+        }, 1500);
+      }
+
+      function createToolIcons() {
+        const container = document.querySelector('.tool-icons-container');
+        container.innerHTML = '';
+        
+        // Thứ tự và màu sắc của các icon
+        const icons = [
+          { icon: 'fa-wrench', color: 'dark' },      // Cờ lê - đen
+          { icon: 'fa-screwdriver', color: 'cyan' },  // Tua vít - xanh
+          { icon: 'fa-gear', color: 'dark' },         // Bánh răng - đen
+          { icon: 'fa-bolt', color: 'cyan' },         // Tia sét - xanh
+          { icon: 'fa-tools', color: 'dark' },        // Công cụ - đen
+          { icon: 'fa-microchip', color: 'cyan' },    // Chip - xanh
+          { icon: 'fa-hammer', color: 'dark' },       // Búa - đen
+          { icon: 'fa-cog', color: 'cyan' }           // Bánh răng xoay - xanh
+        ];
+        
+        icons.forEach((item, index) => {
+          const iconEl = document.createElement('i');
+          iconEl.className = `fas ${item.icon} tool-icon ${item.color}`;
+          
+          // Tính toán vị trí
+          const angle = (index / icons.length) * Math.PI * 2;
+          const radius = 200;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          
+          iconEl.style.transform = `translate(${x}px, ${y}px)`;
+          container.appendChild(iconEl);
+        });
+        
+        container.classList.add('active');
+        
+        // Kích hoạt animation với độ trễ
+        container.querySelectorAll('.tool-icon').forEach((icon, index) => {
+          setTimeout(() => {
+            icon.classList.add('active');
+          }, index * 200);
+        });
+        
+        return new Promise(resolve => {
+          setTimeout(resolve, 2000);
+        });
+      }
+
+      async function createTransitionEffect() {
+        const circuitPattern = document.querySelector('.circuit-pattern');
+        circuitPattern.classList.add('active');
+        
+        await createToolIcons();
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const transitionScreen = document.querySelector('.transition-screen');
+        transitionScreen.classList.add('active');
+        
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        createParticles(centerX, centerY);
+        
+        return new Promise(resolve => {
+          setTimeout(() => {
+            circuitPattern.classList.remove('active');
+            resolve();
+          }, 2000);
+        });
+      }
+
+      async function activateHomePortal() {
+        const portalContainer = document.querySelector('.home-portal-container');
+        const portal = document.querySelector('.home-portal');
+        const btn = document.querySelector('.home-portal-btn');
+        const rect = btn.getBoundingClientRect();
+        
+        createParticles(rect.left + rect.width/2, rect.top + rect.height/2);
+        
+        btn.style.opacity = '0';
+        
+        portalContainer.style.display = 'flex';
+        
+        void portalContainer.offsetWidth;
+        
+        portalContainer.classList.add('active');
+        
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        await createTransitionEffect();
+        
+        window.location.href = 'home.html';
+      }
+
+      async function activatePortal(url) {
+        const portalContainer = document.querySelector('.portal-container');
+        const portal = document.querySelector('.portal');
+        const link = event.currentTarget;
+        const rect = link.getBoundingClientRect();
+        
+        createParticles(rect.left + rect.width/2, rect.top + rect.height/2);
+        
+        portalContainer.style.display = 'flex';
+        
+        void portalContainer.offsetWidth;
+        
+        portalContainer.classList.add('active');
+        
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        await createTransitionEffect();
+        
+        window.location.href = url;
+      }
     </script>
   </body>
 </html>
