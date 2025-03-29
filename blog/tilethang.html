@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giải Thích Về Tỷ Lệ Thắng Của BETA TOOL - BETA TOOL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --text-color: #ffffff;
+            --bg-color: #1a1a1a;
+            --container-bg: rgba(28, 28, 28, 0.95);
+            --border-color: rgba(0, 255, 255, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/img/background.webp') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .navbar {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--container-bg);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #2196F3, #00BCD4);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .back-button i {
+            font-size: 1.2rem;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .article-meta i {
+            color: var(--primary-color);
+        }
+
+        .featured-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+        }
+
+        .content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            text-align: justify;
+            padding: 0 1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .stat-box {
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .scroll-top i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-top:hover i {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                font-size: 1rem;
+                padding: 0;
+            }
+
+            .featured-image {
+                max-height: 300px;
+            }
+
+            .article-meta {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem;
+            }
+
+            .navbar-title {
+                font-size: 1.2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .back-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .featured-image {
+                max-height: 200px;
+            }
+
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-title">BETA Blog</div>
+        <button class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+        </button>
+    </nav>
+
+    <div class="container">
+        <h1>Giải Thích Về Tỷ Lệ Thắng Của BETA TOOL</h1>
+        
+        <div class="article-meta">
+            <span><i class="far fa-calendar-alt"></i> Ngày đăng: <time datetime="2024-03-20">20/03/2024</time></span>
+            <span><i class="far fa-user"></i> Tác giả: BETA TOOL</span>
+            <span><i class="far fa-clock"></i> Thời gian đọc: 5 phút</span>
+        </div>
+
+        <img class="featured-image" src="/imgblog/tilethang.jpg" alt="Tỷ lệ thắng BETA TOOL">
+
+        <div class="content">
+            <div class="highlight-box">
+                <h2><i class="fas fa-question-circle"></i> Tool có thắng 100% không?</h2>
+                <p>Đây là câu hỏi mà rất nhiều người quan tâm khi đến với BETA TOOL của chúng tôi. Hãy cùng tìm hiểu sự thật đằng sau tỷ lệ thắng của tool.</p>
+            </div>
+
+            <h2><i class="fas fa-exclamation-triangle"></i> Sự Thật Về Các Tool Trên Thị Trường</h2>
+            <p>Nhiều người thường nhầm lẫn rằng tool có thể đoán được kết quả tiếp theo sẽ ra gì. Đây là quan niệm sai lầm và thường được sử dụng bởi các tool giả mạo trên thị trường. BETA TOOL của chúng tôi hoạt động theo một nguyên lý hoàn toàn khác.</p>
+
+            <div class="stat-box">
+                <h3><i class="fas fa-chart-line"></i> Thống Kê Thực Tế</h3>
+                <p>Theo dữ liệu thống kê của chúng tôi:</p>
+                <ul>
+                    <li>Trong 1000 kỳ ngẫu nhiên, sẽ xuất hiện ít nhất 1-2 lần số 18 hoặc 3</li>
+                    <li>Tỷ lệ thắng lên đến 99% nếu bạn có đủ vốn chạy 1000 kỳ</li>
+                    <li>Mức thưởng cho số 3 và 18 là x198 lần số tiền cược</li>
+                </ul>
+            </div>
+
+            <h2><i class="fas fa-calculator"></i> Cách Tính Lợi Nhuận</h2>
+            <p>Ví dụ cụ thể:</p>
+            <ul>
+                <li>Nếu bạn đặt 100b và quay ra số 18 hoặc 3, bạn sẽ nhận được 198k build</li>
+                <li>Mức cược ban đầu chỉ 10b (nhỏ gấp 10 lần so với mức tối đa trong game)</li>
+                <li>Khi nổ số, bạn chắc chắn sẽ x2 số tiền đã cược</li>
+            </ul>
+
+            <h2><i class="fas fa-sync"></i> Cơ Chế Tăng Cược</h2>
+            <p>Tool của chúng tôi hoạt động theo nguyên tắc:</p>
+            <ul>
+                <li>Bắt đầu với mức cược 10b</li>
+                <li>Sau 99 ván (1/2 mức thưởng) chưa nổ, tool tự động tăng cược lên x2 (20b)</li>
+                <li>Tiếp tục tăng cược theo tỷ lệ cho đến khi nổ số</li>
+                <li>Giúp bạn chạy được càng nhiều kỳ càng tốt</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h2><i class="fas fa-lightbulb"></i> Yếu Tố Quyết Định Thành Công</h2>
+                <p>Tỷ lệ thắng phụ thuộc vào:</p>
+                <ul>
+                    <li>Số kỳ bạn có thể chạy được</li>
+                    <li>Số vốn bạn có sẵn</li>
+                    <li>Chiến thuật quản lý vốn</li>
+                </ul>
+            </div>
+
+            <h2><i class="fas fa-handshake"></i> Lời Kết</h2>
+            <p>BETA TOOL không phải là tool đoán số, mà là công cụ hỗ trợ bạn tối ưu chiến thuật và quản lý vốn hiệu quả. Chúng tôi khuyến khích bạn mua và trải nghiệm để tự thống kê và kiểm chứng những gì chúng tôi đã chia sẻ.</p>
+
+            <p>Cảm ơn mọi người đã luôn đồng hành và ủng hộ BETA TOOL!</p>
+            <p style="text-align: right; font-style: italic;">Trân trọng,<br>BETA TOOL Team</p>
+        </div>
+
+        <button class="back-button" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+        </button>
+    </div>
+
+    <div class="scroll-top" onclick="scrollToTop()" title="Lên đầu trang">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        window.onscroll = function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                img.onload = function() {
+                    img.style.opacity = '1';
+                };
+            });
+        });
+    </script>
+</body>
+</html> 
